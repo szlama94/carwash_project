@@ -1,0 +1,26 @@
+.nav-item a.active {
+	text-decoration: underline;
+	cursor: default;
+}
+.dropdown-item:active,
+.dropdown-item.active,
+.dropdown-item a.active {
+	background-color: transparent !important;
+}
+
+.footer-custom, .header-custom{
+	background-color: red;
+}
+
+.navbar-png{
+	height: 50px;
+	background-blend-mode: multiply;
+	background-color: black;
+	
+}
+
+body{
+	background-image: url(../media/image/CVG-1004-Chrome-Carbon.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
