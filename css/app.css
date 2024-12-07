@@ -13,10 +13,7 @@
 }
 
 .navbar-png{
-	height: 50px;
-	background-blend-mode: multiply;
-	background-color: black;
-	
+	max-height: 50px;
 }
 
 body{
