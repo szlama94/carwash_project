@@ -21,14 +21,14 @@
 								class="col-form-label col-12 col-md-5 text-md-end">
 						<i class="fa-solid fa-user fa-2xl me-1"></i>
 						<i class="fa-solid fa-star fa-2xs text-danger"></i>
-						<span class="text-capitalize">Keresztnév</span>
+						<span class="text-capitalize">Keresztnév:</span>
 					</label>
 					<div class="col-11 col-md-6 position-relative">
 						<input id="register-first_name"
 									class="form-control"
 									name="first_name" 
 									type="text"
-									placeholder="first name"
+									placeholder="Keresztnév"
 									spellcheck="false" 
 									autocomplete="off" 
 									required
@@ -49,15 +49,14 @@
 				<div class="row mb-3">
 					<label for="register-middle_name" 
 								class="col-form-label col-12 col-md-5 text-md-end">
-						<span class="text-capitalize">középső</span>
-						<span>név:</span>
+						<span class="text-capitalize">középsőnév:</span>
 					</label>
 					<div class="col-11 col-md-6 position-relative">
 						<input id="register-middle_name"
 									class="form-control"
 									name="middle_name" 
 									type="text"
-									placeholder="middle name"
+									placeholder="Középsőnév"
 									spellcheck="false" 
 									autocomplete="off" 
 									maxlength="100"
@@ -79,7 +78,7 @@
 									class="form-control"
 									name="last_name" 
 									type="text"
-									placeholder="last name"
+									placeholder="Vezetéknév"
 									spellcheck="false" 
 									autocomplete="off" 
 									required
@@ -109,7 +108,7 @@
 									class="form-control"
 									name="born" 
 									type="date"
-									placeholder="born"
+									placeholder="1994-02-14"
 									spellcheck="false" 
 									autocomplete="off"
 									max="{{helper.maxBorn}}"
@@ -147,11 +146,11 @@
 					<div class="col-11 col-md-6 position-relative d-flex align-items-center"
 							ng-init="model.register.gender=null">
 						<div class="form-check form-check-inline me-4"
-								ng-repeat="x in ['female','male'] track by $index">
+								ng-repeat="x in ['Nő','Férfi'] track by $index">
 							<input id="register-{{x}}"
 										name="gender" 
 										type="radio"
-										ng-value="x === 'female' ? 'F' : 'M'"
+										ng-value="x === 'Nő' ? 'F' : 'M'"
 										class="form-check-input"
 										ng-model="model.register.gender" 
 										required>
@@ -182,7 +181,7 @@
 									class="form-control"
 									name="email" 
 									type="text"
-									placeholder="email"
+									placeholder="e-mail"
 									spellcheck="false" 
 									autocomplete="off" 
 									required
@@ -220,7 +219,7 @@
 									class="form-control"
 									name="emailConfirm" 
 									type="text"
-									placeholder="email confirmation"
+									placeholder="E-mail megerősítés"
 									spellcheck="false" 
 									autocomplete="off" 
 									required
@@ -259,7 +258,7 @@
 									class="form-control"
 									name="password" 
 									type="{{model.register.showPassword ? 'text' : 'password'}}"
-									placeholder="password"
+									placeholder="Jelszó"
 									spellcheck="false" 
 									autocomplete="off" 
 									required
@@ -299,7 +298,7 @@
 									class="form-control"
 									name="passwordConfirm" 
 									type="{{model.register.showPassword ? 'text' : 'password'}}"
-									placeholder="password confirmation"
+									placeholder="Jelszó megerősítés"
 									spellcheck="false" 
 									autocomplete="off" 
 									required
