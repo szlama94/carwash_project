@@ -498,5 +498,19 @@
       }
     }
   ])
+
+
+  //Carousel controller
+  .controller('homeController',['$scope', function($scope){
+    $scope.carouselImages = [
+      './media/image/carousel1_home.png',
+      './media/image/carousel2_home.png'
+    ];
+  }])
+
+
+
+
+
 	
 })(window, angular);
