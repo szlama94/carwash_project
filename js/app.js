@@ -506,6 +506,25 @@
       './media/image/carousel1_home.png',
       './media/image/carousel2_home.png'
     ];
+
+     // Felsorolás adatok
+  $scope.infoList = [
+    {
+      title: 'Professzionális',
+      description: 'Szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak az autóddal.',
+      icon: 'fa-solid fa-user-tie'
+    },
+    {
+      title: 'Környezetbarát',
+      description: 'Minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autódat.',
+      icon: 'fa-solid fa-leaf'
+    },
+    {
+      title: 'Megfizethető',
+      description: 'Tegyél minket próbára, kérj ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudod igénybevenni.',
+      icon: 'fa-solid fa-wallet'
+    }
+  ];
   }])
 
 })(window, angular);
