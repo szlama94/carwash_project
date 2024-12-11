@@ -12,8 +12,7 @@
           <div
             class="carousel-item"
             ng-repeat="image in carouselImages"
-            ng-class="{active: $index === 0}"
-          >
+            ng-class="{active: $index === 0}">
             <img
               ng-src="{{image}}"
               class="img-fluid d-block w-100 border-primary rounded-3"
@@ -39,7 +38,7 @@
 
 
   <!-- Content card-->
-  <div class="card text-white bg-secondary my-5 py-4 text-center">
+  <div class="card text-white bg-dark my-5 py-4 text-center">
     <div class="card-body">
       <div class="row justify-content-center">
         <div class="col-md-4 col-sm-6 text-center mb-3" ng-repeat="item in infoList">
