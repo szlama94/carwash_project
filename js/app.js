@@ -507,7 +507,7 @@
       './media/image/carousel2_home.png'
     ];
 
-     // Felsorolás adatok
+  // Felsorolás adatok
   $scope.infoList = [
     {
       title: 'Professzionális',
