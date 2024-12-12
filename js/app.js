@@ -41,12 +41,13 @@
       .state('page1', {
 				url: '/page1',
         parent: 'root',
-				templateUrl: './html/page1.html'
+				templateUrl: './html/page1.html',
+        controller: 'page1Controller'
 			})
       .state('page2', {
 				url: '/page2',
         parent: 'root',
-				templateUrl: './html/page2.html'
+				templateUrl: './html/page2.html',
 			})
       .state('login', {
 				url: '/login',
@@ -430,6 +431,8 @@
     }
   ])
 
+  
+
   // Profile controller
   .controller('profileController', [
     '$rootScope',
@@ -507,6 +510,7 @@
       './media/image/carousel2_home.png'
     ];
 
+  
   // Felsorolás adatok
   $scope.infoList = [
     {
@@ -526,5 +530,31 @@
     }
   ];
   }])
+
+  //Page1 Controller
+  .controller('page1Controller', ['$scope', function($scope) {
+    $scope.packages = [
+      { name: 'Külső mosás', description: 'Külső mosás prémium tisztítószerekkel.', price: 5000  },
+      { name: 'Belső takarítás', description: 'Belső takarítás, porszívózás és kárpittisztítás.', price: 8000 },
+      { name: 'Extra fényezés', description: 'Fényezés polírozással a csillogó megjelenésért.', price: 10000  },
+      { name: 'Kárpittisztítás', description: 'Mélytisztítás a kárpitok és szőnyegek újjá varázsolásához.', price: 15000},
+      { name: 'Kerámia bevonat', description: 'Kerámia bevonat az autó tartós védelme és csillogása érdekében.', price: 25000 },
+      { name: 'Motor mosás', description: 'A motor és motortér alapos tisztítása és karbantartása.', price: 12000},
+      { name: 'Gyorsmosás', description: 'Gyors, mégis alapos mosás 30 perc alatt.', price: 4000 },
+      { name: 'Viaszos bevonat', description: 'Tartós viaszos védelem a karosszériának.', price: 7000},
+      { name: 'Felni tisztítás', description: 'Felnitisztítás és ápolás a maximális csillogásért.', price: 5000 },
+      { name: 'Teljes belső és külső tisztítás', description: 'A teljes autó kívül-belül tisztítva.', price: 20000 },
+      { name: 'Szélvédő polírozás', description: 'Szélvédő polírozás és karcmentesítés.', price: 6000 },
+      { name: 'Matrica eltávolítás', description: 'Régi matricák szakszerű eltávolítása a karosszériáról.', price: 8000 }
+    ]
+
+    $scope.pricefilterFn = function(item) {
+      if (!$scope.priceFilter) return true;
+      if ($scope.priceFilter === "low") return item.price <=10000;
+      if ($scope.priceFilter ==="medium") return item.price <=10000 && item.price <=20000;
+      if ($scope.priceFilter =="high") return item.price <=20000;
+      return false;}
+    
+  }]);
 
 })(window, angular);

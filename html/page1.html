@@ -1,31 +1,39 @@
 <div class="container">
+  <!-- Fejléc és keresési mező -->
   <div class="row my-5">
     <h1 class="text-center fw-bold display-3">Szolgáltatásaink</h1>
-    <p class="text-center fs-3">
-      Fedezd fel prémium szolgáltatásainkat, amelyek garantálják autód tökéletes
-      tisztaságát és ápoltságát! Legyen szó gyors külső mosásról, alapos belső
-      takarításról, vagy környezetbarát víz nélküli tisztításról, nálunk
-      megtalálod a számodra ideális csomagot. Válassz, és élvezd a makulátlan
-      végeredményt!
-    </p>
+    <p class="text-center fs-3">Fedezd fel prémium szolgáltatásainkat!</p>
+    <div class="col-12">
+      <!-- Keresési mező -->
+      <input type="text" ng-model="searchQuery" placeholder="Keresés szolgáltatások között..." class="form-control mb-4">
+    </div>
   </div>
+
+  <!-- Árkategória szűrés -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <label for="priceFilter">Árkategória</label>
+      <select ng-model="priceFilter" class="form-select">
+        <option value="">Összes Árkategória</option>
+        <option value="low">Olcsóbb (0 - 10,000 Ft)</option>
+        <option value="medium">Közepes (10,000 - 20,000 Ft)</option>
+        <option value="high">Drága (20,000+ Ft)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Szolgáltatások kártyái -->
   <div class="row justify-content-center">
-    <div
-      class="col-11 col-md-6 col-xxl-4 mb-3"
-      ng-repeat="x in [].constructor(12) track by $index"
-    >
+    <div class="col-11 col-md-6 col-xxl-4 mb-3" 
+        ng-repeat="package in packages | filter:searchQuery | filter:priceFilterFn">
       <div class="card">
-        <div class="card-header">{{$index+1}}. Lorem</div>
+        <div class="card-header">{{ package.name }}</div>
         <div class="card-body">
-          <h5 class="card-title">Lorem ipsum dolor</h5>
-          <p class="card-text">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero,
-            accusamus! Mollitia corrupti iure deleniti quaerat. Reprehenderit,
-            debitis distinctio? Molestias quos porro eaque vel iure ipsam
-            corrupti voluptates delectus fugit modi.
-          </p>
+          <h5 class="card-title">{{ package.name }}</h5>
+          <p class="card-text">{{ package.description }}</p>
+          <p class="card-text text-primary"><strong>{{ package.price }}</strong></p>
+          <button class="btn btn-primary" ng-click="addToCart(package)">Megrendelem</button>
         </div>
       </div>
     </div>
   </div>
-</div>
