@@ -514,9 +514,9 @@
     };
 
     $scope.links=[
-      {icon: 'fa-solid fa-house', label: 'Kezdőlap',url:'#'},
-      {icon: 'bi bi-car-front', label: 'Szolgáltatások',url:'#'},
-      {icon: 'bi bi-info-circle-fill', label: 'Rólunk',url:'#'}
+      {icon: 'fa-solid fa-house', label: 'Kezdőlap', state: 'home'},
+      {icon: 'bi bi-car-front', label: 'Szolgáltatások',state:'page1'},
+      {icon: 'bi bi-info-circle-fill', label: 'Rólunk',state:'page2'}
     ];
 
     $scope.contact={
