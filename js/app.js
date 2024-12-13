@@ -6,7 +6,8 @@
 	angular.module('app', [
 		'ui.router',
     'app.common',
-		'app.form'
+		'app.form',
+    'ngSanitize'
 	])
 
 	// Application config
@@ -505,7 +506,7 @@
 
 
   //----------Footer controller--------
-  .controller('footerController',['$scope', function($scope){
+  .controller('footerController',['$scope',function($scope){
     $scope.about={
       title:'Keress minket',
       description: 'Autómosónkban a legjobb minőségű szolgáltatásokkal várjuk ügyfeleinket.',
@@ -524,8 +525,6 @@
       phone:'+36 30 610 0666',
       email:'info@supercarwash.hu'
     }
-
-    $scope.footerBottom = '$&copy; 2024 Super Car Wash';
 
   }])
 
