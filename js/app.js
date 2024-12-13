@@ -25,7 +25,8 @@
             templateUrl: './html/header.html'
           },
           'footer@root': {
-            templateUrl: './html/footer.html'
+            templateUrl: './html/footer.html',
+            controller:'footerController'
           },
           'modal@root': {
             templateUrl: './html/modal.html'
@@ -503,6 +504,31 @@
   ])
 
 
+  //----------Footer controller--------
+  .controller('footerController',['$scope', function($scope){
+    $scope.about={
+      title:'Keress minket',
+      description: 'Autómosónkban a legjobb minőségű szolgáltatásokkal várjuk ügyfeleinket.',
+      icons: ['bi-facebook','bi-instagram','bi-tiktok']
+    };
+
+    $scope.links=[
+      {icon: 'fa-solid fa-house', label: 'Kezdőlap',url:'#'},
+      {icon: 'bi bi-car-front', label: 'Szolgáltatások',url:'#'},
+      {icon: 'bi bi-info-circle-fill', label: 'Rólunk',url:'#'}
+    ];
+
+    $scope.contact={
+      title:'Kapcsolat',
+      address: 'Makó, Habfürdő utca 6.',
+      phone:'+36 30 610 0666',
+      email:'info@supercarwash.hu'
+    }
+
+    $scope.footerBottom = '$&copy; 2024 Super Car Wash';
+
+  }])
+
   //Carousel controller
   .controller('homeController',['$scope', function($scope){
     $scope.carouselImages = [
@@ -516,17 +542,17 @@
     {
       title: 'Professzionális',
       text: 'Szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak az autóddal.',
-      icon: 'fa-solid fa-user-tie'
+      icon: 'fa-solid fa-user-tie text-primary'
     },
     {
       title: 'Környezetbarát',
       text: 'Minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autódat.',
-      icon: 'fa-solid fa-leaf'
+      icon: 'fa-solid fa-leaf text-success'
     },
     {
       title: 'Megfizethető',
       text: 'Tegyél minket próbára, kérj ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudod igénybevenni.',
-      icon: 'fa-solid fa-wallet'
+      icon: 'fa-solid fa-wallet text-warning'
     }
   ];
   }])
