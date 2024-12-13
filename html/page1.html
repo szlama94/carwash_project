@@ -5,7 +5,12 @@
     <p class="text-center fs-3">Fedezd fel prémium szolgáltatásainkat!</p>
     <div class="col-12">
       <!-- Keresési mező -->
-      <input type="text" ng-model="searchQuery" placeholder="Keresés szolgáltatások között..." class="form-control mb-4">
+      <input
+        type="text"
+        ng-model="searchQuery"
+        placeholder="Keresés szolgáltatások között..."
+        class="form-control mb-4"
+      />
     </div>
   </div>
 
@@ -24,16 +29,23 @@
 
   <!-- Szolgáltatások kártyái -->
   <div class="row justify-content-center">
-    <div class="col-11 col-md-6 col-xxl-4 mb-3" 
-        ng-repeat="package in packages | filter:searchQuery | filter:priceFilterFn">
+    <div
+      class="col-11 col-md-6 col-xxl-4 mb-3"
+      ng-repeat="package in packages | filter:searchQuery | filter:priceFilterFn"
+    >
       <div class="card">
         <div class="card-header">{{ package.name }}</div>
         <div class="card-body">
           <h5 class="card-title">{{ package.name }}</h5>
           <p class="card-text">{{ package.description }}</p>
-          <p class="card-text text-primary"><strong>{{ package.price }}</strong></p>
-          <button class="btn btn-primary" ng-click="addToCart(package)">Megrendelem</button>
+          <p class="card-text text-primary">
+            <strong>{{ package.price }}</strong>
+          </p>
+          <button class="btn btn-primary" ng-click="addToCart(package)">
+            Megrendelem
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>

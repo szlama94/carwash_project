@@ -512,20 +512,20 @@
 
   
   // Felsorolás adatok
-  $scope.infoList = [
+  $scope.cards = [
     {
       title: 'Professzionális',
-      description: 'Szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak az autóddal.',
+      text: 'Szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak az autóddal.',
       icon: 'fa-solid fa-user-tie'
     },
     {
       title: 'Környezetbarát',
-      description: 'Minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autódat.',
+      text: 'Minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autódat.',
       icon: 'fa-solid fa-leaf'
     },
     {
       title: 'Megfizethető',
-      description: 'Tegyél minket próbára, kérj ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudod igénybevenni.',
+      text: 'Tegyél minket próbára, kérj ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudod igénybevenni.',
       icon: 'fa-solid fa-wallet'
     }
   ];
