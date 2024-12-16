@@ -89,13 +89,11 @@
     .run([
       '$rootScope',
       '$timeout',
-      'lang',
       'user',
-      function ($rootScope, $timeout, lang, user) {
+      function ($rootScope, $timeout, user) {
 
         // Initialize user
         user.init();
-        lang.init();
 
         // Initalize tooltips
         $rootScope.tooltipsInit = () => {
@@ -593,19 +591,15 @@
             $scope.$applyAsync();
           })
           .catch(e => console.log(e))
-      }]);
 
+      $scope.pricefilterFn = function (item) {
+        if (!$scope.priceFilter) return true;
+        if ($scope.priceFilter === "low") return item <= 20000;
+        if ($scope.priceFilter === "medium") return item <= 20000 && item <= 40000;
+        if ($scope.priceFilter == "high") return item <= 40000;
+        return false;
+      }}])
 
-
-
-
-  $scope.pricefilterFn = function (item) {
-    if (!$scope.priceFilter) return true;
-    if ($scope.priceFilter === "low") return item.price <= 20000;
-    if ($scope.priceFilter === "medium") return item.price <= 20000 && item.price <= 40000;
-    if ($scope.priceFilter == "high") return item.price <= 40000;
-    return false;
-  }
 
 
 
