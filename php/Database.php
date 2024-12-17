@@ -5,7 +5,7 @@ class Database {
 
 	// Set properties
 	private $dbHandle = null,
-					$conn 		= null;
+				$conn = null;
 
 	// Constructor
 	public function __construct(?string $db=null) {
@@ -33,10 +33,10 @@ class Database {
 
 		// Merge with default
     $this->conn = Util::objMerge(array(
-      "host"		=> "localhost",
+      "host"	=> "localhost",
       "dbname"	=> "",
       "user"   	=> "root",
-      "pass"		=> ""
+      "pass"	=> ""
     ), $conn, true);
 
 		// Set database name if exist

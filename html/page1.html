@@ -1,49 +1,30 @@
-<div class="container">
-  <!-- Fejléc és keresési mező -->
-  <div class="row my-5">
-    <h1 class="text-center fw-bold display-3">Szolgáltatásaink</h1>
-    <p class="text-center fs-3">Fedezd fel prémium szolgáltatásainkat!</p>
-    <div class="col-12">
-      <!-- Keresési mező -->
-      <input
-        type="text"
-        ng-model="searchQuery"
-        placeholder="Keresés..."
-        class="form-control mb-4"
-      />
-    </div>
+<div class="container py-5">
+  <h1 class="text-white text-center mb-4">Szolgáltatásaink</h1>
+  <p class="text-center text-white">Fedezd fel prémium szolgáltatásainkat!</p>
+
+  <!-- Keresőmező -->
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Keresés..." ng-model="searchText" />
   </div>
 
-  <!-- Árkategória szűrés -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <label for="priceFilter">Árkategória</label>
-      <select ng-model="priceFilter" class="form-select">
-        <option value="">Összes Árkategória</option>
-        <option value="low">Olcsóbb (0 - 20 000 Ft)</option>
-        <option value="medium">Közepes (20 000 - 40 000 Ft)</option>
-        <option value="high">Drága (40 000+ Ft)</option>
-      </select>
-    </div>
+  <!-- Ár kategória legördülő -->
+  <div class="mb-4">
+    <label class="text-white mb-1">Árkategória</label>
+    <select class="form-select" ng-model="priceFilter" ng-options="category.value as category.label for category in priceCategories">
+    </select>
   </div>
 
-  <!-- Szolgáltatások kártyái -->
-  <div class="row justify-content-center">
-    <div
-      class="col-11 col-md-6 col-xxl-4 mb-3"
-      ng-repeat="package in packages | filter:searchQuery | filter:priceFilterFn"
-    >
-      <div class="card">
-        <div class="card-header">{{ package.services_name }}</div>
+  <!-- Szolgáltatások card-ok -->
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4" ng-repeat="service in services | filter:filterServices">
+      <div class="card h-100 bg-dark text-white">
         <div class="card-body">
-          <h5 class="card-title">{{package.services_name}}</h5>
-          <p class="card-text">{{package.description}}</p>
-          <p class="card-text text-primary">
-            <strong>{{package.price}}</strong>
-          </p>
-          <button class="btn btn-primary" ng-click="addToCart(package)">
-            Megrendelem
-          </button>
+          <h5 class="card-title fw-bold">{{service.services_name}}</h5>
+          <p class="card-text">{{service.description}}</p>
+          <p class="fw-bold text-primary">{{service.price | currency:'':0}} Ft</p>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary w-100">Megrendelem</button>
         </div>
       </div>
     </div>

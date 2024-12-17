@@ -492,7 +492,7 @@
       }
     ])
 
-    // Cart controller
+    //-----Cart controller----------
     .controller('cartController', [
       '$rootScope',
       '$state',
@@ -529,14 +529,13 @@
       $scope.mapUrl = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2760.836396232944!2d20.473138775978818!3d46.21370948311983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu');
 
     }])
-
+    //---------Home-page-stuff-------------------------------->
     //Carousel controller
     .controller('homeController', ['$scope', function ($scope) {
       $scope.carouselImages = [
-        './media/image/carousel1_home.png',
-        './media/image/carousel2_home.png'
+        './media/image/home_page_carousel1.png',
+        './media/image/home_page_carousel2.png'
       ];
-
 
       // Felsorolás adatok
       $scope.cards = [
@@ -558,49 +557,47 @@
       ];
     }])
 
-    //Page1 Controller
-    // .controller('page1Controller', ['$scope', function($scope) {
-    //   $scope.packages = [
-    //     { name: 'Külső mosás', description: 'Külső mosás prémium tisztítószerekkel.', price: 11990  },
-    //     { name: 'Belső takarítás', description: 'Belső takarítás, porszívózás és kárpittisztítás.', price: 11990 },
-    //     { name: 'Extra fényezés', description: 'Fényezés polírozással a csillogó megjelenésért.', price: 14990  },
-    //     { name: 'Kárpittisztítás', description: 'Mélytisztítás a kárpitok és szőnyegek újjá varázsolásához.', price: 14990},
-    //     { name: 'Kerámia bevonat', description: 'Kerámia bevonat az autó tartós védelme és csillogása érdekében.', price: 49990 },
-    //     { name: 'Motor mosás', description: 'A motor és motortér alapos tisztítása és karbantartása.', price: 19990},
-    //     { name: 'Gyorsmosás', description: 'Gyors, mégis alapos mosás 30 perc alatt.', price: 11990 },
-    //     { name: 'Viaszos bevonat', description: 'Tartós viaszos védelem a karosszériának.', price: 24990},
-    //     { name: 'Felni tisztítás', description: 'Felnitisztítás és ápolás a maximális csillogásért.', price: 19990 },
-    //     { name: 'Teljes belső és külső tisztítás', description: 'A teljes autó kívül-belül tisztítva.', price: 64990 },
-    //     { name: 'Szélvédő polírozás', description: 'Szélvédő polírozás és karcmentesítés.', price: 22990 },
-    //     { name: 'Matrica eltávolítás', description: 'Régi matricák szakszerű eltávolítása a karosszériáról.', price: 9990 }
 
-
-    //   ]
-
-
-    .controller('page1Controller', [
-      '$scope',
-      'http',
+    //-------Page1---sutff---------------------------->
+    .controller('page1Controller', ['$scope','http',
 
       function ($scope, http) {
 
-        // Set request
+        $scope.services = [];
+        $scope.searchText ='';
+        $scope.priceFilter='';
+
+        //Árkatekógriák
+
+        $scope.priceCategories=[
+          {label: 'Összes árkategória', value: ''},
+          {label: '0 Ft - 20 000 Ft', value: [0,20000]},
+          {label: '20 000 Ft - 40 000 Ft', value:[20001,40000]},
+          {label: '40 000 Ft felett',value:[40001, Infinity]}
+        ];
+
+        // Adatok betöltése a PHP API-ról
         http.request("./php/services.php")
           .then(response => {
-            $scope.packages = response;
+            $scope.services = response;
             $scope.$applyAsync();
           })
-          .catch(e => console.log(e))
+          .catch(e => console.log(e));
 
-      $scope.pricefilterFn = function (item) {
-        if (!$scope.priceFilter) return true;
-        if ($scope.priceFilter === "low") return item <= 20000;
-        if ($scope.priceFilter === "medium") return item <= 20000 && item <= 40000;
-        if ($scope.priceFilter == "high") return item <= 40000;
-        return false;
-      }}])
+        $scope.filterServices = function(service){
+          //Név szerinti keresés
+          if($scope.searchText && !service.services_name.toLowerCase().includes($scope.searchText.toLowerCase())){
+            return false;
+          }
 
+          //Ár szerinti szűrés
 
+          if($scope.priceFilter){
+            let [min,max] = $scope.priceFilter;
+            return service.price >= min && service.price <= max;
+          }
+          return true;
+        };
 
-
+      }]);
 })(window, angular);
