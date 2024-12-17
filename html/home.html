@@ -1,11 +1,11 @@
-<!-- Page Content-->
+<!--------- Oldal_tartalom---->
 <div class="container px-4 px-lg-5">
 
-  <!-- Heading Row-->
+<!----------Fejléc_sor--------->
   <div class="row gx-4 gx-lg-5 align-items-center my-5">
     <div class="col-lg-7">
-      
-      <!--Home page carousel-->
+
+<!-----Home_oldal_carousel------->
       <div class="carousel slide" id="carouselExample" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div
@@ -22,12 +22,15 @@
       </div>
     </div>
 
-
+<!-------Bemutatkozó card ------->
     <div class="col-lg-5">
-      <div class="card bg-dark text-white border-0 rounded-3 h-100" ng-style="cardStyle">
+      <div class="card bg-dark text-white border-0 rounded-3 h-100" 
+           ng-style="cardStyle">
         <div class="card-body p-0">
           <div class="p-4">
-            <h1 class="fw-bold display-5 text-warning text-center">Super Car Wash</h1>
+            <h1 class="fw-bold display-5 text-warning text-center">
+              Super Car Wash
+            </h1>
             <p class="text-justify">
               Üdvözlünk a Super Car Wash világában, ahol az autód mindig kiemelt
               figyelmet és professzionális törődést kap! Nálunk nemcsak egy egyszerű
@@ -36,17 +39,20 @@
               könnyedén, válassz a különböző mosási csomagjaink közül, és tapasztald
               meg, hogy mit jelent az igazi autós luxus!
             </p>
-            <a class="btn btn-warning fw-bold" href="#!">Foglaljon időpontot most!</a>
+            <a class="btn btn-warning fw-bold" 
+               href="#!">
+               Foglaljon időpontot most!
+              </a>
           </div>
         </div>
       </div>
     </div>
-    
   </div>
 
-  <!--Szolgáltatások jellemzői-->
+<!---------Szolgáltatások jellemzői------------>
   <div class="row gx-4 gx-lg-5">
-    <div class="col-md-4 mb-5" ng-repeat="card in cards">
+    <div class="col-md-4 mb-5" 
+         ng-repeat="card in cards">
       <div class="card h-100 text-center">
         <div class="card-body">
           <i class="{{card.icon}} fa-3x mb-3"></i>

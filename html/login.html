@@ -1,7 +1,9 @@
+<!--------- Oldal_tartalom---->
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-11 col-md-10 col-lg-9 col-xl-8 col-xxl-7">
-      <!-- Title -->
+
+<!------Bejelentkezés_cím------>
       <div class="row my-4">
         <h3 class="text-center">
           <i class="fa-solid fa-right-to-bracket"></i>
@@ -12,14 +14,13 @@
         </h3>
       </div>
 
-      <!-- Form -->
+<!------Bejelentkezés_form-------->
       <form name="loginForm" novalidate>
-        <!-- Email -->
+<!--------------Email-------------->
         <div class="row mb-3">
           <label
             for="login-email"
-            class="col-form-label col-12 col-md-5 text-md-end"
-          >
+            class="col-form-label col-12 col-md-5 text-md-end">
             <i class="fa-solid fa-star fa-2xs text-danger"></i>
             <i class="fa-solid fa-envelope me-1"></i>
             <span class="text-capitalize">e-mail:</span>
@@ -39,7 +40,7 @@
               ng-pattern="/^([a-z0-9_.+-])+\@(([a-z0-9-])+\.)+([a-z0-9]{2,4})+$/"
               ng-disable-space
               ng-clear-icon
-            />
+            >
           </div>
           <div
             class="col-1 d-flex align-items-center justify-content-start ps-1"
@@ -53,7 +54,7 @@
           </div>
         </div>
 
-        <!-- Password -->
+<!----------Jelszó------------>
         <div class="row mb-2">
           <label
             for="login-password"
@@ -80,7 +81,7 @@
               ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/"
               ng-disable-space
               ng-clear-icon
-            />
+            >
           </div>
           <div
             class="col-1 d-flex align-items-center justify-content-start ps-1"
@@ -103,7 +104,7 @@
           </div>
         </div>
 
-        <!-- Show/Hide password -->
+<!--------------Mutat/elrejt_jelszó--------------->
         <div class="row mb-4">
           <div
             class="col-form-label d-none d-md-block col-md-5 text-md-end"
@@ -115,14 +116,15 @@
               type="checkbox"
               ng-init="model.showPassword=false"
               ng-model="model.showPassword"
-            />
-            <label for="login-showPassword" class="form-check-label ms-1">
+              >
+            <label for="login-showPassword" 
+                   class="form-check-label ms-1">
               Jelszó mutat
             </label>
           </div>
         </div>
 
-        <!-- Login button -->
+<!-----------Bejelentkezés_gomb--------------->
         <div class="row justify-content-end">
           <button
             type="button"

@@ -7,7 +7,6 @@
     'ui.router',
     'app.common',
     'app.form',
-    'ngSanitize'
   ])
 
     // Application config
