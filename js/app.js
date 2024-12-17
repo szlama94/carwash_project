@@ -505,7 +505,7 @@
     ])
 
 
-    //----------Footer controller--------
+    //----------Footer controller--------------------------->
     .controller('footerController', ['$scope', '$sce', function ($scope, $sce) {
       $scope.about = {
         title: 'Keress minket',
@@ -598,6 +598,9 @@
           }
           return true;
         };
+
+        //Az elso kép a page1 -en
+        $scope.page1_1_pic = './media/image/mercedes_top_preserved.jpg'
 
       }]);
 })(window, angular);
