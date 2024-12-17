@@ -555,6 +555,13 @@
           icon: 'fa-solid fa-wallet text-warning'
         }
       ];
+
+      $scope.cardStyle = {
+        'background-image': 'url(./media/image/)',
+        'background-size': 'cover',
+        'background-position': 'center',
+        'background-repeat': 'no-repeat'
+      };
     }])
 
 
