@@ -370,13 +370,6 @@
       }
     ])
 
-    // Home controller
-    .controller('homeController', [
-      function () {
-        console.log('Home controller...');
-      }
-    ])
-
     // Login controller
     .controller('loginController', [
       '$rootScope',
@@ -432,8 +425,6 @@
         methods.init();
       }
     ])
-
-
 
     // Profile controller
     .controller('profileController', [
@@ -529,6 +520,7 @@
       $scope.mapUrl = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2760.836396232944!2d20.473138775978818!3d46.21370948311983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu');
 
     }])
+
     //---------Home-page-stuff-------------------------------->
     //Carousel controller
     .controller('homeController', ['$scope', function ($scope) {
@@ -563,7 +555,6 @@
         'background-repeat': 'no-repeat'
       };
     }])
-
 
     //-------Page1---sutff---------------------------->
     .controller('page1Controller', ['$scope','http',
@@ -609,5 +600,7 @@
         //Az elso kép a page1 -en
         $scope.page1_1_pic = './media/image/mercedes_top_preserved.jpg'
 
-      }]);
+      }
+    ]);
+    
 })(window, angular);
