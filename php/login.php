@@ -11,7 +11,6 @@ $args = Util::getArgs();
 $query = "SELECT 	`id`,
 									`type`,
 									`first_name`,
-									`middle_name`,
 									`last_name`,
 									`gender`,
 									`password` 
