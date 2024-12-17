@@ -1,56 +1,68 @@
 <div class="container px-4 px-lg-5">
-  <!-- Heading Row-->
+  <!-- Heading Row -->
   <div class="row gx-4 gx-lg-5 align-items-center my-5">
     <div class="col-lg-7">
-      
-      <!--Home page carousel-->
+      <!-- Home page carousel -->
       <div class="container text-center">
-        <img ng-src="{{page1_1_pic}}"
-             class="img-fluid border-primary rounded-3" 
-             alt="Mosás">
+        <img
+          ng-src="{{page1_1_pic}}"
+          class="img-fluid border-primary rounded-3"
+          alt="Mosás"
+        />
       </div>
     </div>
+
     <div class="col-lg-5">
       <h1 class="fw-bold display-3">Szolgáltatásaink</h1>
-      <p>
-        Fedezd fel prémium szolgáltatásainkat!
+      <p class="text-justify">
+        Fedezd fel prémium szolgáltatásainkat! Autómosónk a legmagasabb
+        színvonalat képviseli, legyen szó külső-belső takarításról,
+        polírozásról, felni tisztításról, viaszolásról vagy kerámia bevonatról.
+        Környezetbarát tisztítószereinkkel óvjuk a természetet, miközben autód
+        ragyogó tisztaságot kap. Nálunk az ügyfél az első, szakképzett
+        kollégáink minden részletre odafigyelnek, hogy elégedetten távozz!
+        Válaszd a Super Car Wash-t, ahol a minőség és a megbízhatóság
+        találkozik! 🚗✨
       </p>
-      <!-- <a class="btn btn-warning" href="#!">Foglaljon időpontot most!</a> -->
+
+      <!-- Keresőmező -->
+      <div class="mb-3">
+        <label for="searchInput" class="form-label fw-bold">Keresés</label>
+        <input
+          type="text"
+          id="searchInput"
+          class="form-control"
+          placeholder="Keresés..."
+          ng-model="searchText"
+        />
+      </div>
+
+      <!-- Ár kategória legördülő -->
+      <div>
+        <label for="priceSelect" class="form-label fw-bold">Árkategória</label>
+        <select
+          id="priceSelect"
+          class="form-select"
+          ng-model="priceFilter"
+          ng-options="category.value as category.label for category in priceCategories"
+        ></select>
+      </div>
     </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-<div class="container py-5">
-
-  <!-- Keresőmező -->
-  <div class="mb-3">
-    <input type="text" class="form-control" placeholder="Keresés..." ng-model="searchText" />
-  </div>
-
-  <!-- Ár kategória legördülő -->
-  <div class="mb-4">
-    <label class="text-white mb-1">Árkategória</label>
-    <select class="form-select" ng-model="priceFilter" ng-options="category.value as category.label for category in priceCategories">
-    </select>
   </div>
 
   <!-- Szolgáltatások card-ok -->
   <div class="row">
-    <div class="col-lg-4 col-md-6 mb-4" ng-repeat="service in services | filter:filterServices">
+    <div
+      class="col-lg-4 col-md-6 mb-4"
+      ng-repeat="service in services | filter:filterServices"
+    >
       <div class="card h-100 bg-dark text-white">
         <div class="card-body">
           <h5 class="card-title fw-bold">{{service.services_name}}</h5>
           <p class="card-text">{{service.description}}</p>
-          <p class="fw-bold text-primary">{{service.price | currency:'':0}} Ft</p>
+          <p class="fw-bold text-primary">
+            {{service.price | currency:'':0}} Ft
+          </p>
         </div>
         <div class="card-footer">
           <button class="btn btn-primary w-100">Megrendelem</button>
