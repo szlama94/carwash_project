@@ -7,7 +7,6 @@
     'ui.router',
     'app.common',
     'app.form',
-    'app.language'
   ])
 
     // Application config
@@ -533,12 +532,12 @@
       $scope.cards = [
         {
           title: 'Professzionális',
-          text: 'Szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak az autóddal.',
+          text: 'Szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak autójával.',
           icon: 'fa-solid fa-user-tie text-primary'
         },
         {
           title: 'Környezetbarát',
-          text: 'Minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autódat.',
+          text: 'Minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autóját.',
           icon: 'fa-solid fa-leaf text-success'
         },
         {
@@ -554,6 +553,9 @@
         'background-position': 'center',
         'background-repeat': 'no-repeat'
       };
+
+      //A VIP kép a home-page -en
+        $scope.homepg_vip_pic = './media/image/vip_pic.png'
     }])
 
     //-------Page1---stuff------------------------------------->
