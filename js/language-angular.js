@@ -69,7 +69,7 @@
 
           // Check parameter image path
           if (!util.isString(imgPath)) 
-            imgPath = $rootScope.app.commonPath + 'media/image/countries/';
+            imgPath = $rootScope.app.commonPath + 'media/image';
           imgPath = imgPath.trim();
           if (!imgPath.length) imgPath = './';
           imgPath = imgPath.replaceAll('\\', '/');
@@ -287,7 +287,7 @@
 						
 						// Pre-link
 						pre: (scope, iElement) => {
-              file.get('lang_navbar.html', {
+              file.get('header.html', {
                 subFolder: 'html',
 				        isContent: true,
 				        isMinimize: true

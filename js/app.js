@@ -7,6 +7,7 @@
     'ui.router',
     'app.common',
     'app.form',
+    'app.language'
   ])
 
     // Application config
@@ -555,7 +556,7 @@
       };
     }])
 
-    //-------Page1---sutff---------------------------->
+    //-------Page1---stuff------------------------------------->
     .controller('page1Controller', ['$scope','http',
 
       function ($scope, http) {
@@ -565,7 +566,6 @@
         $scope.priceFilter='';
 
         //Árkatekógriák
-
         $scope.priceCategories=[
           {label: 'Összes árkategória', value: ''},
           {label: '0 Ft - 20 000 Ft', value: [0,20000]},
