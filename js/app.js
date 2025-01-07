@@ -542,7 +542,7 @@
         },
         {
           title: 'Megfizethető',
-          text: 'Tegyél minket próbára, kérj ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudod igénybevenni.',
+          text: 'Tegyen minket próbára, kérj ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudod igénybevenni.',
           icon: 'fa-solid fa-wallet text-warning'
         }
       ];

@@ -1,9 +1,9 @@
 <div class="container px-4 px-lg-5">
   <!-- Heading Row -->
   <div class="row gx-4 gx-lg-5 align-items-center my-5">
-    <div class="col-lg-7">
-      <!-- Page1 carousel -->
-      <div class="container text-center">
+    <!-- Kép balra -->
+    <div class="col-lg-6">
+      <div class="text-center">
         <img
           ng-src="{{page1_1_pic}}"
           class="img-fluid border-primary rounded-3"
@@ -11,23 +11,27 @@
         />
       </div>
     </div>
-<!-------Szolgáltatások ismertetése------->
-    <div class="col-lg-5">
-      <h1 class="fw-bold display-3">Szolgáltatásaink</h1>
-      <p class="text-justify">
-        Fedezd fel prémium szolgáltatásainkat! Autómosónk a legmagasabb
-        színvonalat képviseli, legyen szó külső-belső takarításról,
-        polírozásról, felni tisztításról, viaszolásról vagy kerámia bevonatról.
-        Környezetbarát tisztítószereinkkel óvjuk a természetet, miközben autód
-        ragyogó tisztaságot kap. Nálunk az ügyfél az első, szakképzett
-        kollégáink minden részletre odafigyelnek, hogy elégedetten távozz!
-        Válaszd a Super Car Wash-t, ahol a minőség és a megbízhatóság
-        találkozik! 🚗✨
-      </p>
+    <!-- Szolgáltatások ismertetése jobbra -->
+    <div class="col-lg-6">
+      <div class="card bg-dark border-0 rounded-3 mb-4">
+        <div class="card-body">
+          <h1 class="fw-bold display-3 text-warning text-center">Szolgáltatásaink</h1>
+          <p class="text-justify">
+            Fedezd fel prémium szolgáltatásainkat! Autómosónk a legmagasabb
+            színvonalat képviseli, legyen szó külső-belső takarításról,
+            polírozásról, felni tisztításról, viaszolásról vagy kerámia bevonatról.
+            Környezetbarát tisztítószereinkkel óvjuk a természetet, miközben autód
+            ragyogó tisztaságot kap. Nálunk az ügyfél az első, szakképzett
+            kollégáink minden részletre odafigyelnek, hogy elégedetten távozz!
+            Válaszd a Super Car Wash-t, ahol a minőség és a megbízhatóság
+            találkozik! 🚗✨
+          </p>
+        </div>
+      </div>
 
-  <!-------Keresőmező ------->
+      <!-- Keresőmező -->
       <div class="mb-3">
-        <label for="searchInput" class="form-label fw-bold">Keresés</label>
+        <label for="searchInput" class="form-label fw-bold text-warning">Keresés</label>
         <input
           type="text"
           id="searchInput"
@@ -37,9 +41,9 @@
         />
       </div>
 
-  <!-- Ár kategória legördülő -->
-      <div>
-        <label for="priceSelect" class="form-label fw-bold">Árkategória</label>
+      <!-- Ár kategória legördülő -->
+      <div class="mb-4">
+        <label for="priceSelect" class="form-label fw-bold text-warning">Árkategória</label>
         <select
           id="priceSelect"
           class="form-select"

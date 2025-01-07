@@ -20,5 +20,12 @@ body{
 	background-image: url(../media/image/preview.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
+
 }
 
+h1 {
+	font-weight: 700; /* Félkövér */
+}
+p {
+	font-weight: 400; /* Normál */
+}
