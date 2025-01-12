@@ -49,6 +49,7 @@
             url: '/page2',
             parent: 'root',
             templateUrl: './html/page2.html',
+            controller: 'page2Controller',
           })
           .state('login', {
             url: '/login',
@@ -523,10 +524,8 @@
     //---------Home-page-stuff-------------------------------->
     //Carousel controller
     .controller('homeController', ['$scope', function ($scope) {
-      $scope.carouselImages = [
-        './media/image/home_page_carousel1.png',
-        './media/image/home_page_carousel2.png'
-      ];
+
+      $scope.videoUrl = "./media/video/spwc_video.mp4";
 
       // Felsorolás adatok
       $scope.cards = [
@@ -542,7 +541,7 @@
         },
         {
           title: 'Megfizethető',
-          text: 'Tegyen minket próbára, kérj ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudod igénybevenni.',
+          text: 'Tegyen minket próbára, kérjen ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudja igénybevenni.',
           icon: 'fa-solid fa-wallet text-warning'
         }
       ];
@@ -558,10 +557,11 @@
         $scope.homepg_vip_pic = './media/image/vip_pic.png'
     }])
 
-    //-------Page1---stuff------------------------------------->
+    //-------Services---stuff------------------------------------->
     .controller('page1Controller', ['$scope', 'http',
       function ($scope, http) {
         
+        $scope.videoUrl = "./media/video/services_video.mp4";
         $scope.services = [];
         $scope.searchText = '';
         $scope.priceFilter = '';
@@ -600,9 +600,16 @@
         };
     
         // Banner kép a főoldalon
-        $scope.page1_1_pic = './media/image/mercedes_top_preserved.jpg';
+        $scope.page_services_1_pic = './media/image/mercedes_top_preserved.jpg';
+
+              
     
       }
-    ]);
+    ])
+
+    .controller('page2Controller',['$scope',function($scope){
+      $scope.ourTeam = './media/image/spwash_crew.jpg';
+    }])
+
     
 })(window, angular);

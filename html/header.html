@@ -5,7 +5,6 @@
   <!-- Container -->
   <div class="container-fluid">
 
-    <img ng-src="./media/image/logo.png" class="img-fluid">
     <!-- Hamburger icon -->
     <button
       class="navbar-toggler ms-auto"
@@ -14,8 +13,7 @@
       data-bs-auto-close="true"
       data-bs-target="#navbar_content"
       aria-controls="navbar_content"
-      aria-expanded="false"
-    >
+      aria-expanded="false">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -26,12 +24,14 @@
         ui-sref="home"
         ui-sref-active="active"
         data-bs-toggle="collapse"
-        data-bs-target=".navbar-collapse.show"
-      >
+        data-bs-target=".navbar-collapse.show">
       </a>
 
       <!-- Navbar content LEFT -->
       <ul class="navbar-nav me-auto">
+
+        <!----------Logo------------>
+        
         <!-- Home -->
         <li class="nav-item mx-1">
           <a
@@ -39,8 +39,7 @@
             ui-sref="home"
             ui-sref-active="active"
             data-bs-toggle="collapse"
-            data-bs-target=".navbar-collapse.show"
-          >
+            data-bs-target=".navbar-collapse.show">
             <i class="fa-solid fa-house me-1"></i>
             <span> Kezdőlap </span>
           </a>
@@ -53,8 +52,7 @@
             ui-sref="page1"
             ui-sref-active="active"
             data-bs-toggle="collapse"
-            data-bs-target=".navbar-collapse.show"
-          >
+            data-bs-target=".navbar-collapse.show">
             <i class="bi bi-car-front"></i>
             <span> Szolgáltatások </span>
           </a>
@@ -67,8 +65,7 @@
             ui-sref="page2"
             ui-sref-active="active"
             data-bs-toggle="collapse"
-            data-bs-target=".navbar-collapse.show"
-          >
+            data-bs-target=".navbar-collapse.show">
             <i class="bi bi-info-circle-fill"></i>
             <span> Rólunk </span>
           </a>
@@ -84,8 +81,7 @@
             ui-sref="cart"
             ui-sref-active="active"
             data-bs-toggle="collapse"
-            data-bs-target=".navbar-collapse.show"
-          >
+            data-bs-target=".navbar-collapse.show">
             <i class="fa-solid fa-cart-shopping me-1"></i>
             <span class="text-capitalize text-small-caps"> kosár </span>
           </a>
@@ -98,8 +94,7 @@
             href="#"
             role="button"
             data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+            aria-expanded="false">
             <i class="fa-solid fa-user me-1"></i>
             <span class="text-capitalize text-small-caps"> felhasználó </span>
           </a>
@@ -108,8 +103,7 @@
             <li class="nav-item">
               <span
                 class="dropdown-item-text text-capitalize text-small-caps text-nowrap"
-                ng-if="$root.user.id"
-              >
+                ng-if="$root.user.id">
                 <span>{{$root.user.last_name}}</span>
                 <span>{{$root.user.first_name}}</span>
                 <span>{{$root.user.middle_name}}</span>
@@ -131,8 +125,7 @@
               <a
                 class="dropdown-item"
                 ui-sref="register"
-                ui-sref-active="active"
-              >
+                ui-sref-active="active">
                 <i class="fa-solid fa-id-card me-1"></i>
                 <span class="text-capitalize text-small-caps">
                   regisztráció
@@ -145,8 +138,7 @@
               <a
                 class="dropdown-item"
                 ui-sref="profile"
-                ui-sref-active="active"
-              >
+                ui-sref-active="active">
                 <i class="fa-regular fa-address-card me-1"></i>
                 <span class="text-capitalize text-small-caps"> profil </span>
               </a>
