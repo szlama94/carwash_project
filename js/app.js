@@ -559,48 +559,49 @@
     }])
 
     //-------Page1---stuff------------------------------------->
-    .controller('page1Controller', ['$scope','http',
-
+    .controller('page1Controller', ['$scope', 'http',
       function ($scope, http) {
-
+        
         $scope.services = [];
-        $scope.searchText ='';
-        $scope.priceFilter='';
-
-        //Árkatekógriák
-        $scope.priceCategories=[
-          {label: 'Összes árkategória', value: ''},
-          {label: '0 Ft - 20 000 Ft', value: [0,20000]},
-          {label: '20 000 Ft - 40 000 Ft', value:[20001,40000]},
-          {label: '40 000 Ft felett',value:[40001, Infinity]}
+        $scope.searchText = '';
+        $scope.priceFilter = '';
+    
+        // Ár kategóriák
+        $scope.priceCategories = [
+          { label: 'Összes árkategória', value: '' },
+          { label: '0 Ft - 20 000 Ft', value: [0, 20000] },
+          { label: '20 000 Ft - 40 000 Ft', value: [20001, 40000] },
+          { label: '40 000 Ft felett', value: [40001, Infinity] }
         ];
-
+    
         // Adatok betöltése a PHP API-ról
         http.request("./php/services.php")
           .then(response => {
-            $scope.services = response;
+            // Hozzáadjuk a képek elérési útvonalát
+            $scope.services = response.map(service => {
+              service.image = "./media/image/services/" + service.services_name.toLowerCase().replace(/\s+/g, "_") + ".jpg";
+              return service;
+            });
             $scope.$applyAsync();
           })
           .catch(e => console.log(e));
-
-        $scope.filterServices = function(service){
-          //Név szerinti keresés
-          if($scope.searchText && !service.services_name.toLowerCase().includes($scope.searchText.toLowerCase())){
+    
+        // Szűrés
+        $scope.filterServices = function (service) {
+          if ($scope.searchText && !service.services_name.toLowerCase().includes($scope.searchText.toLowerCase())) {
             return false;
           }
-
-          //Ár szerinti szűrés
-
-          if($scope.priceFilter){
-            let [min,max] = $scope.priceFilter;
+    
+          if ($scope.priceFilter) {
+            let [min, max] = $scope.priceFilter;
             return service.price >= min && service.price <= max;
           }
           return true;
         };
-
-        //Az elso kép a page1 -en
-        $scope.page1_1_pic = './media/image/mercedes_top_preserved.jpg'
-
+    
+        // Banner kép a főoldalon
+        $scope.page1_1_pic = './media/image/mercedes_top_preserved.jpg';
+    
       }
     ]);
     
