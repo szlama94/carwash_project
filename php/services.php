@@ -2,7 +2,12 @@
 
 require_once("./environment.php");
 
-$query= "SELECT * FROM `services`";
+$query= "SELECT `id`,
+                `services_name`,
+                `description`,
+                `price`,
+         FROM   `services`,
+         WHERE  `valid` = 1";
 
 $db = new Database();
 

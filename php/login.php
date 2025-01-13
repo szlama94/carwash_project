@@ -9,15 +9,15 @@ $args = Util::getArgs();
 
 // Set SQL command
 $query = "SELECT 	`id`,
-									`type`,
-									`first_name`,
-									`last_name`,
-									`gender`,
-									`password` 
-						 FROM `users` 
-						WHERE `email` = ? AND
-									`valid` = 1
-						LIMIT 1";
+					`type`,
+					`first_name`,
+					`last_name`,
+					`gender`,
+					`password` 
+		  FROM 	`users` 
+		  WHERE `email` = ? 
+		  AND   `valid` = 1
+		  LIMIT 1";
 
 // Connect to MySQL server
 $db = new Database();

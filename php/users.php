@@ -23,7 +23,7 @@ $query= "SELECT `id`,
 								`profession`, 
 								`class`, 
 								`valid` 
-					 FROM `users`;";
+		 FROM `users`;";
 
 // Connect to MySQL server
 $db = new Database();
