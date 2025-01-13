@@ -4,12 +4,14 @@
   --md-font-size: 0.8rem;
   --lg-font-size: 0.9rem;
 }
-*:not(input):not(textarea) {
-  -webkit-touch-callout:none !important;
-	  -webkit-user-select:none !important;
-						user-select:none !important;
-					outline-style:none !important;
+*:not(input):not(textarea):not(button):not(.swiper-button-next):not(.swiper-button-prev):not(.swiper-pagination-bullet) {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  outline-style: none !important;
 }
+
+
 .bg-img {
   background-repeat: no-repeat !important;
   background-position: center center !important;
@@ -26,8 +28,9 @@
   display: none !important;
 }
 .d-hidden:not(.show) {
-  visibility: hidden !important
+  visibility: hidden !important;
 }
+
 .cursor-pointer {
   cursor: pointer !important;
 }
