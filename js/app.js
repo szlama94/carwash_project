@@ -578,9 +578,6 @@
       // Adatok betöltése a PHP API-ról
       $http.get("./php/services.php")
         .then(response => {
-          // Ellenőrzés, hogy az adatok helyesek-e
-          console.log("Betöltött adatok:", response.data);
-
           // Hozzáadjuk a képek elérési útját, ha még nincs
           $scope.services = response.data.data.map(service => {
             if (!service.image || service.image === '') {
@@ -610,14 +607,50 @@
         return true;
       };
     }])
-
-    
-    
-
     //-----------Page2 controller--------------------------------->
-    .controller('page2Controller',['$scope',function($scope){
-      $scope.ourTeam = './media/image/spwash_crew.jpg';
-    }])
+    .controller('page2Controller', ['$scope', '$http', function ($scope, $http) {
 
-    
+      $scope.feedbacks = [];
+  
+      // Vélemények betöltése
+      $scope.loadFeedbacks = function () {
+          $http.get('./php/load_feedback.php')
+              .then(response => {
+                  if (response.data.success) {
+                      $scope.feedbacks = response.data.data;
+                      $scope.chunkedFeedbacks = $scope.chunkArray($scope.feedbacks, 3);  // 3-as blokkokra bontás
+                  } else {
+                      console.error("Hiba a vélemények betöltésekor:", response.data.message);
+                  }
+              })
+              .catch(e => console.error("Adatbetöltési hiba:", e));
+      };
+  
+      // 3-as csoportokra bontó függvény
+      $scope.chunkArray = function (array, size) {
+          let results = [];
+          for (let i = 0; i < array.length; i += size) {
+              results.push(array.slice(i, i + size));
+          }
+          return results;
+      };
+  
+      // Csillagok generálása értékelés alapján
+      $scope.getStars = function (rating) {
+          return new Array(rating);
+      };
+  
+      // Vélemények betöltése az oldal betöltésekor
+      $scope.loadFeedbacks();
+  
+  }]);
+  
+  
+  
+  
+  
+  
+  
+  
+  
 })(window, angular);

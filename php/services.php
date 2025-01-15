@@ -5,9 +5,8 @@ require_once("./environment.php");
 $query= "SELECT `id`,
                 `services_name`,
                 `description`,
-                `price`,
-         FROM   `services`,
-         WHERE  `valid` = 1";
+                `price`
+         FROM   `services`";
 
 $db = new Database();
 
