@@ -8,11 +8,8 @@ header('Content-Type: application/json');
 // Bemeneti adatok lekérése
 $args = Util::getArgs();
 
-// Adatbázis kapcsolat
-$db = new Database();
-
 // Kötelező mezők ellenőrzése
-$requiredFields = ['name', 'gender', 'age', 'feedback', 'point'];
+$requiredFields = ['name', 'gender', 'age', 'comment', 'rating'];
 foreach ($requiredFields as $field) {
     if (empty($args[$field])) {
         echo json_encode([
@@ -23,31 +20,27 @@ foreach ($requiredFields as $field) {
     }
 }
 
-// Adatok beszúrása
+// Adatbázis kapcsolat
+$db = new Database();
+
 try {
-    $query = $db->preparateInsert("feedback", array_keys($args));
-    $result = $db->execute($query, array_values($args));
+    $query = $db->preparateInsert("feedback", ["name", "gender", "age", "feedback", "point"]);
+    $result = $db->execute($query, [
+        $args['name'],
+        $args['gender'],
+        $args['age'],
+        $args['comment'],
+        $args['rating']
+    ]);
 
     if ($result) {
-        // Sikeres beszúrás válasz
-        echo json_encode([
-            "success" => true,
-            "message" => "Sikeresen elküldted a véleményed!"
-        ]);
+        echo json_encode(["success" => true, "message" => "Vélemény sikeresen rögzítve!"]);
     } else {
-        // Sikertelen beszúrás válasz
-        echo json_encode([
-            "success" => false,
-            "message" => "Hiba történt a vélemény elküldésekor."
-        ]);
+        echo json_encode(["success" => false, "message" => "Hiba történt a mentés során!"]);
     }
 
 } catch (Exception $e) {
-    // Hibakezelés
-    echo json_encode([
-        "success" => false,
-        "message" => "Hiba történt: " . $e->getMessage()
-    ]);
+    echo json_encode(["success" => false, "message" => "Adatbázis hiba: " . $e->getMessage()]);
 }
 
 // Adatbázis kapcsolat lezárása

@@ -5,17 +5,16 @@ require_once('./environment.php');
 // Fejléc beállítása JSON válaszhoz
 header('Content-Type: application/json');
 
-// Adatbázis kapcsolat
 $db = new Database();
 
-// Adatok lekérdezése
+
 $query = "SELECT `id`, 
                  `name`, 
                  `gender`, 
                  `age`, 
                  `feedback`, 
                  `point` 
-          FROM `feedback`";
+          FROM   `feedback`";
 
 $result = $db->execute($query);
 
@@ -25,6 +24,6 @@ echo json_encode([
     "data" => $result
 ]);
 
-// Kapcsolat lezárása
 $db = null;
+
 ?>

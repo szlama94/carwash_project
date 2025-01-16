@@ -127,11 +127,12 @@
                   <br>
 
                   <span ng-repeat="star in [1,2,3,4,5]" 
-                        ng-click="feedback.rating = star" 
-                        class="fa fa-star" 
-                        ng-class="{'checked': star <= feedback.rating}" 
-                        style="cursor: pointer;">
-                    </span>
+                        ng-mouseover="setHover(star)" 
+                        ng-mouseleave="clearHover()"
+                        ng-click="setRating(star)"
+                        class="fa fa-star star-rating"
+                        ng-class="{'hovered': star <= hoverRating, 'checked': star <= feedback.rating}">
+                  </span>
                 </div>
 
 <!---------------Vélemény------------------------>

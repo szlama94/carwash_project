@@ -558,11 +558,11 @@
     }])
 
     //-------Services---stuff------------------------------------->
-    //-------Services---stuff------------------------------------->
     .controller('page1Controller', ['$scope', '$http', function ($scope, $http) {
 
       // Videó URL
       $scope.videoUrl = "./media/video/services_video.mp4";
+
       $scope.services = [];
       $scope.searchText = '';
       $scope.priceFilter = '';
@@ -610,8 +610,10 @@
     //-----------Page2 controller--------------------------------->
     .controller('page2Controller', ['$scope', '$http', function ($scope, $http) {
 
+      //oldal képei
       $scope.ourTeam_img = './media/image/spwash_crew.jpg';
       $scope.satisfied_img='./media/image/satisfied_man.jpg';
+
       $scope.feedbacks = [];
   
       // Vélemények betöltése
@@ -644,15 +646,56 @@
   
       // Vélemények betöltése az oldal betöltésekor
       $scope.loadFeedbacks();
+
+
+      // Vélemény beküldése
+      $scope.submitFeedback = function () {
+        if ($scope.feedbackForm.$valid) {
+            $http.post('./php/submit_feedback.php', $scope.feedback)
+                .then(response => {
+                    if (response.data.success) {
+                        alert("Köszönjük a véleményét!");
+
+                        // Űrlap ürítése
+                        $scope.feedback = {};
+
+                        // Vélemények frissítése
+                        $scope.loadFeedbacks();
+                    } else {
+                        alert("Hiba: " + response.data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Beküldési hiba:", error);
+                    alert("Váratlan hiba történt!");
+                });
+        } else {
+            alert("Kérjük, töltsön ki minden mezőt!");
+        }
+      };
+
+      $scope.feedback = {
+        rating: 0
+      };
+    
+      $scope.hoverRating = 0;
+      
+      // Hover esemény - ha az egér a csillagon van
+      $scope.setHover = function(star) {
+          $scope.hoverRating = star;
+      };
+      
+      // Hover elhagyása - visszaáll az érték
+      $scope.clearHover = function() {
+          $scope.hoverRating = 0;
+      };
+      
+      // Kattintás - értékelés rögzítése
+      $scope.setRating = function(star) {
+          $scope.feedback.rating = star;
+      };
+
   
   }]);
-  
-  
-  
-  
-  
-  
-  
-  
-  
+    
 })(window, angular);

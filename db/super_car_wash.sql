@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Jan 13. 18:00
+-- Létrehozás ideje: 2025. Jan 16. 13:04
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -41,7 +41,10 @@ CREATE TABLE `feedback` (
 --
 
 INSERT INTO `feedback` (`id`, `name`, `gender`, `age`, `feedback`, `point`) VALUES
-(1, 'Szlama Bence', 'M', 30, 'Nagyon udvariasak voltak mikor felkerestem őket! Az autóm makulátlan lett!', 5);
+(1, 'Porszívó Pista\r\n', 'M', 37, '\"Olyan tiszta lett az autóm, hogy most a szomszédok napszemüvegben nézik! 😎✨\"\r\n', 5),
+(2, 'Guminyom Gábor\r\n', 'M', 40, '\"Nem mondom, hogy koszos maradt, de még mindig el tudom olvasni a porban írt \'MOSS LE\' feliratot. 📝🚘\"', 3),
+(3, 'Béres Virág\r\n', 'F', 24, '\"Majdnem olyan csillogó, mint a körmöm, de még van hova fejlődni! 💅✨\"', 4),
+(4, 'Szél Zsuzsi\r\n', 'F', 29, '\"Jó lett, de a kávéautomatát jobban tisztították, mint az autómat. 😅\"', 3);
 
 -- --------------------------------------------------------
 
@@ -210,7 +213,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT a táblához `services`

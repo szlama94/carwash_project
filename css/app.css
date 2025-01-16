@@ -29,3 +29,22 @@ h1 {
 p {
 	font-weight: 400; 
 }
+
+/* Vélemény értékelés csillaggal */
+.star-rating {
+	color: #ccc;  /* Szürke */
+	font-size: 24px;
+	transition: color 0.2s ease-in-out;
+	cursor: pointer;
+  }
+  
+  /* Hover esetén besárgul */
+  .star-rating.hovered {
+	color: #ffc107; /* Sárga */
+  }
+  
+  /* Kiválasztott csillag */
+  .star-rating.checked {
+	color: #ffc107; /* Sárga */
+  }
+  
