@@ -610,6 +610,8 @@
     //-----------Page2 controller--------------------------------->
     .controller('page2Controller', ['$scope', '$http', function ($scope, $http) {
 
+      $scope.ourTeam_img = './media/image/spwash_crew.jpg';
+      $scope.satisfied_img='./media/image/satisfied_man.jpg';
       $scope.feedbacks = [];
   
       // Vélemények betöltése
@@ -637,8 +639,8 @@
   
       // Csillagok generálása értékelés alapján
       $scope.getStars = function (rating) {
-          return new Array(rating);
-      };
+        return Array.from({ length: rating }, (_, i) => i + 1);
+    };
   
       // Vélemények betöltése az oldal betöltésekor
       $scope.loadFeedbacks();

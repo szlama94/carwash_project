@@ -1,4 +1,4 @@
-<!--------- Oldal_tartalom---->
+<!--------- Oldal_tartalom-------------------------------------->
 <div class="container px-4 px-lg-5">
 
 <!---------- Fejléc_sor (Videó + Szöveg egy kártyában) --------->
@@ -8,16 +8,18 @@
         <div class="card-body p-4">
           <div class="row align-items-center">
             
-<!--------- Bal oldali videó -------------------------->
+<!--------- Bemutatkozó videó -------------------------->
             <div class="col-lg-7 text-center">
               <video autoplay muted loop playsinline 
                      class="img-fluid rounded-3 shadow ">
-                <source ng-src="{{videoUrl}}" type="video/mp4">
+                <source ng-src="{{videoUrl}}" 
+                        type="video/mp4">
+
                 A böngésződ nem támogatja a videólejátszót.
               </video>
             </div>
 
-<!------------------- Jobb oldali szöveg ------------------>
+<!------------------- Bemutatkozó szöveg ------------------>
             <div class="col-lg-5">
               <h1 class="fw-bold display-5 text-warning text-center">
                 Super Car Wash
@@ -41,9 +43,10 @@
     </div>
   </div>
 
- <!--------- Szolgáltatás cardok -------------------->
+<!--------- Szolgáltatás cardok -------------------->
   <div class="row gx-4 gx-lg-5 mb-5">
-    <div class="col-md-4" ng-repeat="card in cards">
+    <div class="col-md-4" 
+         ng-repeat="card in cards">
       <div class="card h-100 text-center border shadow-lg order border-warning border-1">
         <div class="card-body">
           <i class="{{card.icon}} fa-3x mb-3"></i>
