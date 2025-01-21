@@ -60,7 +60,8 @@
           .state('register', {
             url: '/register',
             parent: 'root',
-            templateUrl: './html/register.html'
+            templateUrl: './html/register.html',
+            controller: 'registerController'
           })
           .state('profile', {
             url: '/profile',
@@ -370,7 +371,6 @@
       }
     ])
 
-    // Login controller
     .controller('loginController', [
       '$rootScope',
       '$scope',
@@ -379,52 +379,72 @@
       'util',
       'http',
       function ($rootScope, $scope, $state, user, util, http) {
-
+    
         // Set local methods
         let methods = {
-
+    
           // Initialize
           init: () => {
-
-            // Set email address from local storige if exist
+            // Set email address from local storage if exists
             $scope.model = { email: util.localStorage('get', 'email') };
-
+    
+            // Set the background image URL
+            $scope.login_bg = './media/image/login_img/login_angeleye.jpg';
+    
             // Set focus
             user.focus();
-
+    
             // Initialize tooltips
             $rootScope.tooltipsInit();
           }
         };
-
+    
         // Set scope methods
         $scope.methods = {
-
+    
           // Login
           login: () => {
-
-            // Set request
             http.request({
               url: "./php/login.php",
               data: util.objFilterByKeys($scope.model, 'showPassword', false)
             })
-              .then(response => {
-                response.email = $scope.model.email;
-                user.set(response);
-                util.localStorage('set', 'email', response.email);
-                $state.go('home');
-              })
-              .catch(e => {
-                $scope.model.password = null;
-                user.error(e);
-              });
+            .then(response => {
+              response.email = $scope.model.email;
+              user.set(response);
+              util.localStorage('set', 'email', response.email);
+              $state.go('home');
+            })
+            .catch(e => {
+              $scope.model.password = null;
+              user.error(e);
+            });
           }
         };
-
+    
         // Initialize
         methods.init();
       }
     ])
+    
+    .controller('registerController', ['$scope', function ($scope) {
+      // Regisztrációs felület háttere
+      $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
+    
+      // Toggle Show Password metódus
+      $scope.toggleShowPassword = function () {
+        $scope.model.register.showPassword = !$scope.model.register.showPassword;
+      };
+    
+      // Model inicializálása
+      $scope.model = {
+        register: {
+          showPassword: false,
+          password: '',
+          passwordConfirm: ''
+        }
+      };
+    }])
+    
 
     // Profile controller
     .controller('profileController', [
@@ -501,7 +521,12 @@
       $scope.about = {
         title: 'Keress minket',
         description: 'Autómosónkban a legjobb minőségű szolgáltatásokkal várjuk ügyfeleinket.',
-        icons: ['bi-facebook', 'bi-instagram', 'bi-tiktok']
+        icons: [
+                {class:'bi-facebook', url: 'https://www.facebook.com'},
+                {class:'bi-instagram', url: 'https://www.instagram.com'},
+                {class:'bi-tiktok', url: 'https://www.tiktok.com'}
+                
+              ]
       };
 
       $scope.links = [
@@ -522,7 +547,6 @@
     }])
 
     //---------Home-page-stuff-------------------------------->
-    //Carousel controller
     .controller('homeController', ['$scope', function ($scope) {
 
       $scope.videoUrl = "./media/video/spwc_video.mp4";
