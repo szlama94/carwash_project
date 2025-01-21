@@ -446,21 +446,87 @@
     }])
     
 
-    // Profile controller
-    .controller('profileController', [
-      '$rootScope',
-      '$state',
-      '$scope',
-      function ($rootScope, $state, $scope) {
-        if (!$rootScope.user.id) {
-          $state.go('home');
+    // Profile controller--------------------------------->
+    .controller('profileController', ['$rootScope', '$state', '$scope', function ($rootScope, $state, $scope) {
+      if (!$rootScope.user || !$rootScope.user.id) {
+        $state.go('home');
+        return;
+      }
+    
+      // Inicializálás
+      $scope.selectedSection = 'schedule'; // Alapértelmezett szekció
+      $scope.selectedDate = null; // Kiválasztott dátum
+      $scope.selectedTime = null; // Kiválasztott időpont
+      $scope.timeSlots = []; // Elérhető időpontok
+      $scope.selectedPackage = null; // Kiválasztott csomag
+    
+      // Ideiglenes adatok: Foglalt időpontok dátum szerint
+      $scope.bookedSlotsByDate = {
+        '2025-01-21': ['09:00', '12:00', '14:00'],
+        '2025-01-22': ['10:00', '13:00', '15:00'],
+      };
+    
+      // Ideiglenes adatok: Csomagok
+      $scope.packages = [
+        { id: 1, name: 'Alap csomag', price: 5000 },
+        { id: 2, name: 'Prémium csomag', price: 10000 },
+        { id: 3, name: 'Deluxe csomag', price: 15000 },
+      ];
+    
+      // Időpontok generálása a kiválasztott dátum alapján
+      $scope.generateTimeSlots = function () {
+        if (!$scope.selectedDate) {
+          console.warn('Nincs dátum kiválasztva!');
+          $scope.timeSlots = [];
           return;
         }
-        $scope.model = {};
-      }
-    ])
+    
+        // Konvertálás helyi időzónához
+        const localDate = new Date($scope.selectedDate);
+        const adjustedDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
+        const formattedDate = adjustedDate.toISOString().split('T')[0]; // YYYY-MM-DD formátum
+    
+        console.log('Kiválasztott dátum helyi idő szerint:', formattedDate);
+    
+        // Időpontok és foglalt időpontok kezelése
+        const allSlots = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+        $scope.timeSlots = allSlots; // Az összes időpont
+        $scope.bookedSlots = $scope.bookedSlotsByDate[formattedDate] || []; // Foglalt időpontok az adott dátumhoz
+    
+        console.log('Foglalások a dátumhoz:', $scope.bookedSlots);
+      };
+    
+      // Időpont kiválasztása
+      $scope.selectTimeSlot = function (time) {
+        if ($scope.bookedSlots.includes(time)) {
+          console.warn('Ez az időpont foglalt:', time);
+          return;
+        }
+        $scope.selectedTime = time;
+        console.log('Kiválasztott időpont:', $scope.selectedTime);
+      };
+    
+      // Foglalás megerősítése
+      $scope.confirmAppointment = function () {
+        if (!$scope.selectedDate || !$scope.selectedTime || !$scope.selectedPackage) {
+          alert('Kérjük, válassz ki egy dátumot, egy időpontot és egy csomagot!');
+          return;
+        }
+    
+        const selectedPackage = $scope.packages.find(p => p.id == $scope.selectedPackage);
+    
+        alert(`Foglalás sikeresen rögzítve:
+    Dátum: ${$scope.selectedDate}
+    Időpont: ${$scope.selectedTime}
+    Csomag: ${selectedPackage.name}`);
+      };
+    }])    
+    
+    
+    
+    
 
-    // Users controller
+    // Users controller------------------------------------>
     .controller('usersController', [
       '$rootScope',
       '$state',
@@ -503,7 +569,7 @@
       }
     ])
 
-    //-----Cart controller----------
+    //-----Cart controller---------------------------------->
     .controller('cartController', [
       '$rootScope',
       '$state',

@@ -2,3 +2,4 @@
 # Projektvezető: Szlama Bence
 
 ## https://github.com/szlama94/carwash_project.git
+## https://trello.com/b/dJj8UIEC/super-car-wash-project

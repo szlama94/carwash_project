@@ -30,7 +30,7 @@ p {
 	font-weight: 400; 
 }
 
-/* Vélemény értékelés csillaggal */
+/* Vélemény értékelés csillaggal rólunk oldalon  */
 .star-rating {
 	color: #ccc;  /* Szürke */
 	font-size: 24px;
@@ -47,4 +47,3 @@ p {
   .star-rating.checked {
 	color: #ffc107; /* Sárga */
   }
-  
