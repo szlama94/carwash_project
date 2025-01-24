@@ -13,6 +13,11 @@
           <span class="text-capitalize ms-2">Bejelentkezés</span>
         </h3>
 
+        <!-- Üzenet, ha nincs fiókja -->
+        <p class="text-center text-warning text-decoration-underline mb-3">
+          Nincs még fiókja? Kattintson a regisztráció gombra lent!
+        </p>
+
         <form name="loginForm" novalidate>
           <!-- Email -->
           <div class="mb-3">
@@ -71,14 +76,20 @@
             </label>
           </div>
 
-          <!-- Bejelentkezés gomb -->
+          <!-- Bejelentkezés és Regisztráció gombok -->
           <div class="text-center">
             <button
               type="button"
-              class="btn btn-warning px-5"
+              class="btn btn-warning px-5 mb-2"
               ng-disabled="loginForm.$invalid"
               ng-click="methods.login()">
               Bejelentkezés
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary px-5"
+              ng-click="methods.redirectToRegister()">
+              Regisztráció
             </button>
           </div>
         </form>

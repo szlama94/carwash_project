@@ -45,7 +45,7 @@
           </a>
         </li>
 
-        <!-- Page1 -->
+        <!-- Page1------------>
         <li class="nav-item mx-1">
           <a
             class="nav-link"
@@ -75,15 +75,12 @@
       <!-- Navbar content RIGHT -->
       <ul class="navbar-nav ms-auto">
         <!-- Shopping cart -->
-        <li class="nav-item mx-1" ng-if="$root.user.id">
-          <a
-            class="nav-link"
-            ui-sref="cart"
-            ui-sref-active="active"
-            data-bs-toggle="collapse"
-            data-bs-target=".navbar-collapse.show">
-            <i class="fa-solid fa-cart-shopping me-1"></i>
-            <span class="text-capitalize text-small-caps"> kosár </span>
+        <li class="nav-item mx-1 bg-warning  rounded-3" 
+            ng-if="$root.user && $root.user.id">
+          <a class="nav-link" 
+             ui-sref="profile({ section: 'myBookings' })">
+            <i class="bi bi-calendar-check "></i> 
+            Időpontjaim
           </a>
         </li>
 

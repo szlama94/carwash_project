@@ -74,12 +74,6 @@
             parent: 'root',
             templateUrl: './html/users.html',
             controller: "usersController"
-          })
-          .state('cart', {
-            url: '/cart',
-            parent: 'root',
-            templateUrl: './html/cart.html',
-            controller: "cartController"
           });
 
         $urlRouterProvider.otherwise('/');
@@ -426,6 +420,11 @@
               $scope.model.password = null;
               user.error(e);
             });
+          },
+    
+          // Regisztrációra átirányítás
+          redirectToRegister: () => {
+            $state.go('register'); // Átirányítás a regisztrációs oldalra
           }
         };
     
@@ -453,11 +452,10 @@
       };
     }])
     
-
     // Profile controller--------------------------------->
     .controller('profileController', ['$rootScope', '$state', '$scope', function ($rootScope, $state, $scope) {
       if (!$rootScope.user || !$rootScope.user.id) {
-        $state.go('home');
+        $state.go('login'); // Átirányítás a bejelentkezési oldalra
         return;
       }
     
@@ -467,6 +465,7 @@
       $scope.selectedTime = null; // Kiválasztott időpont
       $scope.timeSlots = []; // Elérhető időpontok
       $scope.selectedPackage = null; // Kiválasztott csomag
+      $scope.myBookings = []; // Felhasználó foglalásai
     
       // Ideiglenes adatok: Foglalt időpontok dátum szerint
       $scope.bookedSlotsByDate = {
@@ -524,13 +523,27 @@
         const selectedPackage = $scope.packages.find(p => p.id == $scope.selectedPackage);
     
         alert(`Foglalás sikeresen rögzítve:
-    Dátum: ${$scope.selectedDate}
-    Időpont: ${$scope.selectedTime}
-    Csomag: ${selectedPackage.name}`);
+          Dátum: ${$scope.selectedDate}
+          Időpont: ${$scope.selectedTime}
+          Csomag: ${selectedPackage.name}`);
+    
+        // Foglalások betöltése
+        $scope.loadBookings();
       };
+    
+      // Foglalások betöltése
+      $scope.loadBookings = function () {
+        // Ideiglenes adatok: Foglalások betöltése
+        $scope.myBookings = [
+          { id: 1, date: '2025-01-21', time: '09:00', package: 'Alap csomag' },
+          { id: 2, date: '2025-01-22', time: '13:00', package: 'Prémium csomag' }
+        ];
+      };
+    
+      // Foglalások betöltése az oldal betöltésekor
+      $scope.loadBookings();
     }])    
     
-
     // Users controller------------------------------------>
     .controller('usersController', [
       '$rootScope',
@@ -573,19 +586,6 @@
           .catch(e => user.error(e));
       }
     ])
-
-    //-----Cart controller---------------------------------->
-    .controller('cartController', [
-      '$rootScope',
-      '$state',
-      function ($rootScope, $state) {
-        if (!$rootScope.user.id) {
-          $state.go('home');
-          return;
-        }
-      }
-    ])
-
 
     //----------Footer controller--------------------------->
     .controller('footerController', ['$scope', '$sce', function ($scope, $sce) {
