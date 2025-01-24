@@ -113,61 +113,57 @@
       '$http',
       'util',
       ($http, util) => {
-
         return {
-
           // Request
           request: (options, method) => {
-
             // Create promise
             return new Promise((resolve, reject) => {
-
               // Set methods
-              let methods = {
-
+              const methods = {
                 // Initialize
                 init: () => {
-
                   // Check options url property
                   if (util.isString(options)) options = { url: options };
                   if (!util.isObject(options) ||
                     !util.isObjectHasKey(options, 'url') ||
-                    !(options.url = options.url.trim()).length)
+                    !(options.url = options.url.trim()).length) {
                     reject('Missing url HTTP request!');
-
+                    return;
+                  }
+    
                   // Check method property
                   if (!util.isString(method)) method = 'ajax';
                   method = method.trim().toLowerCase();
                   if (!['ajax', 'fetch', 'http', 'xml'].includes(method)) method = 'ajax';
                   if (method === 'ajax' && !util.isJQuery()) method = 'fetch';
-
+    
                   // Check options method
                   if (util.isObjectHasKey(options, 'method')) {
-                    if (!util.isString(options.method))
-                      options.method = 'GET';
-                    options.method.trim().toUpperCase();
-                    if (!['GET', 'POST'].includes(options.method))
-                      options.method = 'GET';
-                  } else options.method = 'GET';
-
+                    if (!util.isString(options.method)) options.method = 'GET';
+                    options.method = options.method.trim().toUpperCase();
+                    if (!['GET', 'POST'].includes(options.method)) options.method = 'GET';
+                  } else {
+                    options.method = 'GET';
+                  }
+    
                   // Check/Set options data
                   if (util.isObjectHasKey(options, 'data')) {
-
-                    // Check has property
                     if (!util.isUndefined(options.data)) {
-
-                      // Check method
                       if (method !== 'ajax') {
                         options.method = 'POST';
                         options.data = JSON.stringify(options.data);
-                      } else options.data = { data: JSON.stringify(options.data) };
+                      } else {
+                        options.data = { data: JSON.stringify(options.data) };
+                      }
                     }
-                  } else options.data = undefined;
-
+                  } else {
+                    options.data = undefined;
+                  }
+    
                   // Call request
                   methods[method]();
                 },
-
+    
                 // Ajax jQuery
                 ajax: () => {
                   $.ajax({
@@ -175,34 +171,36 @@
                     type: options.method,
                     data: options.data,
                     success: response => methods.check(response),
-                    error: e => reject(e.statusText)
+                    error: e => reject(e.statusText || 'AJAX request failed')
                   });
                 },
-
+    
                 // Fetch
                 fetch: () => {
-
                   // Separate url from options
-                  let url = options.url;
+                  const url = options.url;
                   delete options.url;
-
+    
                   // Replace the data key with body
                   options.body = options.data;
                   delete options.data;
-
+    
                   fetch(url, options)
                     .then(response => {
-                      if (response.status >= 200 && response.status < 300)
+                      if (response.status >= 200 && response.status < 300) {
                         return response.text();
-                      else reject(response.statusText);
+                      } else {
+                        reject(response.statusText || 'Fetch request failed');
+                      }
                     })
                     .then(response => {
-                      if (!util.isUndefined(response))
+                      if (!util.isUndefined(response)) {
                         methods.check(response);
+                      }
                     })
-                    .catch(e => reject(e));
+                    .catch(e => reject(e.message || 'Fetch request error'));
                 },
-
+    
                 // Http angular
                 http: () => {
                   $http({
@@ -211,42 +209,53 @@
                     data: options.data
                   })
                     .then(response => {
-                      if (response.status >= 200 && response.status < 300)
+                      if (response.status >= 200 && response.status < 300) {
                         methods.check(response.data);
-                      else reject(response.statusText);
+                      } else {
+                        reject(response.statusText || 'HTTP request failed');
+                      }
                     })
-                    .catch(e => reject(e.statusText));
+                    .catch(e => reject(e.statusText || 'HTTP request error'));
                 },
-
+    
                 // XML Http
                 xml: () => {
-                  let xhr = new XMLHttpRequest();
+                  const xhr = new XMLHttpRequest();
                   xhr.open(options.method, options.url, true);
                   xhr.onload = () => {
-                    if (xhr.status >= 200 && xhr.status < 300)
+                    if (xhr.status >= 200 && xhr.status < 300) {
                       methods.check(xhr.response);
-                    else reject(xhr.statusText);
+                    } else {
+                      reject(xhr.statusText || 'XMLHttpRequest failed');
+                    }
                   };
-                  xhr.onerror = () => reject(xhr.statusText);
+                  xhr.onerror = () => reject(xhr.statusText || 'XMLHttpRequest error');
                   xhr.responseType = "text";
                   xhr.send(options.data);
                 },
-
+    
                 // Check response
                 check: response => {
                   if (util.isUndefined(response)) return;
-                  if (util.isJson(response)) response = JSON.parse(response);
-                  if (util.isObjectHasKey(response, "error") &&
-                    !util.isNull(response.error))
-                    reject(response.error);
-                  else if (util.isObjectHasKey(response, "data")) {
-                    if (util.isJson(response.data))
-                      resolve(JSON.parse(response.data));
-                    else resolve(response.data);
-                  } else resolve(response);
+                  try {
+                    if (util.isJson(response)) response = JSON.parse(response);
+                    if (util.isObjectHasKey(response, "error") && !util.isNull(response.error)) {
+                      reject(response.error);
+                    } else if (util.isObjectHasKey(response, "data")) {
+                      if (util.isJson(response.data)) {
+                        resolve(JSON.parse(response.data));
+                      } else {
+                        resolve(response.data);
+                      }
+                    } else {
+                      resolve(response);
+                    }
+                  } catch (e) {
+                    reject('Invalid JSON response');
+                  }
                 }
               };
-
+    
               // Initialize
               methods.init();
             });
@@ -254,26 +263,23 @@
         };
       }
     ])
-
-    // User factory
+    
     .factory('user', [
       '$rootScope',
       '$state',
       '$timeout',
       'util',
       ($rootScope, $state, $timeout, util) => {
-
         // Set local methods
-        let methods = {
-
+        const methods = {
           // Show message/confirm
           showMessage: (options) => {
-            let messageDialog = document.querySelector('#messageDialog');
+            const messageDialog = document.querySelector('#messageDialog');
             if (messageDialog) {
               $rootScope.message = options;
               $rootScope.$applyAsync();
               if (options.isAudio) {
-                let audioElement = messageDialog.querySelector('audio');
+                const audioElement = messageDialog.querySelector('audio');
                 if (audioElement) {
                   audioElement.volume = 0.1;
                   audioElement.play();
@@ -283,13 +289,11 @@
             }
           }
         };
-
+    
         // Set service
-        let service = {
-
+        const service = {
           // Initialize
           init: () => {
-
             // Set user default properties
             $rootScope.user = {
               id: null,
@@ -301,13 +305,13 @@
               email: null
             };
           },
-
+    
           // Set
           set: (data) => {
             Object.keys(data).forEach(k => $rootScope.user[k] = data[k]);
             $rootScope.$applyAsync();
           },
-
+    
           // Reset
           reset: (filter = null) => {
             if (util.isString(filter)) filter = filter.split(',');
@@ -317,26 +321,26 @@
             });
             $rootScope.$applyAsync();
           },
-
+    
           // Clone
           clone: () => {
-            let result = {};
+            const result = {};
             Object.keys($rootScope.user).forEach(k => {
-              result = $rootScope.user[k];
+              result[k] = $rootScope.user[k];
             });
             return result;
           },
-
+    
           // Focus
           focus: () => {
             $timeout(() => {
-              let firstInvalidInput = document.querySelector(`form input.ng-invalid`),
-                firstEmptyInput = document.querySelector(`form input.ng-empty`);
+              const firstInvalidInput = document.querySelector('form input.ng-invalid');
+              const firstEmptyInput = document.querySelector('form input.ng-empty');
               if (firstInvalidInput) firstInvalidInput.focus();
               else if (firstEmptyInput) firstEmptyInput.focus();
             }, 200);
           },
-
+    
           // Error
           error: (msg) => {
             methods.showMessage({
@@ -345,9 +349,9 @@
               isAudio: true,
               event: null
             });
-          },
+          }
         };
-
+    
         // Logout
         $rootScope.logout = () => {
           methods.showMessage({
@@ -357,15 +361,19 @@
             event: "logoutConfirmed"
           });
         };
-
+    
         // Logout confirmed
         $rootScope.logoutConfirmed = () => {
           service.reset('email');
           if (['profile', 'cart', 'users'].includes($state.current.name) ||
-            ($state.current.name === 'users' && $rootScope.user.type !== 'A'))
+            ($state.current.name === 'users' && $rootScope.user.type !== 'A')) {
             $state.go('home');
+          }
         };
-
+    
+        // Initialize user
+        service.init();
+    
         // Return service
         return service;
       }
@@ -410,7 +418,7 @@
             })
             .then(response => {
               response.email = $scope.model.email;
-              user.set(response);
+              user.set(response);  // Beállítja a felhasználó adatait, beleértve az id-t is
               util.localStorage('set', 'email', response.email);
               $state.go('home');
             })
@@ -522,9 +530,6 @@
       };
     }])    
     
-    
-    
-    
 
     // Users controller------------------------------------>
     .controller('usersController', [
@@ -613,10 +618,10 @@
     }])
 
     //---------Home-page-stuff-------------------------------->
-    .controller('homeController', ['$scope', function ($scope) {
+    .controller('homeController', ['$scope', '$state', '$rootScope', function ($scope, $state, $rootScope) {
 
       $scope.videoUrl = "./media/video/spwc_video.mp4";
-
+    
       // Felsorolás adatok
       $scope.cards = [
         {
@@ -635,16 +640,27 @@
           icon: 'fa-solid fa-wallet text-warning'
         }
       ];
-
+    
+      // Átirányítás függvény
+      $scope.redirectToAppointment = function () {
+        if ($rootScope.user && $rootScope.user.id) {
+          // Ha be van jelentkezve, navigálj az időpontfoglalásra
+          $state.go('profile', { section: 'schedule' });
+        } else {
+          // Ha nincs bejelentkezve, navigálj a bejelentkezési oldalra
+          $state.go('login');
+        }
+      };
+    
       $scope.cardStyle = {
         'background-image': 'url(./media/image/)',
         'background-size': 'cover',
         'background-position': 'center',
         'background-repeat': 'no-repeat'
       };
-
-      //A VIP kép a home-page -en
-        $scope.homepg_vip_pic = './media/image/vip_pic.png'
+    
+      // A VIP kép a home-page -en
+      $scope.homepg_vip_pic = './media/image/vip_pic.png';
     }])
 
     //-------Services---stuff------------------------------------->
