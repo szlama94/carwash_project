@@ -1,7 +1,6 @@
 <nav
   class="header-custom navbar navbar-expand-md text-white fs-5 border-primary rounded-3"
-  data-bs-theme="dark"
->
+  data-bs-theme="dark">
   <!-- Container -->
   <div class="container-fluid">
 
@@ -107,26 +106,20 @@
               </span>
             </li>
 
+
             <!-- Login -->
-            <li class="nav-item">
+            <li class="nav-item" ng-if="!$root.user.id">
               <a class="dropdown-item" ui-sref="login" ui-sref-active="active">
                 <i class="fa-solid fa-right-to-bracket me-1"></i>
-                <span class="text-capitalize text-small-caps">
-                  bejelentkezés
-                </span>
+                <span class="text-capitalize text-small-caps">bejelentkezés</span>
               </a>
             </li>
 
             <!-- Register -->
-            <li class="nav-item">
-              <a
-                class="dropdown-item"
-                ui-sref="register"
-                ui-sref-active="active">
+            <li class="nav-item" ng-if="!$root.user.id">
+              <a class="dropdown-item" ui-sref="register" ui-sref-active="active">
                 <i class="fa-solid fa-id-card me-1"></i>
-                <span class="text-capitalize text-small-caps">
-                  regisztráció
-                </span>
+                <span class="text-capitalize text-small-caps">regisztráció</span>
               </a>
             </li>
 

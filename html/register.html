@@ -33,7 +33,6 @@
                   ng-model="model.register.last_name">
               </div>
 
-
               <!-- Középsőnév -->
               <div class="mb-3">
                 <label for="register-middle_name" class="form-label text-white">
@@ -48,9 +47,8 @@
                   maxlength="100"
                   ng-model="model.register.middle_name">
               </div>
-			  
 
-			  <!-- Keresztnév -->
+              <!-- Keresztnév -->
               <div class="mb-3">
                 <label for="register-first_name" class="form-label text-white">
                   <i class="fa-solid fa-user me-1"></i> Keresztnév:
@@ -174,18 +172,18 @@
                   ng-model="model.register.passwordConfirm">
               </div>
 
-			<!--Jelszó mutat elrejt check-->
-			  <div class="form-check mb-3">
-				<input 
-				  id="register-showPassword"
-				  class="form-check-input"
-				  type="checkbox"
-				  ng-click="toggleShowPassword()"
-				  ng-checked="model.register.showPassword">
-				<label for="register-showPassword" class="form-check-label text-white">
-				  Jelszó mutat
-				</label>
-			  </div>
+              <!-- Jelszó mutat elrejt check -->
+              <div class="form-check mb-3">
+                <input 
+                  id="register-showPassword"
+                  class="form-check-input"
+                  type="checkbox"
+                  ng-click="toggleShowPassword()"
+                  ng-checked="model.register.showPassword">
+                <label for="register-showPassword" class="form-check-label text-white">
+                  Jelszó mutat
+                </label>
+              </div>
             </div>
           </div>
 
@@ -194,7 +192,8 @@
             <button 
               type="button"
               class="btn btn-warning px-5"
-              ng-disabled="registerForm.$invalid">
+              ng-disabled="registerForm.$invalid"
+              ng-click="methods.registerUser()">
               Regisztráció
             </button>
           </div>

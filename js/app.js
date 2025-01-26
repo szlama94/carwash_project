@@ -433,31 +433,118 @@
       }
     ])
     
-    .controller('registerController', ['$scope', function ($scope) {
+    .controller('registerController', ['$scope', '$http', function ($scope, $http) {
       // Regisztrációs felület háttere
       $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
-    
+  
       // Toggle Show Password metódus
       $scope.toggleShowPassword = function () {
-        $scope.model.register.showPassword = !$scope.model.register.showPassword;
+          $scope.model.register.showPassword = !$scope.model.register.showPassword;
       };
-    
+  
       // Model inicializálása
       $scope.model = {
-        register: {
-          showPassword: false,
-          password: '',
-          passwordConfirm: ''
-        }
+          register: {
+              showPassword: false,
+              password: '',
+              passwordConfirm: ''
+          }
       };
-    }])
+  
+      // Regisztráció metódus
+      $scope.methods = {
+          registerUser: function () {
+              let requestData = {
+                  first_name: $scope.model.register.first_name,
+                  last_name: $scope.model.register.last_name,
+                  middle_name: $scope.model.register.middle_name,
+                  born: $scope.model.register.born,
+                  gender: $scope.model.register.gender,
+                  email: $scope.model.register.email,
+                  emailConfirm: $scope.model.register.emailConfirm,
+                  password: $scope.model.register.password,
+                  passwordConfirm: $scope.model.register.passwordConfirm
+              };
+  
+              $http.post('./php/register.php', requestData)
+                .then(response => {
+                    if (response.data && response.data.success) {
+                        alert(response.data.message); // Sikeres üzenet
+                    } else {
+                        alert("Hiba: " + (response.data.message || "Ismeretlen hiba történt!"));
+                    }
+                })
+                .catch(error => {
+                    console.error("Hiba történt:", error);
+                    alert("Hiba történt a mentés során!");
+                });
+          }
+      };
+  }])
     
     // Profile controller--------------------------------->
-    .controller('profileController', ['$rootScope', '$state', '$scope', function ($rootScope, $state, $scope) {
+    .controller('profileController', ['$rootScope', '$state', '$scope', '$http', function ($rootScope, $state, $scope, $http) {
+      // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
       if (!$rootScope.user || !$rootScope.user.id) {
-        $state.go('login'); // Átirányítás a bejelentkezési oldalra
-        return;
+          $state.go('login'); // Ha nincs bejelentkezve, átirányítás a bejelentkezési oldalra
+          return;
       }
+  
+      // Inicializáljuk a $scope.user objektumot a $rootScope.user adataival
+      $scope.user = angular.copy($rootScope.user);
+  
+      // A mentés gomb állapotát vezérlő változó
+      $scope.isModified = false;
+  
+      // Figyeljük a felhasználói adatok változását
+      $scope.$watchGroup([
+          'user.first_name',
+          'user.last_name',
+          'user.born',
+          'user.gender',
+          'user.country',
+          'user.country_code',
+          'user.phone',
+          'user.city',
+          'user.postcode',
+          'user.address'
+      ], function (newValues, oldValues) {
+          // Ha bármelyik mező változik, a mentés gomb aktiválódik
+          $scope.isModified = !angular.equals(newValues, oldValues);
+      });
+  
+      // Mentés metódus
+      $scope.methods = {
+          httpRequest: function () {
+              // Ellenőrizzük, hogy a form érvényes-e
+              if ($scope.profileForm.$invalid) {
+                  alert("Kérjük, töltsön ki minden kötelező mezőt érvényes adatokkal!");
+                  return;
+              }
+  
+              // Elküldjük a frissített adatokat a backendnek
+              let requestData = angular.copy($scope.user);
+  
+              $http.post('./php/update_user.php', requestData)
+                  .then(response => {
+                      if (response.data.success) {
+                          // Sikeres frissítés esetén frissítjük a globális felhasználói adatokat
+                          $rootScope.user = angular.copy($scope.user);
+                          alert("Adatok sikeresen frissítve!");
+                          $scope.isModified = false; // A mentés után a gomb újra letiltódik
+                      } else {
+                          // Hiba esetén megjelenítjük a hibaüzenetet
+                          alert("Hiba: " + response.data.message);
+                      }
+                  })
+                  .catch(error => {
+                      // Hálózati vagy szerverhiba esetén
+                      console.error("Hiba történt az adatok mentése során:", error);
+                      alert("Hiba történt a mentés közben. Kérjük, próbálja újra később.");
+                  });
+          }
+      };
+    
     
       // Inicializálás
       $scope.selectedSection = 'schedule'; // Alapértelmezett szekció
