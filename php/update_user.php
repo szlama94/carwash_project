@@ -6,66 +6,60 @@ require_once("./environment.php");
 $args = Util::getArgs();
 
 // Ellenőrizzük, hogy az 'id' mező létezik-e
-if (!isset($args['id'])) {
-    Util::setError("Hiányzó felhasználói azonosító!");
+if (empty($args['id'])) {
+    echo json_encode(['success' => false, 'message' => 'Hiányzó felhasználói azonosító!']);
+    exit;
 }
 
-// Ellenőrizzük, hogy az összes kötelező mező létezik-e
-$requiredFields = [
+// Frissíthető mezők listája
+$fieldsToUpdate = [
     'first_name',
     'last_name',
-    'born',
     'gender',
     'country',
     'country_code',
     'phone',
     'city',
     'postcode',
-    'address'
+    'address',
 ];
 
-foreach ($requiredFields as $field) {
-    if (!isset($args[$field])) {
-        Util::setError("Hiányzó kötelező mező: " . $field);
+// Készítünk egy tömböt az SQL paraméterekhez
+$updateData = [];
+$updateFields = [];
+
+// Csak azok a mezők kerülnek frissítésre, amelyek nincsenek üresen
+foreach ($fieldsToUpdate as $field) {
+    if (isset($args[$field]) && $args[$field] !== '') {
+        $updateFields[] = "`$field` = ?";
+        $updateData[] = $args[$field];
     }
 }
 
-// SQL lekérdezés a felhasználói adatok frissítésére
-$query = "UPDATE `users`
-          SET `first_name` = ?, 
-              `last_name` = ?, 
-              `birth_date` = ?, 
-              `gender` = ?, 
-              `country` = ?, 
-              `country_code` = ?, 
-              `phone` = ?, 
-              `city` = ?, 
-              `postcode` = ?, 
-              `address` = ?
-          WHERE `id` = ?";
+// Ha nincs mit frissíteni
+if (empty($updateFields)) {
+    echo json_encode(['success' => false, 'message' => 'Nincs frissítendő adat!']);
+    exit;
+}
+
+// Összeállítjuk az SQL lekérdezést
+$query = "UPDATE `users` 
+             SET " . implode(', ', $updateFields) . "
+             WHERE `id` = ?";
+
+
+$updateData[] = $args['id']; // Az `id` hozzáadása az SQL végéhez
 
 // Adatbázis kapcsolat létrehozása és lekérdezés végrehajtása
 $db = new Database();
-$result = $db->execute($query, [
-    $args['first_name'],
-    $args['last_name'],
-    $args['born'],
-    $args['gender'],
-    $args['country'],
-    $args['country_code'],
-    $args['phone'],
-    $args['city'],
-    $args['postcode'],
-    $args['address'],
-    $args['id']  // Az id-t csak a WHERE feltételben használjuk
-]);
+$result = $db->execute($query, $updateData);
 
 $db = null;
 
 // Válasz küldése a kliensnek
 if ($result) {
-    Util::setResponse("Sikeres frissítés!");
+    echo json_encode(['success' => true, 'message' => 'Sikeres frissítés!']);
 } else {
-    Util::setError("Hiba történt a frissítés során!");
+    echo json_encode(['success' => false, 'message' => 'Hiba történt a frissítés során!']);
 }
-?>
+exit;

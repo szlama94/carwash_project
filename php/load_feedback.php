@@ -25,5 +25,4 @@ echo json_encode([
 ]);
 
 $db = null;
-
 ?>

@@ -74,7 +74,12 @@
                   class="form-control bg-dark text-white border-secondary"
                   name="born" 
                   type="date"
+                  max="{{helper.maxBorn}}"
+                  min="{{helper.minBorn}}"
+                  maxlength="300"
                   required
+                  ng-disable-space
+                  ng-clear-icon
                   ng-model="model.register.born">
               </div>
 

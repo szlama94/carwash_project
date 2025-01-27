@@ -490,62 +490,104 @@
           return;
       }
   
-      // Inicializáljuk a $scope.user objektumot a $rootScope.user adataival
-      $scope.user = angular.copy($rootScope.user);
-  
-      // A mentés gomb állapotát vezérlő változó
-      $scope.isModified = false;
-  
-      // Figyeljük a felhasználói adatok változását
-      $scope.$watchGroup([
-          'user.first_name',
-          'user.last_name',
-          'user.born',
-          'user.gender',
-          'user.country',
-          'user.country_code',
-          'user.phone',
-          'user.city',
-          'user.postcode',
-          'user.address'
-      ], function (newValues, oldValues) {
-          // Ha bármelyik mező változik, a mentés gomb aktiválódik
-          $scope.isModified = !angular.equals(newValues, oldValues);
-      });
-  
-      // Mentés metódus
-      $scope.methods = {
-          httpRequest: function () {
-              // Ellenőrizzük, hogy a form érvényes-e
-              if ($scope.profileForm.$invalid) {
-                  alert("Kérjük, töltsön ki minden kötelező mezőt érvényes adatokkal!");
-                  return;
-              }
-  
-              // Elküldjük a frissített adatokat a backendnek
-              let requestData = angular.copy($scope.user);
-  
-              $http.post('./php/update_user.php', requestData)
-                  .then(response => {
-                      if (response.data.success) {
-                          // Sikeres frissítés esetén frissítjük a globális felhasználói adatokat
-                          $rootScope.user = angular.copy($scope.user);
-                          alert("Adatok sikeresen frissítve!");
-                          $scope.isModified = false; // A mentés után a gomb újra letiltódik
-                      } else {
-                          // Hiba esetén megjelenítjük a hibaüzenetet
-                          alert("Hiba: " + response.data.message);
-                      }
-                  })
-                  .catch(error => {
-                      // Hálózati vagy szerverhiba esetén
-                      console.error("Hiba történt az adatok mentése során:", error);
-                      alert("Hiba történt a mentés közben. Kérjük, próbálja újra később.");
-                  });
-          }
+      // Alapértelmezett user objektum inicializálása (üres értékekkel)
+      $scope.user = {
+          id: '',
+          email: '',
+          first_name: '',
+          last_name: '',
+          born: '',
+          gender: '',
+          country: '',
+          phone: '',
+          city: '',
+          postcode: '',
+          address: ''
       };
+  
+      // Adatok betöltése a profile.php-ről
+      $http.post('./php/profile.php', { id: $rootScope.user.id })
+        .then(response => {
+            if (response.data.success) {
+
+                // Töltsük fel a $scope.user objektumot a lekért adatokkal
+                $scope.user = {
+                    id: response.data.data.id || '',
+                    type: response.data.data.type || '',
+                    first_name: response.data.data.first_name || '',
+                    last_name: response.data.data.last_name || '',
+                    born: response.data.data.born || '',
+                    gender: response.data.data.gender || '',
+                    img: response.data.data.img || '',
+                    img_type: response.data.data.img_type || '',
+                    email: response.data.data.email || '',
+                    country: response.data.data.country || '',
+                    country_code: response.data.data.country_code || '',
+                    phone: response.data.data.phone || '',
+                    city: response.data.data.city || '',
+                    postcode: response.data.data.postcode || '',
+                    address: response.data.data.address || ''
+                };
+            } else {
+                console.error("Hiba történt az adatok lekérésekor:", response.data.message);
+                alert("Hiba történt az adatok betöltésekor.");
+            }
+        })
+        .catch(error => {
+            console.error("Hiba történt a profile.php hívása során:", error);
+            alert("Nem sikerült betölteni az adatokat!");
+        });
+
+
+  
+        $scope.isModified = false;
+
+        // Figyeljük a felhasználói adatok változását
+        $scope.$watchGroup([
+            'user.first_name',
+            'user.last_name',
+            'user.born',
+            'user.gender',
+            'user.country',
+            'user.phone',
+            'user.city',
+            'user.postcode',
+            'user.address'
+        ], function (newValues, oldValues) {
+            $scope.isModified = !angular.equals(newValues, oldValues);
+        });
+
+        $scope.methods = {
+            httpRequest: function () {
+                // Kötelező mezők ellenőrzése eltávolítva
+
+                // Ha nincs módosítás, ne küldjük el a kérést
+                if (!$scope.isModified) {
+                    alert("Nincs módosított adat, nincs mit menteni.");
+                    return;
+                }
+
+                // Másolat az adatok küldéséhez
+                let requestData = angular.copy($scope.user);
+
+                // HTTP kérés küldése a szervernek
+                $http.post('./php/update_user.php', requestData)
+                    .then(response => {
+                        if (response.data.success) {
+                            alert(response.data.message); // "Sikeres frissítés!"
+                            $scope.isModified = false; // Mentés után visszaállítjuk
+                        } else {
+                            alert("Hiba: " + response.data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Hiba történt a frissítés során:", error);
+                        alert("Nem sikerült frissíteni az adatokat!");
+                    });
+            }
+        };
     
-    
+
       // Inicializálás
       $scope.selectedSection = 'schedule'; // Alapértelmezett szekció
       $scope.selectedDate = null; // Kiválasztott dátum
