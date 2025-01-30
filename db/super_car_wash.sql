@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Jan 16. 13:04
+-- Létrehozás ideje: 2025. Jan 30. 20:03
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -32,15 +32,15 @@ CREATE TABLE `feedback` (
   `name` varchar(100) NOT NULL,
   `gender` char(1) NOT NULL,
   `age` int(3) NOT NULL,
-  `feedback` text NOT NULL,
-  `point` int(5) NOT NULL
+  `comment` text NOT NULL,
+  `rating` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- A tábla adatainak kiíratása `feedback`
 --
 
-INSERT INTO `feedback` (`id`, `name`, `gender`, `age`, `feedback`, `point`) VALUES
+INSERT INTO `feedback` (`id`, `name`, `gender`, `age`, `comment`, `rating`) VALUES
 (1, 'Porszívó Pista\r\n', 'M', 37, '\"Olyan tiszta lett az autóm, hogy most a szomszédok napszemüvegben nézik! 😎✨\"\r\n', 5),
 (2, 'Guminyom Gábor\r\n', 'M', 40, '\"Nem mondom, hogy koszos maradt, de még mindig el tudom olvasni a porban írt \'MOSS LE\' feliratot. 📝🚘\"', 3),
 (3, 'Béres Virág\r\n', 'F', 24, '\"Majdnem olyan csillogó, mint a körmöm, de még van hova fejlődni! 💅✨\"', 4),
@@ -147,7 +147,7 @@ INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `born`, `gender`, 
 (37, 'U', 'Zsolt', 'Nagy', '1970-04-19', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nagy.zsolt-2023@keri.mako.hu', '1234Aa', 1),
 (38, 'U', 'János', 'Sárkány', '1991-12-05', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sarkany.janos-2023@keri.mako.hu', '1234Aa', 1),
 (39, 'U', 'Eszter', 'Szabó-Juhász', '1990-01-20', 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'szabo-juhasz.eszter-2023@keri.mako.hu', '1234Aa', 1),
-(40, 'U', 'Bence', 'Szlama', '1994-02-14', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'szlama.bence-2023@keri.mako.hu', '1234Aa', 1),
+(40, 'U', 'Bence', 'Szlama', '1994-02-14', 'M', NULL, NULL, 'Magyarország', NULL, '704319805', 'Makó', '6900', 'Bajcsy-Zsilinszky ltp. B1/C lph. 3/1', 'szlama.bence-2023@keri.mako.hu', '1234Aa', 1),
 (41, 'U', 'Dániel', 'Badó-Gulácsi', NULL, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bado-gulac.daniel-2021@keri.mako.hu\r', '1234Aa', 1),
 (42, 'U', 'Barnabás', 'Berta', '2006-04-05', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'berta.barnabas-2021@keri.mako.hu\r', '1234Aa', 1),
 (43, 'U', 'Richárd', 'Bokor', '2006-07-08', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bokor.richard-2021@keri.mako.hu\r', '1234Aa', 1),
@@ -180,7 +180,8 @@ INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `born`, `gender`, 
 (70, 'U', 'Ádám', 'Tokai', '2006-03-06', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'tokai.adam-2021@keri.mako.hu\r', '1234Aa', 1),
 (71, 'U', 'Dzsenifer', 'Tóth', '2006-10-09', 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'toth.dzsenife-2021@keri.mako.hu\r', '1234Aa', 1),
 (72, 'U', 'László', 'Tóth', '2006-06-26', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'toth.laszlo-2021@keri.mako.hu', '1234Aa', 1),
-(73, 'A', 'Attila', 'Ódry', '1964-03-08', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'odry.attila@keri.mako.hu', '1234Aa', 1);
+(73, 'A', 'Attila', 'Ódry', '1964-03-08', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'odry.attila@keri.mako.hu', '1234Aa', 1),
+(77, 'U', 'Zsolt', 'Lantos', '1975-02-22', 'M', NULL, NULL, 'Magyarország', NULL, '6704319805', 'Makó', '6900', 'Bajcsy-Zsilinszky Ltp. B1/C 3.Em\n10.A', 'lantos.zsolt@gmail.com', '1234Aa', 1);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -225,7 +226,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
