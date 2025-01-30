@@ -1,4 +1,10 @@
 <?php
 
-$_POST['data'] = '{"email":"odry.attila@keri.mako.hu","password":"1234Aa"}';
-require_once('./login.php');
+$_POST['data'] = '{
+    "rating": 5,
+    "name": "Atika",
+    "age": 120,
+    "comment": "Sirály munka!!!",
+    "gender": "M"
+}';
+require_once('./submit_feedback.php');

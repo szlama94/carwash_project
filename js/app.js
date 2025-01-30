@@ -9,76 +9,76 @@
     'app.form',
   ])
 
-    // Application config
-    .config([
-      '$stateProvider',
-      '$urlRouterProvider',
-      function ($stateProvider, $urlRouterProvider) {
+  // Application config
+  .config([
+    '$stateProvider',
+    '$urlRouterProvider',
+    function ($stateProvider, $urlRouterProvider) {
 
-        $stateProvider
-          .state('root', {
-            views: {
-              '': {
-                templateUrl: './html/root.html'
-              },
-              'header@root': {
-                templateUrl: './html/header.html'
-              },
-              'footer@root': {
-                templateUrl: './html/footer.html',
-                controller: 'footerController'
-              },
-              'modal@root': {
-                templateUrl: './html/modal.html'
-              }
+      $stateProvider
+        .state('root', {
+          views: {
+            '': {
+              templateUrl: './html/root.html'
+            },
+            'header@root': {
+              templateUrl: './html/header.html'
+            },
+            'footer@root': {
+              templateUrl: './html/footer.html',
+              controller: 'footerController'
+            },
+            'modal@root': {
+              templateUrl: './html/modal.html'
             }
-          })
-          .state('home', {
-            url: '/',
-            parent: 'root',
-            templateUrl: './html/home.html',
-            controller: 'homeController'
-          })
-          .state('page1', {
-            url: '/page1',
-            parent: 'root',
-            templateUrl: './html/page1.html',
-            controller: 'page1Controller'
-          })
-          .state('page2', {
-            url: '/page2',
-            parent: 'root',
-            templateUrl: './html/page2.html',
-            controller: 'page2Controller',
-          })
-          .state('login', {
-            url: '/login',
-            parent: 'root',
-            templateUrl: './html/login.html',
-            controller: 'loginController'
-          })
-          .state('register', {
-            url: '/register',
-            parent: 'root',
-            templateUrl: './html/register.html',
-            controller: 'registerController'
-          })
-          .state('profile', {
-            url: '/profile',
-            parent: 'root',
-            templateUrl: './html/profile.html',
-            controller: "profileController"
-          })
-          .state('users', {
-            url: '/users',
-            parent: 'root',
-            templateUrl: './html/users.html',
-            controller: "usersController"
-          });
+          }
+        })
+        .state('home', {
+          url: '/',
+          parent: 'root',
+          templateUrl: './html/home.html',
+          controller: 'homeController'
+        })
+        .state('page1', {
+          url: '/page1',
+          parent: 'root',
+          templateUrl: './html/page1.html',
+          controller: 'page1Controller'
+        })
+        .state('page2', {
+          url: '/page2',
+          parent: 'root',
+          templateUrl: './html/page2.html',
+          controller: 'page2Controller',
+        })
+        .state('login', {
+          url: '/login',
+          parent: 'root',
+          templateUrl: './html/login.html',
+          controller: 'loginController'
+        })
+        .state('register', {
+          url: '/register',
+          parent: 'root',
+          templateUrl: './html/register.html',
+          controller: 'registerController'
+        })
+        .state('profile', {
+          url: '/profile',
+          parent: 'root',
+          templateUrl: './html/profile.html',
+          controller: "profileController"
+        })
+        .state('users', {
+          url: '/users',
+          parent: 'root',
+          templateUrl: './html/users.html',
+          controller: "usersController"
+        });
 
-        $urlRouterProvider.otherwise('/');
-      }
-    ])
+      $urlRouterProvider.otherwise('/');
+    }
+  ])
 
     // Application run
     .run([
@@ -793,7 +793,12 @@
     }])
 
     //-------Services---stuff------------------------------------->
-    .controller('page1Controller', ['$scope', '$http', function ($scope, $http) {
+    .controller('page1Controller', [
+      '$rootScope',
+      '$scope', 
+      '$http',
+      '$state',
+      function ($rootScope, $scope, $http, $state) {
 
       // Videó URL
       $scope.videoUrl = "./media/video/services_video.mp4";
@@ -841,7 +846,28 @@
 
         return true;
       };
+
+
+      $scope.foglalas = (event) => {
+        if ($rootScope.user.id) {
+          let element = event.currentTarget;
+          if (element.classList.contains('btn-warning')) {
+            element.classList.add('btn-primary');
+            element.classList.remove('btn-warning');
+            element.innerText = "Csomag hozzáadva!";
+          } else {
+            element.classList.add('btn-warning');
+            element.classList.remove('btn-primary');
+            element.innerText = "Időpontot foglalok!";
+          }
+        } else {
+          $state.go('login');
+        }
+
+
+      };
     }])
+    
     //-----------Page2 controller--------------------------------->
     .controller('page2Controller', ['$scope', '$http', function ($scope, $http) {
 
@@ -896,6 +922,8 @@
 
                         // Vélemények frissítése
                         $scope.loadFeedbacks();
+
+                        
                     } else {
                         alert("Hiba: " + response.data.message);
                     }

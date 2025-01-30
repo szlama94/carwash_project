@@ -186,7 +186,7 @@
                                height="50" 
                                class="rounded-circle me-3 border border-light">
                           <h5 class="card-title m-0">{{fb.name}} ({{fb.age}} év) 
-                            <span ng-repeat="n in getStars(fb.point)" 
+                            <span ng-repeat="n in getStars(fb.rating)" 
                             class="text-warning">
                             ★
                             </span>
@@ -195,7 +195,7 @@
 
 <!----------------Görgethető vélemény------------------>
                         <div class="flex-grow-1 bg-secondary text-white p-3 rounded overflow-auto">
-                          <p class="card-text m-0">{{fb.feedback}}</p>
+                          <p class="card-text m-0">{{fb.comment}}</p>
                         </div>
                       </div>
                     </div>

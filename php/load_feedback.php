@@ -12,8 +12,8 @@ $query = "SELECT `id`,
                  `name`, 
                  `gender`, 
                  `age`, 
-                 `feedback`, 
-                 `point` 
+                 `comment`, 
+                 `rating` 
           FROM   `feedback`";
 
 $result = $db->execute($query);

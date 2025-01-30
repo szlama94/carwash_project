@@ -104,7 +104,8 @@
                 <p class="fw-bold text-warning text-center">
                   {{service.price | currency:'':0}} Ft
                 </p>
-                <button class="btn btn-warning w-100">
+                <button class="btn btn-warning w-100"
+                        ng-click="foglalas($event)">
                   Időpontot foglalok!
                 </button>
               </div>
@@ -135,7 +136,8 @@
                 <p class="fw-bold text-warning text-center">
                   {{service.price | currency:'':0}} Ft
                 </p>
-                <button class="btn btn-warning w-100">
+                <button class="btn btn-warning w-100"
+                        ng-click="foglalas($event)">
                   Megrendelem
                 </button>
               </div>
