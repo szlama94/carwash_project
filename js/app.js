@@ -465,8 +465,9 @@
               let requestData = {
                   first_name: $scope.model.register.first_name,
                   last_name: $scope.model.register.last_name,
-                  middle_name: $scope.model.register.middle_name,
                   born: $scope.model.register.born,
+                  country_code:$scope.model.register.countryCode,
+                  phone:model.register.phone,
                   gender: $scope.model.register.gender,
                   email: $scope.model.register.email,
                   emailConfirm: $scope.model.register.emailConfirm,
