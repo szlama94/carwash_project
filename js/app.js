@@ -263,6 +263,7 @@
       '$state',
       '$timeout',
       'util',
+
       ($rootScope, $state, $timeout, util) => {
         // Set local methods
         const methods = {
@@ -373,6 +374,7 @@
       }
     ])
 
+    //----------Login-controller----------------------------->
     .controller('loginController', [
       '$rootScope',
       '$scope',
@@ -380,6 +382,7 @@
       'user',
       'util',
       'http',
+
       function ($rootScope, $scope, $state, user, util, http) {
     
         // Set local methods
@@ -433,7 +436,12 @@
       }
     ])
     
-    .controller('registerController', ['$scope', '$http', function ($scope, $http) {
+    //----------Register-controller-------------------------->
+    .controller('registerController', [
+      '$scope',
+      '$http',
+
+      function ($scope, $http) {
       // Regisztrációs felület háttere
       $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
   
@@ -480,10 +488,16 @@
                 });
           }
       };
-  }])
+    }])
     
-    // Profile controller--------------------------------->
-    .controller('profileController', ['$rootScope', '$state', '$scope', '$http', function ($rootScope, $state, $scope, $http) {
+    //----------Profile-controller--------------------------->
+    .controller('profileController', [
+      '$rootScope', 
+      '$state', 
+      '$scope', 
+      '$http',
+
+      function ($rootScope, $state, $scope, $http) {
       // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
       if (!$rootScope.user || !$rootScope.user.id) {
           $state.go('login'); // Ha nincs bejelentkezve, átirányítás a bejelentkezési oldalra
@@ -673,13 +687,14 @@
       $scope.loadBookings();
     }])    
     
-    // Users controller------------------------------------>
+    //----------Users-controller----------------------------->
     .controller('usersController', [
       '$rootScope',
       '$state',
       '$scope',
       'user',
       'http',
+
       function ($rootScope, $state, $scope, user, http) {
 
         if ($rootScope.user.type !== 'A') {
@@ -716,8 +731,12 @@
       }
     ])
 
-    //----------Footer controller--------------------------->
-    .controller('footerController', ['$scope', '$sce', function ($scope, $sce) {
+    //----------Footer-controller---------------------------->
+    .controller('footerController', [
+      '$scope', 
+      '$sce',
+
+      function ($scope, $sce) {
       $scope.about = {
         title: 'Keress minket',
         description: 'Autómosónkban a legjobb minőségű szolgáltatásokkal várjuk ügyfeleinket.',
@@ -746,8 +765,13 @@
 
     }])
 
-    //---------Home-page-stuff-------------------------------->
-    .controller('homeController', ['$scope', '$state', '$rootScope', function ($scope, $state, $rootScope) {
+    //---------Home-controller-------------------------------->
+    .controller('homeController', [
+      '$scope', 
+      '$state', 
+      '$rootScope',
+
+      function ($scope, $state, $rootScope) {
 
       $scope.videoUrl = "./media/video/spwc_video.mp4";
     
@@ -792,12 +816,13 @@
       $scope.homepg_vip_pic = './media/image/vip_pic.png';
     }])
 
-    //-------Services---stuff------------------------------------->
+    //-------Services-controller------------------------------>
     .controller('page1Controller', [
       '$rootScope',
       '$scope', 
       '$http',
       '$state',
+
       function ($rootScope, $scope, $http, $state) {
 
       // Videó URL
@@ -868,8 +893,12 @@
       };
     }])
     
-    //-----------Page2 controller--------------------------------->
-    .controller('page2Controller', ['$scope', '$http', function ($scope, $http) {
+    //-----------About_us-controller-------------------------->
+    .controller('page2Controller', [
+      '$scope', 
+      '$http', 
+
+      function ($scope, $http) {
 
       //oldal képei
       $scope.ourTeam_img = './media/image/spwash_crew.jpg';
@@ -881,15 +910,17 @@
       $scope.loadFeedbacks = function () {
           $http.get('./php/load_feedback.php')
               .then(response => {
-                  if (response.data.success) {
+                  console.log("Szerver válasz:", response.data);
+                  if (response.data.success || response.data.data) {
                       $scope.feedbacks = response.data.data;
-                      $scope.chunkedFeedbacks = $scope.chunkArray($scope.feedbacks, 3);  // 3-as blokkokra bontás
+                      //$scope.chunkedFeedbacks = $scope.chunkArray($scope.feedbacks, 3);
                   } else {
-                      console.error("Hiba a vélemények betöltésekor:", response.data.message);
+                      console.error("Hiba:", response.data.message);
                   }
               })
               .catch(e => console.error("Adatbetöltési hiba:", e));
       };
+
   
       // 3-as csoportokra bontó függvény
       $scope.chunkArray = function (array, size) {

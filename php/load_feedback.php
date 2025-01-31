@@ -2,9 +2,6 @@
 
 require_once('./environment.php');
 
-// Fejléc beállítása JSON válaszhoz
-header('Content-Type: application/json');
-
 $db = new Database();
 
 
@@ -18,11 +15,7 @@ $query = "SELECT `id`,
 
 $result = $db->execute($query);
 
-// Válasz visszaküldése
-echo json_encode([
-    "success" => true,
-    "data" => $result
-]);
+
+Util::setResponse($result);
 
 $db = null;
-?>
