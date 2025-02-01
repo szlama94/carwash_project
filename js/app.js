@@ -440,56 +440,60 @@
     .controller('registerController', [
       '$scope',
       '$http',
-
+      '$state',
+    
       function ($scope, $http) {
-      // Regisztrációs felület háttere
-      $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
-  
-      // Toggle Show Password metódus
-      $scope.toggleShowPassword = function () {
+        // Regisztrációs felület háttere
+        $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
+    
+        // Toggle Show Password metódus
+        $scope.toggleShowPassword = function () {
           $scope.model.register.showPassword = !$scope.model.register.showPassword;
-      };
-  
-      // Model inicializálása
-      $scope.model = {
+        };
+    
+        // Model inicializálása
+        $scope.model = {
           register: {
-              showPassword: false,
-              password: '',
-              passwordConfirm: ''
+            showPassword: false,
+            password: '',
+            passwordConfirm: '',
+            countryCode: '+36',
+            phone: ''
           }
-      };
-  
-      // Regisztráció metódus
-      $scope.methods = {
+        };
+    
+        // Regisztráció metódus
+        $scope.methods = {
           registerUser: function () {
-              let requestData = {
-                  first_name: $scope.model.register.first_name,
-                  last_name: $scope.model.register.last_name,
-                  born: $scope.model.register.born,
-                  country_code:$scope.model.register.countryCode,
-                  phone:model.register.phone,
-                  gender: $scope.model.register.gender,
-                  email: $scope.model.register.email,
-                  emailConfirm: $scope.model.register.emailConfirm,
-                  password: $scope.model.register.password,
-                  passwordConfirm: $scope.model.register.passwordConfirm
-              };
-  
-              $http.post('./php/register.php', requestData)
-                .then(response => {
-                    if (response.data && response.data.success) {
-                        alert(response.data.message); // Sikeres üzenet
-                    } else {
-                        alert("Hiba: " + (response.data.message || "Ismeretlen hiba történt!"));
-                    }
-                })
-                .catch(error => {
-                    console.error("Hiba történt:", error);
-                    alert("Hiba történt a mentés során!");
-                });
+            let requestData = {
+              first_name: $scope.model.register.first_name,
+              last_name: $scope.model.register.last_name,
+              born: $scope.model.register.born,
+              country_code: $scope.model.register.countryCode,
+              phone: $scope.model.register.phone,
+              gender: $scope.model.register.gender,
+              email: $scope.model.register.email,
+              emailConfirm: $scope.model.register.emailConfirm,
+              password: $scope.model.register.password,
+              passwordConfirm: $scope.model.register.passwordConfirm
+            };
+    
+            $http.post('./php/register.php', requestData)
+              .then(response => {
+                if (response.data && response.data.success) {
+                  alert(response.data.message);
+                } else {
+                  alert("Hiba: " + (response.data.message || "Ismeretlen hiba történt!"));
+                }
+              })
+              .catch(error => {
+                console.error("Hiba történt:", error);
+                alert("Hiba történt a mentés során!");
+              });
           }
-      };
-    }])
+        };
+      }
+    ])
     
     //----------Profile-controller--------------------------->
     .controller('profileController', [
@@ -514,6 +518,7 @@
           born: '',
           gender: '',
           country: '',
+          country_code:'',
           phone: '',
           city: '',
           postcode: '',
@@ -564,6 +569,7 @@
             'user.born',
             'user.gender',
             'user.country',
+            'user.countryCode',
             'user.phone',
             'user.city',
             'user.postcode',
