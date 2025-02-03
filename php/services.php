@@ -15,3 +15,5 @@ $result = $db->execute($query);
 $db = null;
 
 Util::setResponse($result);
+
+?>

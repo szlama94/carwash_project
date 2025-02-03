@@ -4,7 +4,6 @@ require_once('./environment.php');
 
 $db = new Database();
 
-
 $query = "SELECT `id`, 
                  `name`, 
                  `gender`, 
@@ -15,7 +14,8 @@ $query = "SELECT `id`,
 
 $result = $db->execute($query);
 
-
 Util::setResponse($result);
 
 $db = null;
+
+?>

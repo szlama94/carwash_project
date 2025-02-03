@@ -5,61 +5,47 @@ require_once("./environment.php");
 
 $args = Util::getArgs();
 
-// Ellenőrizzük, hogy az 'id' mező létezik-e
+// Ellenőrizzük az 'id' mezőt
 if (empty($args['id'])) {
-    echo json_encode(['success' => false, 'message' => 'Hiányzó felhasználói azonosító!']);
-    exit;
+    Util::setError('Hiányzó felhasználói azonosító!');
 }
 
-// Frissíthető mezők listája
-$fieldsToUpdate = [
-    'first_name',
-    'last_name',
-    'gender',
-    'country',
-    'country_code',
-    'phone',
-    'city',
-    'postcode',
-    'address',
+// SQL lekérdezés létrehozása
+$query = "UPDATE `users` SET 
+            `first_name` = ?, 
+            `last_name` = ?, 
+            `gender` = ?, 
+            `country` = ?, 
+            `country_code` = ?, 
+            `phone` = ?, 
+            `city` = ?, 
+            `postcode` = ?, 
+            `address` = ? 
+          WHERE `id` = ?";
+
+// Az adatok beállítása az SQL paraméterekhez
+$updateData = [
+    $args['first_name'],
+    $args['last_name'],
+    $args['gender'],
+    $args['country'],
+    $args['country_code'],
+    $args['phone'],
+    $args['city'],
+    $args['postcode'],
+    $args['address'],
+    $args['id']
 ];
 
-// Készítünk egy tömböt az SQL paraméterekhez
-$updateData = [];
-$updateFields = [];
-
-// Csak azok a mezők kerülnek frissítésre, amelyek nincsenek üresen
-foreach ($fieldsToUpdate as $field) {
-    if (isset($args[$field]) && $args[$field] !== '') {
-        $updateFields[] = "`$field` = ?";
-        $updateData[] = $args[$field];
-    }
-}
-
-// Ha nincs mit frissíteni
-if (empty($updateFields)) {
-    echo json_encode(['success' => false, 'message' => 'Nincs frissítendő adat!']);
-    exit;
-}
-
-// Összeállítjuk az SQL lekérdezést
-$query = "UPDATE `users` 
-             SET " . implode(', ', $updateFields) . "
-             WHERE `id` = ?";
-
-
-$updateData[] = $args['id']; // Az `id` hozzáadása az SQL végéhez
-
-// Adatbázis kapcsolat létrehozása és lekérdezés végrehajtása
+// Adatbázis kapcsolat létrehozása és végrehajtás
 $db = new Database();
 $result = $db->execute($query, $updateData);
-
 $db = null;
 
-// Válasz küldése a kliensnek
+// Válasz küldése
 if ($result) {
-    echo json_encode(['success' => true, 'message' => 'Sikeres frissítés!']);
+    Util::setResponse("Sikeres frissítés!");
 } else {
-    echo json_encode(['success' => false, 'message' => 'Hiba történt a frissítés során!']);
+    Util::setError("Nem történt frissítés, vagy hiba történt.");
 }
-exit;
+?>

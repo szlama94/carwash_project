@@ -79,8 +79,7 @@
       $urlRouterProvider.otherwise('/');
     }
   ])
-
-    // Application run
+    //----------Application run----------------->
     .run([
       '$rootScope',
       '$timeout',
@@ -101,8 +100,7 @@
         }
       }
     ])
-
-    // Http request factory
+    //---------Http request factory------------->
     .factory('http', [
       '$http',
       'util',
@@ -257,7 +255,7 @@
         };
       }
     ])
-    
+    //---------factory-------------------------->
     .factory('user', [
       '$rootScope',
       '$state',
@@ -373,8 +371,7 @@
         return service;
       }
     ])
-
-    //----------Login-controller----------------------------->
+    //----------Login-controller---------------->
     .controller('loginController', [
       '$rootScope',
       '$scope',
@@ -435,130 +432,111 @@
         methods.init();
       }
     ])
-    
-    //----------Register-controller-------------------------->
+    //----------Register-controller------------->
     .controller('registerController', [
       '$scope',
       '$http',
       '$state',
-    
+  
       function ($scope, $http) {
-        // Regisztrációs felület háttere
-        $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
-    
-        // Toggle Show Password metódus
-        $scope.toggleShowPassword = function () {
-          $scope.model.register.showPassword = !$scope.model.register.showPassword;
-        };
-    
-        // Model inicializálása
-        $scope.model = {
-          register: {
-            showPassword: false,
-            password: '',
-            passwordConfirm: '',
-            countryCode: '+36',
-            phone: ''
-          }
-        };
-    
-        // Regisztráció metódus
-        $scope.methods = {
-          registerUser: function () {
-            let requestData = {
-              first_name: $scope.model.register.first_name,
-              last_name: $scope.model.register.last_name,
-              born: $scope.model.register.born,
-              country_code: $scope.model.register.countryCode,
-              phone: $scope.model.register.phone,
-              gender: $scope.model.register.gender,
-              email: $scope.model.register.email,
-              emailConfirm: $scope.model.register.emailConfirm,
-              password: $scope.model.register.password,
-              passwordConfirm: $scope.model.register.passwordConfirm
-            };
-    
-            $http.post('./php/register.php', requestData)
-              .then(response => {
-                if (response.data && response.data.success) {
-                  alert(response.data.message);
-                } else {
-                  alert("Hiba: " + (response.data.message || "Ismeretlen hiba történt!"));
-                }
-              })
-              .catch(error => {
-                console.error("Hiba történt:", error);
-                alert("Hiba történt a mentés során!");
-              });
-          }
-        };
+          $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
+  
+          $scope.toggleShowPassword = function () {
+              $scope.model.register.showPassword = !$scope.model.register.showPassword;
+          };
+  
+          $scope.model = {
+              register: {
+                  showPassword: false,
+                  password: '',
+                  passwordConfirm: '',
+                  countryCode: '',
+                  phone: ''
+              }
+          };
+  
+          $scope.methods = {
+              registerUser: function () {
+                  let requestData = {
+                      first_name: $scope.model.register.first_name,
+                      last_name: $scope.model.register.last_name,
+                      born: $scope.model.register.born,
+                      country_code: $scope.model.register.countryCode,
+                      phone: $scope.model.register.phone,
+                      gender: $scope.model.register.gender,
+                      email: $scope.model.register.email,
+                      emailConfirm: $scope.model.register.emailConfirm,
+                      password: $scope.model.register.password,
+                      passwordConfirm: $scope.model.register.passwordConfirm
+                  };
+  
+                  $http.post('./php/register.php', requestData)
+                      .then(response => {
+                          if (response.data && response.data.data) {
+                              alert(response.data.data);  // Sikeres regisztráció esetén
+                          } else if (response.data && response.data.error) {
+                              alert("Hiba: " + response.data.error);  // Hibás regisztráció
+                          } else {
+                              alert("Ismeretlen hiba történt!");
+                          }
+                      })
+                      .catch(error => {
+                          console.error("Hiba történt:", error);
+                          alert("Hiba történt a mentés során!");
+                      });
+              }
+          };
       }
     ])
-    
-    //----------Profile-controller--------------------------->
+    //----------Profile-controller-------------->
     .controller('profileController', [
       '$rootScope', 
       '$state', 
       '$scope', 
       '$http',
-
+  
       function ($rootScope, $state, $scope, $http) {
-      // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
-      if (!$rootScope.user || !$rootScope.user.id) {
-          $state.go('login'); // Ha nincs bejelentkezve, átirányítás a bejelentkezési oldalra
-          return;
-      }
+          // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
+          if (!$rootScope.user || !$rootScope.user.id) {
+              alert("Nem vagy bejelentkezve. Jelentkezz be újra!");
+              $state.go('login');  // Ha nincs bejelentkezve, átirányítás a bejelentkezési oldalra
+              return;
+          }
   
-      // Alapértelmezett user objektum inicializálása (üres értékekkel)
-      $scope.user = {
-          id: '',
-          email: '',
-          first_name: '',
-          last_name: '',
-          born: '',
-          gender: '',
-          country: '',
-          country_code:'',
-          phone: '',
-          city: '',
-          postcode: '',
-          address: ''
-      };
+          // Alapértelmezett user objektum inicializálása (üres értékekkel)
+          $scope.user = {
+              id: '',
+              email: '',
+              first_name: '',
+              last_name: '',
+              born: '',
+              gender: '',
+              country: '',
+              country_code: '',
+              phone: '',
+              city: '',
+              postcode: '',
+              address: ''
+          };
   
-      // Adatok betöltése a profile.php-ről
-      $http.post('./php/profile.php', { id: $rootScope.user.id })
-        .then(response => {
-            if (response.data.success) {
-
-                // Töltsük fel a $scope.user objektumot a lekért adatokkal
-                $scope.user = {
-                    id: response.data.data.id || '',
-                    type: response.data.data.type || '',
-                    first_name: response.data.data.first_name || '',
-                    last_name: response.data.data.last_name || '',
-                    born: response.data.data.born || '',
-                    gender: response.data.data.gender || '',
-                    img: response.data.data.img || '',
-                    img_type: response.data.data.img_type || '',
-                    email: response.data.data.email || '',
-                    country: response.data.data.country || '',
-                    country_code: response.data.data.country_code || '',
-                    phone: response.data.data.phone || '',
-                    city: response.data.data.city || '',
-                    postcode: response.data.data.postcode || '',
-                    address: response.data.data.address || ''
-                };
-            } else {
-                console.error("Hiba történt az adatok lekérésekor:", response.data.message);
-                alert("Hiba történt az adatok betöltésekor.");
-            }
-        })
-        .catch(error => {
-            console.error("Hiba történt a profile.php hívása során:", error);
-            alert("Nem sikerült betölteni az adatokat!");
-        });
-
-
+          // Adatok betöltése a profile.php-ről
+          $http.post('./php/profile.php', { id: $rootScope.user.id })
+              .then(response => {
+                  if (response.data && response.data.data) {
+                      // Töltsük fel a $scope.user objektumot a lekért adatokkal
+                      $scope.user = response.data.data;
+                  } else if (response.data && response.data.error) {
+                      console.error("Hiba történt az adatok lekérésekor:", response.data.error);
+                      alert(response.data.error);
+                  } else {
+                      console.error("Ismeretlen hiba történt az adatok lekérésekor.");
+                      alert("Ismeretlen hiba történt az adatok betöltésekor.");
+                  }
+              })
+              .catch(error => {
+                  console.error("Hiba történt a profile.php hívása során:", error);
+                  alert("Nem sikerült betölteni az adatokat!");
+              });
   
         $scope.isModified = false;
 
@@ -579,36 +557,32 @@
         });
 
         $scope.methods = {
-            httpRequest: function () {
-                // Kötelező mezők ellenőrzése eltávolítva
-
-                // Ha nincs módosítás, ne küldjük el a kérést
-                if (!$scope.isModified) {
-                    alert("Nincs módosított adat, nincs mit menteni.");
-                    return;
-                }
-
-                // Másolat az adatok küldéséhez
-                let requestData = angular.copy($scope.user);
-
-                // HTTP kérés küldése a szervernek
-                $http.post('./php/update_user.php', requestData)
-                    .then(response => {
-                        if (response.data.success) {
-                            alert(response.data.message); // "Sikeres frissítés!"
-                            $scope.isModified = false; // Mentés után visszaállítjuk
-                        } else {
-                            alert("Hiba: " + response.data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Hiba történt a frissítés során:", error);
-                        alert("Nem sikerült frissíteni az adatokat!");
-                    });
-            }
+          httpRequest: function () {
+              // Ha nincs módosítás, ne küldjük el a kérést
+              if (!$scope.isModified) {
+                  alert("Nincs módosított adat, nincs mit menteni.");
+                  return;
+              }
+      
+              // Másolat az adatok küldéséhez
+              let requestData = angular.copy($scope.user);
+      
+              // HTTP kérés küldése a szervernek
+              $http.post('./php/update_user.php', requestData)
+                  .then(response => {
+                      if (response.data.data) {
+                          alert(response.data.data);  // "Sikeres frissítés!"
+                          $scope.isModified = false;  // Mentés után visszaállítjuk
+                      } else {
+                          alert("Hiba: " + response.data.erorr);  // Hibás mentés esetén
+                      }
+                  })
+                  .catch(error => {
+                      console.error("Hiba történt a frissítés során:", error);
+                      alert("Nem sikerült frissíteni az adatokat!");
+                  });
+          }
         };
-    
-
       // Inicializálás
       $scope.selectedSection = 'schedule'; // Alapértelmezett szekció
       $scope.selectedDate = null; // Kiválasztott dátum
@@ -693,8 +667,7 @@
       // Foglalások betöltése az oldal betöltésekor
       $scope.loadBookings();
     }])    
-    
-    //----------Users-controller----------------------------->
+    //----------Users-controller---------------->
     .controller('usersController', [
       '$rootScope',
       '$state',
@@ -737,8 +710,7 @@
           .catch(e => user.error(e));
       }
     ])
-
-    //----------Footer-controller---------------------------->
+    //----------Footer-controller--------------->
     .controller('footerController', [
       '$scope', 
       '$sce',
@@ -771,8 +743,7 @@
       $scope.mapUrl = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2760.836396232944!2d20.473138775978818!3d46.21370948311983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu');
 
     }])
-
-    //---------Home-controller-------------------------------->
+    //---------Home-controller------------------>
     .controller('homeController', [
       '$scope', 
       '$state', 
@@ -822,7 +793,7 @@
       // A VIP kép a home-page -en
       $scope.homepg_vip_pic = './media/image/vip_pic.png';
     }])
-
+    //--------Services controller--------------->
     .controller('page1Controller', [
       '$rootScope',
       '$scope',
@@ -924,7 +895,7 @@
         }
       }
     ])
-    //-----------About_us-controller-------------------------->
+    //--------About_us-controller--------------->
     .controller('page2Controller', [
       '$scope', 
       '$http', 
@@ -941,10 +912,8 @@
       $scope.loadFeedbacks = function () {
           $http.get('./php/load_feedback.php')
               .then(response => {
-                  console.log("Szerver válasz:", response.data);
                   if (response.data.success || response.data.data) {
                       $scope.feedbacks = response.data.data;
-                      //$scope.chunkedFeedbacks = $scope.chunkArray($scope.feedbacks, 3);
                   } else {
                       console.error("Hiba:", response.data.message);
                   }
@@ -952,7 +921,6 @@
               .catch(e => console.error("Adatbetöltési hiba:", e));
       };
 
-  
       // 3-as csoportokra bontó függvény
       $scope.chunkArray = function (array, size) {
           let results = [];
@@ -973,32 +941,46 @@
 
       // Vélemény beküldése
       $scope.submitFeedback = function () {
+        // Ellenőrizzük, hogy az űrlap validált-e
         if ($scope.feedbackForm.$valid) {
-            $http.post('./php/submit_feedback.php', $scope.feedback)
+            
+            // Feedback adatok összegyűjtése
+            let feedbackData = {
+                name: $scope.feedback.name,  // Név
+                gender: $scope.feedback.gender,  // Nem
+                age: $scope.feedback.age,  // Kor
+                rating: $scope.feedback.rating,  // Értékelés
+                comment: $scope.feedback.comment  // Vélemény szövege
+            };
+    
+            // POST kérés küldése
+            $http.post('./php/submit_feedback.php', feedbackData)
                 .then(response => {
-                    if (response.data.success) {
-                        alert("Köszönjük a véleményét!");
-
-                        // Űrlap ürítése
-                        $scope.feedback = {};
-
-                        // Vélemények frissítése
-                        $scope.loadFeedbacks();
-
-                        
+                    if (response.data && response.data.data) {
+                        alert(response.data.data);  // Sikeres mentés
+                        // Mezők alaphelyzetbe állítása
+                        $scope.feedback.name = '';
+                        $scope.feedback.gender = '';
+                        $scope.feedback.age = '';
+                        $scope.feedback.rating = 0;
+                        $scope.feedback.comment = '';
+                        $scope.loadFeedbacks();  // Új vélemények betöltése
+                    } else if (response.data && response.data.error) {
+                        alert("Hiba: " + response.data.error);  // Hibás mentés
                     } else {
-                        alert("Hiba: " + response.data.message);
+                        alert("Ismeretlen hiba történt!");
                     }
                 })
                 .catch(error => {
-                    console.error("Beküldési hiba:", error);
-                    alert("Váratlan hiba történt!");
+                    console.error("Hiba történt:", error);
+                    alert("Hiba történt a mentés során!");
                 });
+    
         } else {
             alert("Kérjük, töltsön ki minden mezőt!");
         }
       };
-
+    
       $scope.feedback = {
         rating: 0
       };
@@ -1019,8 +1001,5 @@
       $scope.setRating = function(star) {
           $scope.feedback.rating = star;
       };
-
-  
   }]);
-    
 })(window, angular);
