@@ -39,17 +39,17 @@
           templateUrl: './html/home.html',
           controller: 'homeController'
         })
-        .state('page1', {
-          url: '/page1',
+        .state('services', {
+          url: '/services',
           parent: 'root',
-          templateUrl: './html/page1.html',
-          controller: 'page1Controller'
+          templateUrl: './html/services.html',
+          controller: 'servicesController'
         })
-        .state('page2', {
-          url: '/page2',
+        .state('about_us', {
+          url: '/about_us',
           parent: 'root',
-          templateUrl: './html/page2.html',
-          controller: 'page2Controller',
+          templateUrl: './html/aboutUs.html',
+          controller: 'aboutUsController',
         })
         .state('login', {
           url: '/login',
@@ -68,12 +68,6 @@
           parent: 'root',
           templateUrl: './html/profile.html',
           controller: "profileController"
-        })
-        .state('users', {
-          url: '/users',
-          parent: 'root',
-          templateUrl: './html/users.html',
-          controller: "usersController"
         });
 
       $urlRouterProvider.otherwise('/');
@@ -667,49 +661,6 @@
       // Foglalások betöltése az oldal betöltésekor
       $scope.loadBookings();
     }])    
-    //----------Users-controller---------------->
-    .controller('usersController', [
-      '$rootScope',
-      '$state',
-      '$scope',
-      'user',
-      'http',
-
-      function ($rootScope, $state, $scope, user, http) {
-
-        if ($rootScope.user.type !== 'A') {
-          $state.go('home');
-          return;
-        }
-
-        $scope.header = {
-          id: "azon.",
-          type: "típus",
-          name: "név",
-          born: "született",
-          gender: "neme",
-          country: "ország",
-          phone: "telefon",
-          city: "település",
-          postcode: "irányítószám",
-          address: "cím",
-          email: "email",
-          year: "év",
-          profession: "szakma",
-          class: "osztály",
-          valid: "érvényes"
-        };
-        $scope.headerLength = Object.keys($scope.header).length;
-
-        // Set request
-        http.request("./php/users.php")
-          .then(response => {
-            $scope.data = response;
-            $scope.$applyAsync();
-          })
-          .catch(e => user.error(e));
-      }
-    ])
     //----------Footer-controller--------------->
     .controller('footerController', [
       '$scope', 
@@ -794,7 +745,7 @@
       $scope.homepg_vip_pic = './media/image/vip_pic.png';
     }])
     //--------Services controller--------------->
-    .controller('page1Controller', [
+    .controller('servicesController', [
       '$rootScope',
       '$scope',
       '$http',
@@ -896,7 +847,7 @@
       }
     ])
     //--------About_us-controller--------------->
-    .controller('page2Controller', [
+    .controller('aboutUsController', [
       '$scope', 
       '$http', 
 
