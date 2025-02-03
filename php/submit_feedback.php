@@ -19,3 +19,4 @@ if ($result["affectedRows"] > 0) {
 } else {
     Util::setError("Hiba történt a mentés során!");
 }
+?>

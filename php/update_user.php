@@ -11,16 +11,17 @@ if (empty($args['id'])) {
 }
 
 // SQL lekérdezés létrehozása
-$query = "UPDATE `users` SET 
-            `first_name` = ?, 
-            `last_name` = ?, 
-            `gender` = ?, 
-            `country` = ?, 
-            `country_code` = ?, 
-            `phone` = ?, 
-            `city` = ?, 
-            `postcode` = ?, 
-            `address` = ? 
+$query = "UPDATE `users` 
+          SET 
+                `first_name` = ?, 
+                `last_name` = ?, 
+                `gender` = ?, 
+                `country` = ?, 
+                `country_code` = ?, 
+                `phone` = ?, 
+                `city` = ?, 
+                `postcode` = ?, 
+                `address` = ? 
           WHERE `id` = ?";
 
 // Az adatok beállítása az SQL paraméterekhez
