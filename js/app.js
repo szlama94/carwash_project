@@ -823,83 +823,107 @@
       $scope.homepg_vip_pic = './media/image/vip_pic.png';
     }])
 
-    //-------Services-controller------------------------------>
     .controller('page1Controller', [
       '$rootScope',
-      '$scope', 
+      '$scope',
       '$http',
       '$state',
-
       function ($rootScope, $scope, $http, $state) {
-
-      // Videó URL
-      $scope.videoUrl = "./media/video/services_video.mp4";
-
-      $scope.services = [];
-      $scope.searchText = '';
-      $scope.priceFilter = '';
-
-      // Ár kategóriák
-      $scope.priceCategories = [
-        { label: 'Összes árkategória', value: '' },
-        { label: '0 Ft - 20 000 Ft', value: [0, 20000] },
-        { label: '20 000 Ft - 40 000 Ft', value: [20001, 40000] },
-        { label: '40 000 Ft felett', value: [40001, Infinity] }
-      ];
-
-      // Adatok betöltése a PHP API-ról
-      $http.get("./php/services.php")
-        .then(response => {
-          // Hozzáadjuk a képek elérési útját, ha még nincs
-          $scope.services = response.data.data.map(service => {
-            if (!service.image || service.image === '') {
-              service.image = "./media/image/services/" + service.services_name.toLowerCase().replace(/\s+/g, "_") + ".jpg";
-            }
-            return service;
-          });
-
-          // Angular frissítése
-          $scope.$applyAsync();
-        })
-        .catch(e => console.error("Adatbetöltési hiba:", e));
-
-      // Szűrés
-      $scope.filterServices = function (service) {
-        // Név szerinti keresés
-        if ($scope.searchText && !service.services_name.toLowerCase().includes($scope.searchText.toLowerCase())) {
-          return false;
-        }
-
-        // Ár szerinti szűrés
-        if ($scope.priceFilter && $scope.priceFilter.length) {
-          let [min, max] = $scope.priceFilter;
-          return service.price >= min && service.price <= max;
-        }
-
-        return true;
-      };
-
-
-      $scope.foglalas = (event) => {
-        if ($rootScope.user.id) {
-          let element = event.currentTarget;
-          if (element.classList.contains('btn-warning')) {
-            element.classList.add('btn-primary');
-            element.classList.remove('btn-warning');
-            element.innerText = "Csomag hozzáadva!";
-          } else {
-            element.classList.add('btn-warning');
-            element.classList.remove('btn-primary');
-            element.innerText = "Időpontot foglalok!";
-          }
-        } else {
-          $state.go('login');
-        }
-
-
-      };
-    }])
     
+        $scope.videoUrl = "./media/video/services_video.mp4";
+        $scope.services = [];
+        $scope.searchText = '';
+        $scope.priceFilter = '';
+        $scope.groupedServices = [];
+        $scope.selectedServices = [];  // Kosárba rakott elemek listája
+    
+        $scope.priceCategories = [
+          { label: 'Összes árkategória', value: '' },
+          { label: '0 Ft - 20 000 Ft', value: [0, 20000] },
+          { label: '20 000 Ft - 40 000 Ft', value: [20001, 40000] },
+          { label: '40 000 Ft felett', value: [40001, Infinity] }
+        ];
+    
+        $http.get("./php/services.php")
+          .then(response => {
+            if (response.data && response.data.data) {
+              $scope.services = response.data.data.map(service => {
+                if (!service.image || service.image === '') {
+                  service.image = "./media/image/services/" + service.services_name.toLowerCase().replace(/\s+/g, "_") + ".jpg";
+                }
+                return service;
+              });
+              $scope.updateGroupedServices();
+            } else {
+              console.error("Nem érkezett adat az API-ból.");
+              alert("Nem sikerült betölteni a szolgáltatásokat.");
+            }
+          })
+          .catch(e => {
+            console.error("Adatbetöltési hiba:", e);
+            alert("Hiba történt az adatok betöltése közben.");
+          });
+    
+        $scope.$watchGroup(['searchText', 'priceFilter'], function () {
+          $scope.updateGroupedServices();
+        });
+    
+        $scope.filterServices = function (service) {
+          if ($scope.searchText && !service.services_name.toLowerCase().includes($scope.searchText.toLowerCase())) {
+            return false;
+          }
+          if ($scope.priceFilter && $scope.priceFilter.length) {
+            let [min, max] = $scope.priceFilter;
+            if (service.price < min || service.price > max) {
+              return false;
+            }
+          }
+          return true;
+        };
+    
+        $scope.updateGroupedServices = function () {
+          const filteredServices = $scope.services.filter($scope.filterServices);
+    
+          $scope.groupedServices = [];
+          for (let i = 0; i < filteredServices.length; i += 3) {
+            $scope.groupedServices.push(filteredServices.slice(i, i + 3));
+          }
+          resetCarousel();
+        };
+    
+        // Gomb kattintás: kosárba rakás vagy eltávolítás (bejelentkezés ellenőrzéssel)
+        $scope.toggleSelection = function (service) {
+          if (!$rootScope.user || !$rootScope.user.id) {
+            $state.go('login');  // Ha nincs bejelentkezve, átirányítás a login oldalra
+            return;
+          }
+    
+          const index = $scope.selectedServices.findIndex(selected => selected.id === service.id);
+          if (index === -1) {
+            $scope.selectedServices.push(service);  // Hozzáadás
+          } else {
+            $scope.selectedServices.splice(index, 1);  // Eltávolítás
+          }
+        };
+    
+        // Ellenőrizzük, hogy egy szolgáltatás kiválasztott-e
+        $scope.isSelected = function (service) {
+          return $scope.selectedServices.some(selected => selected.id === service.id);
+        };
+    
+        function resetCarousel() {
+          setTimeout(() => {
+            const carousel = document.querySelector('#serviceCarousel');
+            if (carousel) {
+              const bootstrapCarousel = bootstrap.Carousel.getInstance(carousel);
+              if (bootstrapCarousel) {
+                bootstrapCarousel.to(0);
+              }
+            }
+          }, 100);
+        }
+      }
+    ])
     //-----------About_us-controller-------------------------->
     .controller('page2Controller', [
       '$scope', 
