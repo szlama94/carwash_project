@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Jan 30. 20:03
+-- Létrehozás ideje: 2025. Feb 03. 21:24
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Adatbázis: `super_car_wash`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `bookings`
+--
+
+CREATE TABLE `bookings` (
+  `id` int(10) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `service_id` int(10) NOT NULL,
+  `car_plate` varchar(20) NOT NULL,
+  `booking_date` date NOT NULL,
+  `booking_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -56,7 +71,7 @@ CREATE TABLE `services` (
   `id` int(11) NOT NULL,
   `services_name` varchar(50) NOT NULL,
   `description` varchar(100) NOT NULL,
-  `price` int(11) NOT NULL
+  `price` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -84,7 +99,7 @@ INSERT INTO `services` (`id`, `services_name`, `description`, `price`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) NOT NULL,
   `type` char(1) NOT NULL DEFAULT 'U',
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
@@ -108,7 +123,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `born`, `gender`, `img`, `img_type`, `country`, `country_code`, `phone`, `city`, `postcode`, `address`, `email`, `password`, `valid`) VALUES
-(1, 'U', 'Dániel', 'Aranyosi', '2005-07-31', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'aranyosi.daniel-2020@keri.mako.hu', '1234Aa', 1),
+(1, 'U', 'Dániel', 'Aranyosi', '2005-07-31', 'M', NULL, NULL, 'Románia', NULL, NULL, NULL, NULL, NULL, 'aranyosi.daniel-2020@keri.mako.hu', '1234Aa', 1),
 (2, 'U', 'Balázs', 'Bakai', '2005-10-26', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bakai.balazs-2020@keri.mako.hu', '1234Aa', 1),
 (3, 'U', 'Lehel', 'Balázs', '2005-09-19', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'balazs.lehel-2020@keri.mako.hu', '1234Aa', 1),
 (4, 'U', 'István', 'Ballai', '2005-11-20', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ballai.istvanattila-2020@keri.mako.hu', '1234Aa', 1),
@@ -181,11 +196,21 @@ INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `born`, `gender`, 
 (71, 'U', 'Dzsenifer', 'Tóth', '2006-10-09', 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'toth.dzsenife-2021@keri.mako.hu\r', '1234Aa', 1),
 (72, 'U', 'László', 'Tóth', '2006-06-26', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'toth.laszlo-2021@keri.mako.hu', '1234Aa', 1),
 (73, 'A', 'Attila', 'Ódry', '1964-03-08', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'odry.attila@keri.mako.hu', '1234Aa', 1),
-(77, 'U', 'Zsolt', 'Lantos', '1975-02-22', 'M', NULL, NULL, 'Magyarország', NULL, '6704319805', 'Makó', '6900', 'Bajcsy-Zsilinszky Ltp. B1/C 3.Em\n10.A', 'lantos.zsolt@gmail.com', '1234Aa', 1);
+(77, 'U', 'Zsolt', 'Lantos', '1975-02-22', 'M', NULL, NULL, 'Magyarország', NULL, '6704319805', 'Makó', '6900', 'Bajcsy-Zsilinszky Ltp. B1/C 3.Em\n10.A', 'lantos.zsolt@gmail.com', '1234Aa', 1),
+(84, 'U', 'Zoltán', 'Dávid', '1969-03-16', 'M', NULL, NULL, 'Magyarország', '+36', '7012323456', 'Makó', '6900', 'Gerizdes utca 20.', 'z.z@gmail.com', '1234Aa', 1),
+(85, 'U', 'Levente', 'Kovács', '1998-02-13', 'M', NULL, NULL, 'Magyarország', '+36', '705555555', 'Szeged', '6721', 'Bajza utca 16/b', 'k.levi@gmail.com', '1234Aa', 1);
 
 --
 -- Indexek a kiírt táblákhoz
 --
+
+--
+-- A tábla indexei `bookings`
+--
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `services` (`service_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- A tábla indexei `feedback`
@@ -197,24 +222,33 @@ ALTER TABLE `feedback`
 -- A tábla indexei `services`
 --
 ALTER TABLE `services`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `services_name` (`services_name`,`price`);
 
 --
 -- A tábla indexei `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`) USING BTREE;
+  ADD UNIQUE KEY `email` (`email`) USING BTREE,
+  ADD KEY `first_name` (`first_name`,`last_name`),
+  ADD KEY `last_name` (`last_name`);
 
 --
 -- A kiírt táblák AUTO_INCREMENT értéke
 --
 
 --
+-- AUTO_INCREMENT a táblához `bookings`
+--
+ALTER TABLE `bookings`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT a táblához `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT a táblához `services`
@@ -226,7 +260,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

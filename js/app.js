@@ -577,89 +577,89 @@
                   });
           }
         };
-      // Inicializálás
-      $scope.selectedSection = 'schedule'; // Alapértelmezett szekció
-      $scope.selectedDate = null; // Kiválasztott dátum
-      $scope.selectedTime = null; // Kiválasztott időpont
-      $scope.timeSlots = []; // Elérhető időpontok
-      $scope.selectedPackage = null; // Kiválasztott csomag
-      $scope.myBookings = []; // Felhasználó foglalásai
+
+         // **Időpontfoglalás szekció (új funkció)**
+        $scope.booking = {
+            services: '',
+            car_plate: '',
+            date: '',
+            time: ''
+        };
+
+        $scope.timeSlots = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
+
+        // Elérhető szolgáltatások betöltése
+        $scope.loadServices = function () {
+            $http.get('./php/load_services.php').then(response => {
+                if (response.data.success) {
+                    $scope.services = response.data.data;
+                } else {
+                    alert("Nem sikerült betölteni a szolgáltatásokat.");
+                }
+            });
+        };
+
+        // Lefoglalt időpontok ellenőrzése
+        $scope.isBooked = function (time) {
+            return $scope.bookedTimes && $scope.bookedTimes.includes(time);
+        };
+
+        $scope.selectTime = function (time) {
+            $scope.booking.time = time;
+        };
+
+        // Időpontok betöltése a kiválasztott dátum alapján
+        $scope.loadBookedTimes = function () {
+            if (!$scope.booking.date) return;
+
+            $http.post('./php/load_booked_times.php', { date: $scope.booking.date }).then(response => {
+                if (response.data.success) {
+                    $scope.bookedTimes = response.data.data.map(booking => booking.booking_time);
+                } else {
+                    $scope.bookedTimes = [];
+                }
+            });
+        };
+
+        // Foglalás mentése
+        $scope.submitBooking = function () {
+          const bookingData = {
+              user_id: $rootScope.user.id,
+              selectedServices: $scope.selectedServices,
+              booking_date: $scope.booking.date,
+              booking_time: $scope.booking.time
+          };
+      
+          $http.post('./php/submit_booking.php', bookingData)
+              .then(response => {
+                  if (response.data.success) {
+                      alert("Foglalás sikeresen mentve!");
+                      $scope.selectedServices = [];  // Kosár ürítése
+                      localStorage.removeItem('selectedServices');
+                  } else {
+                      alert("Hiba: " + response.data.message);
+                  }
+              })
+              .catch(error => {
+                  console.error("Hiba történt a foglalás mentése során:", error);
+                  alert("Nem sikerült a foglalás mentése.");
+              });
+          };
     
-      // Ideiglenes adatok: Foglalt időpontok dátum szerint
-      $scope.bookedSlotsByDate = {
-        '2025-01-21': ['09:00', '12:00', '14:00'],
-        '2025-01-22': ['10:00', '13:00', '15:00'],
-      };
-    
-      // Ideiglenes adatok: Csomagok
-      $scope.packages = [
-        { id: 1, name: 'Alap csomag', price: 5000 },
-        { id: 2, name: 'Prémium csomag', price: 10000 },
-        { id: 3, name: 'Deluxe csomag', price: 15000 },
-      ];
-    
-      // Időpontok generálása a kiválasztott dátum alapján
-      $scope.generateTimeSlots = function () {
-        if (!$scope.selectedDate) {
-          console.warn('Nincs dátum kiválasztva!');
-          $scope.timeSlots = [];
-          return;
-        }
-    
-        // Konvertálás helyi időzónához
-        const localDate = new Date($scope.selectedDate);
-        const adjustedDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
-        const formattedDate = adjustedDate.toISOString().split('T')[0]; // YYYY-MM-DD formátum
-    
-        console.log('Kiválasztott dátum helyi idő szerint:', formattedDate);
-    
-        // Időpontok és foglalt időpontok kezelése
-        const allSlots = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
-        $scope.timeSlots = allSlots; // Az összes időpont
-        $scope.bookedSlots = $scope.bookedSlotsByDate[formattedDate] || []; // Foglalt időpontok az adott dátumhoz
-    
-        console.log('Foglalások a dátumhoz:', $scope.bookedSlots);
-      };
-    
-      // Időpont kiválasztása
-      $scope.selectTimeSlot = function (time) {
-        if ($scope.bookedSlots.includes(time)) {
-          console.warn('Ez az időpont foglalt:', time);
-          return;
-        }
-        $scope.selectedTime = time;
-        console.log('Kiválasztott időpont:', $scope.selectedTime);
-      };
-    
-      // Foglalás megerősítése
-      $scope.confirmAppointment = function () {
-        if (!$scope.selectedDate || !$scope.selectedTime || !$scope.selectedPackage) {
-          alert('Kérjük, válassz ki egy dátumot, egy időpontot és egy csomagot!');
-          return;
-        }
-    
-        const selectedPackage = $scope.packages.find(p => p.id == $scope.selectedPackage);
-    
-        alert(`Foglalás sikeresen rögzítve:
-          Dátum: ${$scope.selectedDate}
-          Időpont: ${$scope.selectedTime}
-          Csomag: ${selectedPackage.name}`);
-    
-        // Foglalások betöltése
-        $scope.loadBookings();
-      };
-    
-      // Foglalások betöltése
-      $scope.loadBookings = function () {
-        // Ideiglenes adatok: Foglalások betöltése
-        $scope.myBookings = [
-          { id: 1, date: '2025-01-21', time: '09:00', package: 'Alap csomag' },
-          { id: 2, date: '2025-01-22', time: '13:00', package: 'Prémium csomag' }
-        ];
-      };
-    
-      // Foglalások betöltése az oldal betöltésekor
-      $scope.loadBookings();
+        // Szolgáltatások betöltése inicializáláskor
+        $scope.loadServices();
+
+
+        // Kosár (foglalások) betöltése a localStorage-ból
+        $scope.selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+
+        // Kosár tartalmának megjelenítése táblázatban
+        $scope.removeFromCart = function (service) {
+          const index = $scope.selectedServices.findIndex(s => s.id === service.id);
+          if (index !== -1) {
+              $scope.selectedServices.splice(index, 1);
+              localStorage.setItem('selectedServices', JSON.stringify($scope.selectedServices));
+          }}
     }])    
     //----------Footer-controller--------------->
     .controller('footerController', [
@@ -752,12 +752,14 @@
       '$state',
       function ($rootScope, $scope, $http, $state) {
     
+        // Alapértelmezett változók
         $scope.videoUrl = "./media/video/services_video.mp4";
         $scope.services = [];
+        $scope.selectedServices = $rootScope.selectedServices || [];
         $scope.searchText = '';
         $scope.priceFilter = '';
         $scope.groupedServices = [];
-        $scope.selectedServices = [];  // Kosárba rakott elemek listája
+        $scope.timeSlots = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
     
         $scope.priceCategories = [
           { label: 'Összes árkategória', value: '' },
@@ -766,6 +768,7 @@
           { label: '40 000 Ft felett', value: [40001, Infinity] }
         ];
     
+        // Szolgáltatások betöltése
         $http.get("./php/services.php")
           .then(response => {
             if (response.data && response.data.data) {
@@ -786,6 +789,7 @@
             alert("Hiba történt az adatok betöltése közben.");
           });
     
+        // Szűrés és csoportosítás
         $scope.$watchGroup(['searchText', 'priceFilter'], function () {
           $scope.updateGroupedServices();
         });
@@ -813,24 +817,36 @@
           resetCarousel();
         };
     
-        // Gomb kattintás: kosárba rakás vagy eltávolítás (bejelentkezés ellenőrzéssel)
+        // Csomag hozzáadása vagy eltávolítása
         $scope.toggleSelection = function (service) {
           if (!$rootScope.user || !$rootScope.user.id) {
-            $state.go('login');  // Ha nincs bejelentkezve, átirányítás a login oldalra
-            return;
+              $state.go('login');  // Ha nincs bejelentkezve, átirányítás a login oldalra
+              return;
           }
-    
+      
           const index = $scope.selectedServices.findIndex(selected => selected.id === service.id);
           if (index === -1) {
-            $scope.selectedServices.push(service);  // Hozzáadás
+              $scope.selectedServices.push(service);  // Hozzáadás
           } else {
-            $scope.selectedServices.splice(index, 1);  // Eltávolítás
+              $scope.selectedServices.splice(index, 1);  // Eltávolítás
           }
+      
+          // Frissítsük a localStorage-t
+          localStorage.setItem('selectedServices', JSON.stringify($scope.selectedServices));
         };
+      
     
         // Ellenőrizzük, hogy egy szolgáltatás kiválasztott-e
         $scope.isSelected = function (service) {
           return $scope.selectedServices.some(selected => selected.id === service.id);
+        };
+    
+        // Csomag eltávolítása a táblázatból
+        $scope.removeService = function (service) {
+          const index = $scope.selectedServices.findIndex(selected => selected.id === service.id);
+          if (index !== -1) {
+            $scope.selectedServices.splice(index, 1);
+          }
         };
     
         function resetCarousel() {
@@ -845,7 +861,7 @@
           }, 100);
         }
       }
-    ])
+    ])    
     //--------About_us-controller--------------->
     .controller('aboutUsController', [
       '$scope', 
