@@ -1,7 +1,7 @@
 <div class="container mt-4 mb-4">
   <div class="card shadow-lg" 
        style="width: 100%; min-height: 500px; height: auto; display: flex; flex-direction: row; border-radius: 15px;">
-    <!-- Sidebar -->
+<!--------------------Odalmenü sáv------------------->
     <div class="p-4 bg-dark border-end" 
          style="width: 250px; border-radius: 15px 0 0 15px;">
       <ul class="list-unstyled">
@@ -26,28 +26,34 @@
       </ul>
     </div>
 
-    <!-- Main Content -->
+<!---------------Fő tartalom-------------------------->
     <div class="p-4 flex-grow-1 overflow-auto">
-      <!-- Személyes adatok -->
+<!--------------Személyes adatok---------------------->
       <div ng-if="selectedSection === 'personal'">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-11 col-md-10 col-lg-9 col-xl-8 col-xxl-7">
-              <!-- Title -->
+<!-------------------cím---------------------------->
               <div class="row mb-4">
                 <h3 class="text-center">
                   <i class="fa-regular fa-address-card"></i>
-                  <span class="text-capitalize text-small-caps ms-2"> profil </span>
+                  <span class="text-capitalize text-small-caps ms-2">
+                     profil 
+                    </span>
                 </h3>
               </div>
 
-              <!-- Form -->
-              <form name="profileForm" novalidate>
-                <!-- Identifier/Type -->
+<!-----------------Form------------------->
+              <form name="profileForm" 
+                    novalidate>
+<!----------------Azonosság/Típus--------->
                 <div class="row mb-3">
-                  <label for="profile-id" class="col-form-label col-md-4 text-md-end">
+                  <label for="profile-id" 
+                         class="col-form-label col-md-4 text-md-end">
                     <i class="fa-solid fa-fingerprint me-1"></i>
-                    <span class="text-capitalize">azonosító:</span>
+                    <span class="text-capitalize">
+                      azonosító:
+                    </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -60,14 +66,15 @@
                       disabled>
                   </div>
                 </div>
-
-                <!-- Email -->
+<!--------------------Email------------->
                 <div class="row mb-3">
                   <label
                     for="profile-email"
                     class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-envelope me-1"></i>
-                    <span class="text-capitalize">e-mail:</span>
+                    <span class="text-capitalize">
+                      e-mail:
+                    </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -79,15 +86,16 @@
                       disabled>
                   </div>
                 </div>
-
-                <!-- First name -->
+<!---------------Keresztnév---------------->
                 <div class="row mb-3">
                   <label
                     for="profile-first_name"
                     class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-user fa-2xl me-1"></i>
                     <i class="fa-solid fa-star fa-2xs text-danger"></i>
-                    <span class="text-capitalize">Keresztnév:</span>
+                    <span class="text-capitalize">
+                      Keresztnév:
+                    </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -103,14 +111,15 @@
                       ng-clear-icon>
                   </div>
                 </div>
-
-                <!-- Last name -->
+<!----------------Vezetéknév----------------->
                 <div class="row mb-3">
                   <label
                     for="profile-last_name"
                     class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-star fa-2xs text-danger"></i>
-                    <span class="text-capitalize">Vezetéknév:</span>
+                    <span class="text-capitalize">
+                      Vezetéknév:
+                    </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -126,26 +135,30 @@
                       ng-clear-icon>
                   </div>
                 </div>
-
-                <!--Születési idő-->
+<!--------------Születési idő------------------------>
                 <div class="row mb-3">
-                  <label for="profile-born" class="col-form-label col-md-4 text-md-end">
+                  <label for="profile-born" 
+                         class="col-form-label col-md-4 text-md-end">
                     <i class="fa-solid fa-calendar-days me-1"></i>
-                    <span class="text-capitalize">születési idő:</span>
+                    <span class="text-capitalize">
+                      születési idő:
+                    </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
-                    <span id="profile-born" class="form-control form-control-disabled">
+                    <span id="profile-born" 
+                          class="form-control form-control-disabled">
                       {{ user.born || 'Nincs megadva' }}
                     </span>
                   </div>
                 </div>
-
-                <!-- Gender -->
+<!------------------Nem--------------------------->
                 <fieldset class="row input-row mb-3">
                   <legend class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-star fa-2xs text-danger"></i>
                     <i class="fa-solid fa-venus-mars me-1"></i>
-                    <span class="text-capitalize"> neme: </span>
+                    <span class="text-capitalize"> 
+                      neme: 
+                    </span>
                   </legend>
                   <div
                     class="col-11 col-md-7 position-relative d-flex align-items-center">
@@ -160,20 +173,22 @@
                         class="form-check-input"
                         ng-model="user.gender"
                         required>
-                      <label for="profile-{{x}}" class="form-check-label opacity-100">
+                      <label for="profile-{{x}}" 
+                             class="form-check-label opacity-100">
                         {{x}}
                       </label>
                     </div>
                   </div>
                 </fieldset>
-
-                <!-- Country -->
+<!---------------Ország----------------------->
                 <div class="row input-row mb-3">
                   <label
                     for="profile-country"
                     class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-flag me-1"></i>
-                    <span class="text-capitalize"> ország: </span>
+                    <span class="text-capitalize">
+                       ország: 
+                      </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -189,14 +204,15 @@
                       ng-clear-icon>
                   </div>
                 </div>
-
-                <!-- Phone (Country code / Phone) -->
+<!----------- telefonszám (osrszág kód / telefonszám)------------->
                 <div class="row input-row mb-3">
                   <label
                     for="profile-phone"
                     class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-mobile-screen me-1"></i>
-                    <span class="text-capitalize"> telefonszám: </span>
+                    <span class="text-capitalize"> 
+                      telefonszám: 
+                    </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <div class="input-group">
@@ -233,14 +249,15 @@
                     </span>
                   </div>
                 </div>
-
-                <!-- City -->
+<!-------------------Város---------------------->
                 <div class="row input-row mb-3">
                   <label
                     for="profile-city"
                     class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-city me-1"></i>
-                    <span class="text-capitalize"> város: </span>
+                    <span class="text-capitalize"> 
+                      város: 
+                    </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -256,14 +273,15 @@
                       ng-clear-icon>
                   </div>
                 </div>
-
-                <!-- Post code -->
+<!-----------------Irányítószám-------------------->
                 <div class="row input-row mb-3">
                   <label
                     for="profile-postcode"
                     class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-list-ol me-1"></i>
-                    <span class="text-capitalize"> irányítószám: </span>
+                    <span class="text-capitalize"> 
+                      irányítószám: 
+                    </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -287,19 +305,21 @@
                       ng-class="{'invisible': profileForm.postcode.$invalid}">
                       &check;
                     </span>
-                    <span class="text-danger" ng-if="profileForm.postcode.$invalid && profileForm.postcode.$touched">
+                    <span class="text-danger" 
+                          ng-if="profileForm.postcode.$invalid && profileForm.postcode.$touched">
                       Érvényes irányítószámot adjon meg!
                     </span>
                   </div>
                 </div>
-
-                <!-- Address -->
+<!----------------Felhasználó címe------------------------>
                 <div class="row input-row mb-5">
                   <label
                     for="profile-address"
                     class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-location-dot me-1"></i>
-                    <span class="text-capitalize"> cím: </span>
+                    <span class="text-capitalize"> 
+                      cím: 
+                    </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <textarea
@@ -315,8 +335,7 @@
                     </textarea>
                   </div>
                 </div>
-
-                <!-- Save button -->
+<!----------------Mentés gomb----------------->
                 <div class="row justify-content-end">
                   <button
                       type="button"
@@ -325,26 +344,29 @@
                       ng-click="methods.httpRequest()">
                       Mentés
                   </button>
-
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Időpontfoglalás -->
+<!----------Időpontfoglalás-------------------->
       <div ng-if="selectedSection === 'schedule'">
         <h3>Időpontfoglalás</h3>
 
-        <!-- Csomagok -->
+<!--------------Csomagok------------------------>
         <div class="mb-4">
-          <label for="package" class="form-label">Válassz egy csomagot:</label>
+          <label for="package" 
+                 class="form-label">
+                 Válassz egy csomagot:
+            </label>
           <select 
             id="package" 
             class="form-select" 
             ng-model="selectedPackage">
-            <option value="" disabled selected>Válassz egy csomagot</option>
+            <option value="" disabled selected>
+              Válassz egy csomagot
+            </option>
             <option ng-repeat="package in packages" value="{{ package.id }}">
               {{ package.name }} - {{ package.price }} Ft
             </option>

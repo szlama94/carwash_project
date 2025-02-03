@@ -1,10 +1,8 @@
 <nav
   class="header-custom navbar navbar-expand-md text-white fs-5 border-primary rounded-3"
   data-bs-theme="dark">
-  <!-- Container -->
   <div class="container-fluid">
-
-    <!-- Hamburger icon -->
+<!---------Hamburger icon---------------->
     <button
       class="navbar-toggler ms-auto"
       type="button"
@@ -15,9 +13,9 @@
       aria-expanded="false">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-    <!-- Navbar content -->
-    <div id="navbar_content" class="collapse navbar-collapse mt-3 mt-md-0">
+<!------------Navbar tartalom------------->
+    <div id="navbar_content" 
+         class="collapse navbar-collapse mt-3 mt-md-0">
       <a
         class="nav-link"
         ui-sref="home"
@@ -25,13 +23,9 @@
         data-bs-toggle="collapse"
         data-bs-target=".navbar-collapse.show">
       </a>
-
-      <!-- Navbar content LEFT -->
+<!-----------Navbar tartalom bal oldal.....-->
       <ul class="navbar-nav me-auto">
-
-        <!----------Logo------------>
-        
-        <!-- Home -->
+<!-------------------Home--------------------->
         <li class="nav-item mx-1">
           <a
             class="nav-link"
@@ -40,11 +34,12 @@
             data-bs-toggle="collapse"
             data-bs-target=".navbar-collapse.show">
             <i class="fa-solid fa-house me-1"></i>
-            <span> Kezdőlap </span>
+            <span> 
+              Kezdőlap 
+            </span>
           </a>
         </li>
-
-        <!-- Page1------------>
+<!--------------Szolagáltatások oldal--------->
         <li class="nav-item mx-1">
           <a
             class="nav-link"
@@ -53,11 +48,12 @@
             data-bs-toggle="collapse"
             data-bs-target=".navbar-collapse.show">
             <i class="bi bi-car-front"></i>
-            <span> Szolgáltatások </span>
+            <span> 
+              Szolgáltatások 
+            </span>
           </a>
         </li>
-
-        <!-- Page2 -->
+<!-------------Rólunk oldal------------------->
         <li class="nav-item mx-1">
           <a
             class="nav-link"
@@ -66,14 +62,15 @@
             data-bs-toggle="collapse"
             data-bs-target=".navbar-collapse.show">
             <i class="bi bi-info-circle-fill"></i>
-            <span> Rólunk </span>
+            <span>
+              Rólunk 
+            </span>
           </a>
         </li>
       </ul>
-
-      <!-- Navbar content RIGHT -->
+<!--------------Navbar tartalom jobb oldal------------------->
       <ul class="navbar-nav ms-auto">
-        <!-- Shopping cart -->
+<!-------------------Foglalásaim--------------------------->
         <li class="nav-item mx-1 bg-warning  rounded-3" 
             ng-if="$root.user && $root.user.id">
           <a class="nav-link" 
@@ -82,9 +79,9 @@
             Időpontjaim
           </a>
         </li>
-
-        <!-- User -->
-        <li class="nav-item dropdown" data-bs-auto-close="true">
+<!---------------------Felhasználó----------------------------->
+        <li class="nav-item dropdown" 
+            data-bs-auto-close="true">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -92,10 +89,12 @@
             data-bs-toggle="dropdown"
             aria-expanded="false">
             <i class="fa-solid fa-user me-1"></i>
-            <span class="text-capitalize text-small-caps"> felhasználó </span>
+            <span class="text-capitalize text-small-caps"> 
+              felhasználó 
+            </span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end fs-5">
-            <!-- User name -->
+<!----------------------Felhasználó neve------------------>
             <li class="nav-item">
               <span
                 class="dropdown-item-text text-capitalize text-small-caps text-nowrap"
@@ -105,53 +104,64 @@
                 <span>{{$root.user.middle_name}}</span>
               </span>
             </li>
-
-
-            <!-- Login -->
-            <li class="nav-item" ng-if="!$root.user.id">
-              <a class="dropdown-item" ui-sref="login" ui-sref-active="active">
+<!--------------------------Bejelentkezés------------------------->
+            <li class="nav-item" 
+                ng-if="!$root.user.id">
+              <a class="dropdown-item" 
+                 ui-sref="login" 
+                 ui-sref-active="active">
                 <i class="fa-solid fa-right-to-bracket me-1"></i>
-                <span class="text-capitalize text-small-caps">bejelentkezés</span>
+                <span class="text-capitalize text-small-caps">
+                  bejelentkezés
+                </span>
               </a>
             </li>
-
-            <!-- Register -->
-            <li class="nav-item" ng-if="!$root.user.id">
-              <a class="dropdown-item" ui-sref="register" ui-sref-active="active">
+<!--------------------------Regisztráció------------------------->
+            <li class="nav-item" 
+                ng-if="!$root.user.id">
+              <a class="dropdown-item" 
+                 ui-sref="register" 
+                 ui-sref-active="active">
                 <i class="fa-solid fa-id-card me-1"></i>
-                <span class="text-capitalize text-small-caps">regisztráció</span>
+                <span class="text-capitalize text-small-caps">
+                  regisztráció
+                </span>
               </a>
             </li>
-
-            <!-- Profile -->
-            <li class="nav-item" ng-if="$root.user.id">
+<!--------------------------Profil------------------------->
+            <li class="nav-item" 
+                ng-if="$root.user.id">
               <a
                 class="dropdown-item"
                 ui-sref="profile"
                 ui-sref-active="active">
                 <i class="fa-regular fa-address-card me-1"></i>
-                <span class="text-capitalize text-small-caps"> profil </span>
+                <span class="text-capitalize text-small-caps"> 
+                  profil 
+                </span>
               </a>
             </li>
-
-            <!-- Users -->
-            <li class="nav-item" ng-if="$root.user.type==='A'">
-              <a class="dropdown-item" ui-sref="users" ui-sref-active="active">
+<!---------------------Felhasználók------------------------->
+            <li class="nav-item" 
+                ng-if="$root.user.type==='A'">
+              <a class="dropdown-item" 
+                 ui-sref="users" 
+                 ui-sref-active="active">
                 <i class="fa-solid fa-users me-1"></i>
                 <span class="text-capitalize text-small-caps">
                   felhasználók
                 </span>
               </a>
             </li>
-
-            <!-- Devider -->
+<!---------------------Legördülő menü megosztása-------------------------------->
             <li ng-if="$root.user.id">
-              <hr class="dropdown-divider" />
+              <hr class="dropdown-divider">
             </li>
-
-            <!-- Logout -->
-            <li class="nav-item" ng-if="$root.user.id">
-              <a class="dropdown-item cursor-pointer" ng-click="$root.logout()">
+<!--------------------------Kijelentkezés------------------------------------->
+            <li class="nav-item" 
+                ng-if="$root.user.id">
+              <a class="dropdown-item cursor-pointer" 
+                 ng-click="$root.logout()">
                 <i class="fa-solid fa-right-from-bracket me-1"></i>
                 <span class="text-capitalize text-small-caps">
                   kijelentkezés

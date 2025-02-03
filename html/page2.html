@@ -4,9 +4,7 @@
       <div class="card bg-dark border-0 rounded-3 shadow-lg">
         <div class="card-body p-5">
           <div class="row align-items-center">
-
 <!-------------------Bal oldali szöveg-------------->
-
             <div class="col-lg-6">
               <h2 class="text-warning fw-bold display-5 text-center text-lg-start mb-4">Kik vagyunk...?</h2>
               <p class="text-white text-justify">
@@ -27,9 +25,7 @@
                  a minőség és a megbízhatóság találkozik! 🚗✨
               </p>
             </div>
-
 <!-----------------Csapat kép-------------------->
-
             <div class="col-lg-6 text-center">
               <img ng-src="{{ourTeam_img}}" 
                    class="img-fluid border-primary rounded-3" 
@@ -40,17 +36,13 @@
       </div>
     </div>
   </div>
-
 <!------------------Vélemény és Carousel---------->
-
   <div class="row gx-4 gx-lg-5 justify-content-center mt-5">
     <div class="col-lg-12">
       <div class="card bg-dark text-white rounded-3 shadow-lg">
         <div class="card-body p-5">
           <div class="row align-items-stretch">
-
 <!--------------Bal oldali űrlap----------------->
-
             <div class="col-lg-6 d-flex flex-column justify-content-between">
               <h2 class="text-warning fw-bold mb-4">
                 Ossza meg velünk véleményét!
@@ -58,9 +50,7 @@
               <form name="feedbackForm" 
                     ng-submit="submitFeedback()" 
                     novalidate class="h-100 d-flex flex-column justify-content-between">
-
 <!---------------Név----------------------------->
-
                 <div class="mb-3">
                   <label for="name" 
                          class="form-label">
@@ -72,16 +62,12 @@
                          ng-model="feedback.name" 
                          required>
                 </div>
-
 <!---------------Nem választó-------------------->
-
                 <div class="mb-3">
                   <label class="form-label">
                     Nem
                   </label>
-
                   <br>
-
                   <div class="form-check form-check-inline">
                     <label class="form-check-label">
                       <input class="form-check-input" 
@@ -101,9 +87,7 @@
                     </label>
                   </div>
                 </div>
-
 <!----------------Kor-------------------------->
-
                 <div class="mb-3">
                   <label for="age" 
                          class="form-label">
@@ -116,16 +100,12 @@
                          min="1" 
                          required>
                 </div>
-
 <!----------------Értékelés-------------------->
-
                 <div class="mb-3">
                   <label>
                     Értékelés
                   </label>
-
                   <br>
-
                   <span ng-repeat="star in [1,2,3,4,5]" 
                         ng-mouseover="setHover(star)" 
                         ng-mouseleave="clearHover()"
@@ -134,9 +114,7 @@
                         ng-class="{'hovered': star <= hoverRating, 'checked': star <= feedback.rating}">
                   </span>
                 </div>
-
 <!---------------Vélemény------------------------>
-
                 <div class="mb-3">
                   <label for="comment" 
                          class="form-label">
@@ -149,24 +127,19 @@
                             required>
                     </textarea>
                 </div>
-
                 <button type="submit" 
                         class="btn btn-warning w-100">
-
                         Vélemény elküldése
                   </button>
               </form>
             </div>
-
-<!-----------------elégedett kép--------------->
+<!-----------------Elégedett kép--------------->
             <div class="col-lg-6 d-flex flex-column justify-content-between text-center">
               <!-- Kép -->
               <img ng-src="{{satisfied_img}}" 
                    class="img-fluid rounded-3 shadow-lg mb-4" 
                    style="max-height: 250px; object-fit: cover;">
-
 <!-----------------Carousel--------.----------->
-
               <div id="feedbackCarousel" 
                    class="carousel slide" 
                    data-bs-ride="carousel">
@@ -177,9 +150,7 @@
                     <div class="card bg-dark text-white shadow-lg h-100" 
                          style="min-height: 300px;">
                       <div class="card-body d-flex flex-column justify-content-between">
-                        
 <!----------------Név és nem ikon-------------------->
-
                         <div class="d-flex align-items-center mb-3">
                           <img ng-src="{{fb.gender === 'M' ? './media/image/male-blank.webp' : './media/image/female-blank.webp'}}" 
                                width="50" 
@@ -192,7 +163,6 @@
                             </span>
                           </h5>
                         </div>
-
 <!----------------Görgethető vélemény------------------>
                         <div class="flex-grow-1 bg-secondary text-white p-3 rounded overflow-auto">
                           <p class="card-text m-0">{{fb.comment}}</p>
@@ -201,9 +171,7 @@
                     </div>
                   </div>
                 </div>
-
 <!----------------Navigáció----------------------------->
-
                 <button class="carousel-control-prev" 
                         type="button" 
                         data-bs-target="#feedbackCarousel" 
