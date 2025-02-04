@@ -380,29 +380,50 @@
         </div>
 
         <!-------------- Foglalási adatok ---------------------------->
-        <form name="bookingForm" ng-submit="methods.submitBooking()" novalidate>
+        <form name="bookingForm" 
+              ng-submit="methods.submitBooking()" 
+              novalidate>
           <div class="mb-3">
-            <label for="car_plate">Autó rendszáma</label>
-            <input type="text" id="car_plate" class="form-control" ng-model="booking.car_plate" required>
+            <label for="car_plate">
+              Autó rendszáma
+            </label>
+            <input type="text" 
+                   id="car_plate" 
+                   class="form-control" 
+                   ng-model="booking.car_plate" 
+                   required>
           </div>
 
           <div class="mb-3">
-            <label for="booking_date">Dátum</label>
-            <input type="date" id="booking_date" class="form-control" ng-model="booking.date" required>
+            <label for="booking_date">
+              Dátum
+            </label>
+            <input type="date" 
+                   id="booking_date" 
+                   class="form-control" 
+                   ng-model="booking.date" 
+                   required>
           </div>
 
           <div class="mb-3">
             <label>Időpont</label>
             <div>
-              <button type="button" class="btn btn-secondary m-1" ng-repeat="time in timeSlots" 
-                      ng-disabled="isBooked(time)" ng-click="selectTime(time)">
+              <button type="button" 
+                      class="btn btn-secondary m-1" 
+                      ng-repeat="time in timeSlots" 
+                      ng-disabled="isBooked(time)" 
+                      ng-click="selectTime(time)">
                 {{time}}
               </button>
             </div>
           </div>
 
-          <form ng-submit="submitBooking()" novalidate>
-            <button type="submit" class="btn btn-primary">Foglalás mentése</button>
+          <form ng-submit="submitBooking()" 
+                novalidate>
+            <button type="submit" 
+                    class="btn btn-primary">
+                    Foglalás mentése
+              </button>
         </form>
         </form>
       </div>
@@ -433,7 +454,7 @@
                 <td>{{ booking.car_plate }}</td>
               </tr>
             </tbody>
-          </table>
+          </table>        
         </div>
       </div>
     </div>
