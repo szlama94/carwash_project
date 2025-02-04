@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("./environment.php");
+require_once("../../common/php/environment.php");
 
 // Kérések kezelése
 $args = Util::getArgs();
