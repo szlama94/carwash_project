@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once("./environment.php");  
+require_once("./environment.php");
 
-// Adatok lekérése
+// Kérések kezelése
 $args = Util::getArgs();
-$action = $args['action'] ?? '';
+$action = $args['action'] ?? null;
 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
@@ -16,14 +16,21 @@ switch ($action) {
         if ($package) {
             $_SESSION['cart'][] = $package;
             Util::setResponse([
-                'message' => 'Csomag hozzáadva a kosárhoz!',
-                'cart' => $_SESSION['cart']
+                'success' => true,
+                'data' => [
+                    'cart' => $_SESSION['cart'],
+                    'message' => 'Csomag hozzáadva a kosárhoz!'
+                ],
+                'error' => null
             ]);
         } else {
-            Util::setError('Csomag adatok hiányoznak!');
+            Util::setResponse([
+                'success' => false,
+                'data' => null,
+                'error' => 'Csomag adatok hiányoznak!'
+            ]);
         }
         break;
-    
 
     case 'remove':
         $packageId = $args['package_id'] ?? null;
@@ -31,14 +38,21 @@ switch ($action) {
             $_SESSION['cart'] = array_filter($_SESSION['cart'], function ($pkg) use ($packageId) {
                 return $pkg['id'] !== $packageId;
             });
-            Util::setResponse(['message' => 'Csomag eltávolítva!', 'cart' => $_SESSION['cart']]);
+            Util::setResponse([
+                'success' => true,
+                'message' => 'Csomag eltávolítva a kosárból!',
+                'cart' => $_SESSION['cart']
+            ]);
         } else {
             Util::setError('Nincs megadva csomag azonosító!');
         }
         break;
 
     case 'get':
-        Util::setResponse(['data' => $_SESSION['cart']]);
+        Util::setResponse([
+            'success' => true,
+            'cart' => $_SESSION['cart']
+        ]);
         break;
 
     default:

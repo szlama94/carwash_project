@@ -8,7 +8,6 @@
     'app.common',
     'app.form',
   ])
-
   // Application config
   .config([
     '$stateProvider',
@@ -73,8 +72,8 @@
       $urlRouterProvider.otherwise('/');
     }
   ])
-    //----------Application run----------------->
-    .run([
+  //----------Application run----------------->
+  .run([
       '$rootScope',
       '$timeout',
       'user',
@@ -93,9 +92,31 @@
           }, 100);
         }
       }
-    ])
-    //---------Http request factory------------->
-    .factory('http', [
+  ])
+  //----------Cart application---------------->
+  app.service('CartService', 
+    function() {
+    let cart = [];  // Lokális kosár
+
+    // Kosárhoz hozzáadás
+    this.addToCart = function(service) {
+        if (!cart.some(item => item.id === service.id)) {
+            cart.push(service);
+        }
+    };
+
+    // Kosárból eltávolítás
+    this.removeFromCart = function(serviceId) {
+        cart = cart.filter(item => item.id !== serviceId);
+    };
+
+    // Kosár lekérése
+    this.getCart = function() {
+        return cart;
+    };
+  })
+  //---------Http request factory------------->
+  .factory('http', [
       '$http',
       'util',
       ($http, util) => {
@@ -248,9 +269,9 @@
           }
         };
       }
-    ])
-    //---------factory-------------------------->
-    .factory('user', [
+  ])
+  //---------factory-------------------------->
+  .factory('user', [
       '$rootScope',
       '$state',
       '$timeout',
@@ -364,9 +385,9 @@
         // Return service
         return service;
       }
-    ])
-    //----------Login-controller---------------->
-    .controller('loginController', [
+  ])
+  //----------Login-controller---------------->
+  .controller('loginController', [
       '$rootScope',
       '$scope',
       '$state',
@@ -425,9 +446,9 @@
         // Initialize
         methods.init();
       }
-    ])
-    //----------Register-controller------------->
-    .controller('registerController', [
+  ])
+  //----------Register-controller------------->
+  .controller('registerController', [
       '$scope',
       '$http',
       '$state',
@@ -481,9 +502,9 @@
               }
           };
       }
-    ])
-    //----------Profile-controller-------------->
-    .controller('profileController', [
+  ])
+  //----------Profile-controller-------------->
+  .controller('profileController', [
       '$rootScope', 
       '$state', 
       '$scope', 
@@ -653,9 +674,9 @@
           // Az oldal betöltésekor a kosár tartalmát betöltjük
           $scope.loadCart();
       }
-    ])    
-    //----------Footer-controller--------------->
-    .controller('footerController', [
+  ])    
+  //----------Footer-controller--------------->
+  .controller('footerController', [
       '$scope', 
       '$sce',
 
@@ -686,9 +707,9 @@
 
       $scope.mapUrl = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2760.836396232944!2d20.473138775978818!3d46.21370948311983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu');
 
-    }])
-    //---------Home-controller------------------>
-    .controller('homeController', [
+  }])
+  //---------Home-controller------------------>
+  .controller('homeController', [
       '$scope', 
       '$state', 
       '$rootScope',
@@ -736,9 +757,9 @@
     
       // A VIP kép a home-page -en
       $scope.homepg_vip_pic = './media/image/vip_pic.png';
-    }])
-    //--------Services controller--------------->
-    .controller('servicesController', [
+  }])
+  //--------Services controller--------------->
+  .controller('servicesController', [
       '$rootScope',
       '$scope',
       '$http',
@@ -752,6 +773,7 @@
           $scope.priceFilter = '';
           $scope.groupedServices = [];
   
+          // Ár kategóriák definiálása
           $scope.priceCategories = [
               { label: 'Összes árkategória', value: '' },
               { label: '0 Ft - 20 000 Ft', value: [0, 20000] },
@@ -774,10 +796,10 @@
               }
           });
   
-          // Kosár tartalmának betöltése szerveroldalról
+          // Kosár tartalmának betöltése
           $scope.loadCart = function () {
               $http.post('./php/cart_handler.php', { action: 'get' }).then(response => {
-                  if (response.data.data) {
+                  if (response.data && response.data.data) {
                       $scope.selectedServices = response.data.data;
                   }
               });
@@ -797,22 +819,27 @@
                 console.log("Response from server:", response.data);
                 if (response.data.success) {
                     $scope.loadCart();  // Frissítjük a kosár tartalmát
+                    alert(response.data.data.message);  // Sikeres üzenet
                 } else {
                     alert(response.data.error || "Nem sikerült a csomag hozzáadása.");
                 }
             }).catch(error => {
                 console.error("Hiba történt az API hívás során:", error);
+                alert("Nem sikerült a csomag hozzáadása a kiszolgálóval való kapcsolat miatt.");
             });
           };
-        
-        
         
   
           // Csomag eltávolítása a kosárból
           $scope.removeFromCart = function (service) {
-              $http.post('./php/cart_handler.php', {
-                  action: 'remove',
-                  package_id: service.id
+              $http({
+                  method: 'POST',
+                  url: './php/cart_handler.php',
+                  data: {
+                      action: 'remove',
+                      package_id: service.id
+                  },
+                  headers: { 'Content-Type': 'application/json' }
               }).then(response => {
                   if (response.data.success) {
                       $scope.loadCart();  // Frissítjük a kosár tartalmát
@@ -824,10 +851,9 @@
   
           // Ellenőrizzük, hogy egy szolgáltatás ki van-e választva
           $scope.isSelected = function (service) {
-            return Array.isArray($scope.selectedServices) && 
-                   $scope.selectedServices.some(selected => selected.id === service.id);
+              return Array.isArray($scope.selectedServices) && 
+                     $scope.selectedServices.some(selected => selected.id === service.id);
           };
-        
   
           // Gomb állapotának kezelése: ha nincs bejelentkezve, irány a login
           $scope.toggleSelection = function (service) {
@@ -854,6 +880,7 @@
               }
           };
   
+          // Szűrés név és ár alapján
           $scope.filterServices = function (service) {
               if ($scope.searchText && !service.services_name.toLowerCase().includes($scope.searchText.toLowerCase())) {
                   return false;
@@ -867,12 +894,12 @@
               return true;
           };
   
-          // Betöltjük a kosár tartalmát az oldal betöltésekor
+          // Kosár tartalmának betöltése az oldal betöltésekor
           $scope.loadCart();
       }
-    ])  
-    //--------About_us-controller--------------->
-    .controller('aboutUsController', [
+  ])  
+  //--------About_us-controller--------------->
+  .controller('aboutUsController', [
       '$scope', 
       '$http', 
 
