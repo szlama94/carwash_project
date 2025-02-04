@@ -6,13 +6,14 @@ require_once("../../common/php/environment.php");
 $args = Util::getArgs();
 $action = $args['action'] ?? null;
 
+// Inicializáljuk a kosarat, ha még nincs beállítva
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
 switch ($action) {
     case 'add':
-        $package = $data['package'] ?? null;
+        $package = $args['package'] ?? null;
         if ($package) {
             $_SESSION['cart'][] = $package;
             Util::setResponse([
@@ -20,13 +21,11 @@ switch ($action) {
                 'data' => [
                     'cart' => $_SESSION['cart'],
                     'message' => 'Csomag hozzáadva a kosárhoz!'
-                ],
-                'error' => null
+                ]
             ]);
         } else {
             Util::setResponse([
                 'success' => false,
-                'data' => null,
                 'error' => 'Csomag adatok hiányoznak!'
             ]);
         }
@@ -35,27 +34,38 @@ switch ($action) {
     case 'remove':
         $packageId = $args['package_id'] ?? null;
         if ($packageId !== null) {
-            $_SESSION['cart'] = array_filter($_SESSION['cart'], function ($pkg) use ($packageId) {
+            // Szűrjük ki az eltávolítandó csomagot
+            $_SESSION['cart'] = array_values(array_filter($_SESSION['cart'], function ($pkg) use ($packageId) {
                 return $pkg['id'] !== $packageId;
-            });
+            }));
             Util::setResponse([
                 'success' => true,
-                'message' => 'Csomag eltávolítva a kosárból!',
-                'cart' => $_SESSION['cart']
+                'data' => [
+                    'cart' => $_SESSION['cart'],
+                    'message' => 'Csomag eltávolítva a kosárból!'
+                ]
             ]);
         } else {
-            Util::setError('Nincs megadva csomag azonosító!');
+            Util::setResponse([
+                'success' => false,
+                'error' => 'Nincs megadva csomag azonosító!'
+            ]);
         }
         break;
 
     case 'get':
         Util::setResponse([
             'success' => true,
-            'cart' => $_SESSION['cart']
+            'data' => [
+                'cart' => $_SESSION['cart']
+            ]
         ]);
         break;
 
     default:
-        Util::setError('Ismeretlen művelet!');
+        Util::setResponse([
+            'success' => false,
+            'error' => 'Ismeretlen művelet!'
+        ]);
         break;
 }

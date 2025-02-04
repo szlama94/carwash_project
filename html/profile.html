@@ -381,36 +381,28 @@
         </div>
       </div>
       <!----------Időpontfoglalás-------------------->
-      <div ng-if="selectedSection === 'schedule'">
-        <h3>Időpontfoglalás</h3>
-
-        <!-- Kiválasztott csomagok -->
-        <div class="mb-4">
-          <h3>Kiválasztott csomagok</h3>
-          <table class="table table-dark table-striped">
-            <thead>
-              <tr>
-                <th>Csomag neve</th>
-                <th>Ár (Ft)</th>
-                <th>Művelet</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="service in selectedServices">
-                <td>{{ service.services_name }}</td>
-                <td>{{ service.price | currency:'':0 }} Ft</td>
-                <td>
-                  <button
-                    class="btn btn-danger"
-                    ng-click="removeFromCart(service)"
-                  >
-                    Eltávolítás
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          <div ng-if="selectedSection === 'schedule'">
+            <h3>Kiválasztott csomagok</h3>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>Csomag neve</th>
+                        <th>Ár (Ft)</th>
+                        <th>Művelet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="service in selectedServices">
+                        <td>{{service.services_name}}</td>
+                        <td>{{service.price}} Ft</td>
+                        <td>
+                            <button class="btn btn-danger" ng-click="removeFromCart(service.id)">Eltávolítás</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+    
 
         <!-- Foglalási adatok -->
         <form name="bookingForm" ng-submit="submitBooking()" novalidate>

@@ -84,10 +84,10 @@
               <p class="fw-bold text-warning text-center">{{service.price | currency:'':0}} Ft</p>
 <!------------Gomb állapotának dinamikus kezelése---------------------->
               <button 
-                  class="btn w-100" 
-                  ng-class="isSelected(service) ? 'btn-primary' : 'btn-warning'" 
-                  ng-click="toggleSelection(service)">
-                  {{ isSelected(service) ? 'Kiválasztva' : 'Időpontot foglalok!' }}
+                class="btn w-100" 
+                ng-class="isSelected(service) ? 'btn-primary' : 'btn-warning'" 
+                ng-click="toggleSelection(service)">
+                {{ isSelected(service) ? 'Kiválasztva' : 'Időpontot foglalok!' }}
               </button>
             </div>
           </div>
