@@ -94,27 +94,27 @@
       }
   ])
   //----------Cart application---------------->
-  app.service('CartService', 
-    function() {
-    let cart = [];  // Lokális kosár
+  // app.service('CartService', 
+  //   function() {
+  //   let cart = [];  // Lokális kosár
 
-    // Kosárhoz hozzáadás
-    this.addToCart = function(service) {
-        if (!cart.some(item => item.id === service.id)) {
-            cart.push(service);
-        }
-    };
+  //   // Kosárhoz hozzáadás
+  //   this.addToCart = function(service) {
+  //       if (!cart.some(item => item.id === service.id)) {
+  //           cart.push(service);
+  //       }
+  //   };
 
-    // Kosárból eltávolítás
-    this.removeFromCart = function(serviceId) {
-        cart = cart.filter(item => item.id !== serviceId);
-    };
+  //   // Kosárból eltávolítás
+  //   this.removeFromCart = function(serviceId) {
+  //       cart = cart.filter(item => item.id !== serviceId);
+  //   };
 
-    // Kosár lekérése
-    this.getCart = function() {
-        return cart;
-    };
-  })
+  //   // Kosár lekérése
+  //   this.getCart = function() {
+  //       return cart;
+  //   };
+  // })
   //---------Http request factory------------->
   .factory('http', [
       '$http',
