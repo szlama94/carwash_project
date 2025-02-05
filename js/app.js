@@ -364,6 +364,106 @@
         return service;
       }
   ])
+  //----------Language controller------------->
+  .controller('languageController', [
+    '$scope',
+    function($scope) {
+
+      // Set local methods
+      let methods = {
+
+        // Initialize
+        init: () => {
+
+          // Get available languages
+          fetch('./lang/available.json')
+          .then(response => response.json())
+          .then(response => {
+
+            // Set language
+            $scope.lang = {
+              available: response
+            };
+
+            // Get last language identifier
+            let langID = localStorage.getItem('languageID');
+
+            // When exist, then change html lang attribute value
+            if (langID) document.documentElement.lang = langID;
+
+            // Set selected language identifier
+            $scope.lang.id = document.documentElement.lang;
+
+            // Get actual language index
+            $scope.lang.index = methods.indexByKeyValue(
+                                  $scope.lang.available, 'id', $scope.lang.id);
+
+            // Get language
+            methods.getLanguage().then(() => {
+
+              // Change html title
+              document.title = methods.capitalize($scope.lang.data.language);
+            });
+          })
+          .catch(error => console.log(error));
+        },
+
+        // Get language
+        getLanguage: () => {
+          return new Promise((resolve, reject) => {
+            fetch(`./lang/${$scope.lang.id}.json`)
+            .then(response => response.json())
+            .then(response => {
+              $scope.lang.data = response;
+              $scope.$applyAsync();
+              resolve();
+            })
+            .catch(error => {
+              console.log(error);
+              reject();
+            });
+          });
+        },
+
+        // Index array of object key value
+        indexByKeyValue: (a, k, v) => a.findIndex(o => o[k] === v),
+
+        // Capitalize
+        capitalize: (s) => s[0].toUpperCase() + s.slice(1)
+      }
+
+      // Set scope methods
+      $scope.methods = {
+
+        // Language changed
+        languageChanged: (langID) => {
+
+          // Set selected language identifier
+          $scope.lang.id = langID;
+
+          // Save selected language identifier to local storige
+          localStorage.setItem('languageID', langID);
+
+          // Change html lang attribute value
+          document.documentElement.lang = langID;
+
+          // Get selected language index
+          $scope.lang.index = methods.indexByKeyValue(
+            $scope.lang.available, 'id', $scope.lang.id);
+
+          // Get language
+          methods.getLanguage().then(() => {
+
+            // Change html title
+            document.title = methods.capitalize($scope.lang.data.language);
+          });
+        }
+      };
+
+      // Initialize
+      methods.init();
+    }
+  ])
   //----------Login-controller---------------->
   .controller('loginController', [
       '$rootScope',

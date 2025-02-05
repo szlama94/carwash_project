@@ -3,7 +3,7 @@
     "type":"west",
     "name":"german",
     "local":"deutsch",
-    "img":"german.png",
+    "img":"deu.png",
     "valid":true
 },
 
@@ -12,7 +12,7 @@
     "type":"west",
     "name":"english",
     "local":"english",
-    "img":"eng.png",
+    "img":"usa.png",
     "valid":true
 },
 {

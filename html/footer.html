@@ -1,21 +1,53 @@
+<div id="serviceCarousel" class="carousel slide" data-bs-ride="carousel" ng-if="groupedServices.length > 0">
+  <div class="carousel-inner">
+    <div class="carousel-item" ng-class="{ active: $index === 0 }" ng-repeat="group in groupedServices track by $index">
+      <div class="row">
+        <div class="col-md-4" ng-repeat="service in group">
+          <div class="card bg-dark text-white mb-3">
+            <div class="ratio ratio-4x3 rounded">
+              <img ng-src="{{service.image}}" class="img-fluid object-fit-cover" alt="{{service.services_name}}">
+            </div>
+            <div class="card-body rounded">
+              <h5 class="card-title">{{service.services_name}}</h5>
+              <p class="card-text">{{service.description}}</p>
+              <p class="fw-bold text-warning text-center">{{service.price | currency:'' :0}} Ft</p>
+              <button class="btn btn-warning w-100">Időpontot foglalok!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!---------------------Carousel gombok------------------->
+  <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Előző</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Következő</span>
+  </button>
+</div>
+
 <!------------------Footer----------------------------->
 <footer class="footer-custom navbar navbar-expand-sm text-white mt-5 border-primary rounded-3">
   <div class="container w-auto py-4">
-    <div class="row justify-items-center">
-<!----------------Rólunk szekció ---------------------->
-      <div class="col-lg-3 col-md-6 mb-4">
+    <div class="row justify-content-between">
+      <!----------------Rólunk szekció ---------------------->
+      <div class="col-lg-2 col-md-4 mb-4">
         <h5 class="fw-bold">{{about.title}}</h5>
-        <div class="d-flex justify-content-start align-items-center flex-wrap">
+        <div class="d-flex justify-content-start align-items-center flex-wrap gap-2">
           <a ng-repeat="icon in about.icons" 
              ng-href="{{icon.url}}" 
-             class="text-decoration-none text-white me-3" 
+             class="text-decoration-none text-white" 
              target="_blank">
             <i class="{{icon.class}} fa-2x"></i>
           </a>
         </div>
       </div>
-<!-----------Linkek szekció----------------------------->
-      <div class="col-lg-3 col-md-6 mb-4">
+      <!-----------Linkek szekció----------------------------->
+      <div class="col-lg-2 col-md-4 mb-4">
         <h5 class="fw-bold">Linkek</h5>
         <p ng-repeat="link in links" class="mb-1">
           <i class="{{link.icon}} me-1"></i>
@@ -24,8 +56,8 @@
           </a>
         </p>
       </div>
-<!---------------Kapcsolat szekció----------------------->
-      <div class="col-lg-3 col-md-6 mb-4">
+      <!---------------Kapcsolat szekció----------------------->
+      <div class="col-lg-2 col-md-4 mb-4">
         <h5 class="fw-bold">{{contact.title}}</h5>
         <div class="d-flex align-items-center mb-2">
           <i class="fa-solid fa-location-dot me-2"></i>
@@ -40,14 +72,28 @@
           <p class="mb-0">{{contact.email}}</p>
         </div>
       </div>
-<!-----------Google Maps szekció------------------------>
-      <div class="col-lg-3 col-md-6 mb-4">
+      <!-----------Nyitvatartás szekció----------------------->
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h5 class="fw-bold">Nyitvatartás</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <i class="fa-solid fa-clock me-2"></i>
+            Hétfő - Péntek: 8:00 - 19:00
+          </li>
+          <li>
+            <i class="fa-solid fa-clock me-2"></i>
+            Szombat: 8:00 - 12:00
+          </li>
+        </ul>
+      </div>
+      <!-----------Google Maps szekció------------------------>
+      <div class="col-lg-2 col-md-4 mb-4">
         <h5 class="fw-bold">Térkép</h5>
         <div>
           <iframe
           ng-src="{{mapUrl}}"
-          width="300"
-          height="200"
+          width="200"
+          height="150"
           style="border: 0;"
           allowfullscreen=""
           loading="lazy"

@@ -132,5 +132,6 @@
   "data_modification_successful": "az adatmódosítás sikeres volt",
   "data_modification_failed": "az adatmódosítás nem sikerült",
   "table_not_exist": "",
-  "invoice": "számla"
+  "invoice": "számla",
+  "about_us": "rólunk"
 }
