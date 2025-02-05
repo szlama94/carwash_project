@@ -10,44 +10,43 @@
               <video autoplay muted loop playsinline class="img-fluid rounded-3 shadow">
                 <source ng-src="{{videoUrl}}" 
                         type="video/mp4">
-                A böngésződ nem támogatja ezt a videólejátszót.
+                    {{lang.data.services_video_alert}}
               </video>
             </div>
 <!--------------Szolgáltatás csomag szűrők------------------->
             <div class="col-lg-6">
               <h1 class="fw-bold display-4 text-warning text-center">
-                Szolgáltatásaink
+                {{lang.data.our_services}}
               </h1>
               <p class="text-justify">
-                Fedezd fel prémium szolgáltatásainkat! Autómosónk a legmagasabb
-                színvonalat képviseli, legyen szó külső-belső takarításról,
-                polírozásról, felni tisztításról, viaszolásról vagy kerámia
-                bevonatról. Környezetbarát tisztítószereinkkel óvjuk a természetet,
-                miközben autód ragyogó tisztaságot kap.
+                {{lang.data.services_p1}}
               </p>
 <!-----------------------Keresőmező-------------------------->
               <div class="mb-3">
                 <label for="searchInput" 
                        class="form-label fw-bold text-warning">
-                       Keresés
+                       {{lang.data.search}}
                   </label>
                 <input type="text" 
                        id="searchInput" 
                        class="form-control" 
-                       placeholder="Keresés..." 
+                       placeholder="{{lang.data.search}}" 
                        ng-model="searchText">
               </div>
 <!----------------Ár kategória legördülő menü---------------->
               <div class="mb-4">
                 <label for="priceSelect" 
                        class="form-label fw-bold text-warning">
-                       Árkategória
-                  </label>
+                       {{lang.data.price_category}}
+                </label>
                 <select id="priceSelect" 
-                        class="form-select" 
-                        ng-model="priceFilter" 
-                        ng-options="category.value as category.label for category in priceCategories">
-                </select>
+                        class="form-control" 
+                        ng-model="selectedPriceCategory">
+                  <option ng-repeat="category in priceCategories" 
+                          ng-value="category.value">
+                    {{category.label}}
+                  </option>
+                </select>                  
               </div>
             </div>
           </div>
@@ -55,43 +54,62 @@
       </div>
     </div>
   </div>
-
 <!---Figyelmeztető szöveg ha nincs a listában---------------->
 <div ng-if="groupedServices.length === 0" 
      class="alert alert-warning text-center mt-3">
-  Nincs megjeleníthető szolgáltatás a szűrők alapján.
+  {{lang.data.search_alert}}
 </div>
-
 <!------------Carousel: Szűrt szolgáltatások----------------->
-  <div id="serviceCarousel" class="carousel slide" data-bs-ride="carousel" ng-if="groupedServices.length > 0">
+  <div id="serviceCarousel" 
+       class="carousel slide" 
+       data-bs-ride="carousel" 
+       ng-if="groupedServices.length > 0">
     <div class="carousel-inner">
-      <div class="carousel-item" ng-class="{ active: $index === 0 }" ng-repeat="group in groupedServices track by $index">
+      <div class="carousel-item" 
+           ng-class="{ active: $index === 0 }" 
+           ng-repeat="group in groupedServices track by $index">
         <div class="row">
-          <div class="col-md-4" ng-repeat="service in group">
+          <div class="col-md-4" 
+               ng-repeat="service in group">
             <div class="card bg-dark text-white mb-3">
               <div class="ratio ratio-4x3 rounded">
-                <img ng-src="{{service.image}}" class="img-fluid object-fit-cover" alt="{{service.services_name}}">
+                <img ng-src="{{service.image}}" 
+                     class="img-fluid object-fit-cover" 
+                     alt="{{service.services_name}}">
               </div>
               <div class="card-body rounded">
                 <h5 class="card-title">{{service.services_name}}</h5>
                 <p class="card-text">{{service.description}}</p>
                 <p class="fw-bold text-warning text-center">{{service.price | currency:'' :0}} Ft</p>
-                <button class="btn btn-warning w-100">Időpontot foglalok!</button>
+                <button class="btn btn-warning w-100">{{lang.data.appointment_button}}</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <!---------------------Carousel gombok------------------->
-    <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Előző</span>
+    <button class="carousel-control-prev" 
+            type="button" 
+            data-bs-target="#serviceCarousel" 
+            data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" 
+            aria-hidden="true">
+          </span>
+      <span class="visually-hidden">
+        Előző
+      </span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Következő</span>
+    <button class="carousel-control-next" 
+            type="button" 
+            data-bs-target="#serviceCarousel" 
+            data-bs-slide="next">
+      <span class="carousel-control-next-icon" 
+            aria-hidden="true">
+          </span>
+      <span class="visually-hidden">
+        Következő
+      </span>
     </button>
   </div>
 </div>

@@ -12,7 +12,7 @@
                      class="img-fluid rounded-3 shadow ">
                 <source ng-src="{{videoUrl}}" 
                         type="video/mp4">
-                A böngésződ nem támogatja a videólejátszót.
+                {{lang.data.services_video_alert}}
               </video>
             </div>
 <!------------------- Bemutatkozó szöveg ------------------>
@@ -21,16 +21,11 @@
                 Super Car Wash
               </h1>
               <p class="text-justify">
-                Üdvözlünk a Super Car Wash világában, ahol az autója mindig kiemelt
-                figyelmet és professzionális törődést kap! Nálunk nemcsak egy egyszerű
-                autómosás vár, hanem prémium szolgáltatások, amelyek garantálják, hogy
-                járműve ragyogjon, akár egy új autó. Foglaljon időpontot gyorsan és
-                könnyedén, válasszon a különböző mosási csomagjaink közül, és tapasztalja
-                meg, mit jelent az igazi autós luxus!
+                {{lang.data.home_p1}}
               </p>
               <a class="btn btn-warning fw-bold" 
                  ng-click="redirectToAppointment()">
-                Foglaljon időpontot most!
+                {{lang.data.home_appointment_btn}}
               </a>
             </div>
           </div>
@@ -41,7 +36,7 @@
 <!--------- Szolgáltatás cardok -------------------->
   <div class="row gx-4 gx-lg-5 mb-5">
     <div class="col-md-4" 
-         ng-repeat="card in cards">
+         ng-repeat="card in home_cards">
       <div class="card h-100 text-center border shadow-lg order">
         <div class="card-body">
           <i class="{{card.icon}} fa-3x mb-3"></i>
@@ -59,23 +54,17 @@
           <div class="row align-items-center">
             <div class="col-lg-6">
               <h2 class="text-warning fw-bold display-6 text-center text-lg-start mt-3">
-                Díjazzuk a hűségét!
+                {{lang.data.loyalty_title}}
               </h2>
               <p class="text-justify text-lg-start">
-                Legyen Ön is a Super Car Wash VIP klub tagja! 
-                Hűséges ügyfeleinket különleges kedvezményekkel és
-                exkluzív ajánlatokkal jutalmazzuk, hogy még élvezetesebbé 
-                tegyük a prémium autóápolást. Ha rendszeresen nálunk mosatja
-                autóját, VIP ügyfelünkként egyedi szolgáltatásokhoz és ajándékokhoz is 
-                hozzáférhet. Értékeljük a bizalmát, és szeretnénk visszaadni belőle!
+                {{lang.data.vip_text}}
               </p>
             </div>
 <!----------------- VIP Kép szekció ------------------------>
             <div class="col-lg-6 text-center">
               <img
                 ng-src="{{homepg_vip_pic}}"
-                class="img-fluid border-primary rounded-3 mt-3"
-                alt="Mosás">
+                class="img-fluid border-primary rounded-3 mt-3">
             </div>
           </div>
         </div>

@@ -50,7 +50,7 @@
         <!-------------------Foglalásaim--------------------------->
         <li class="nav-item mx-1 bg-warning rounded-3" ng-if="$root.user && $root.user.id">
           <a class="nav-link" ui-sref="profile({ section: 'myBookings' })">
-            <i class="bi bi-calendar-check "></i> Időpontjaim
+            <i class="bi bi-calendar-check "></i> {{lang.data.my_appointments}}
           </a>
         </li>
 
@@ -58,7 +58,7 @@
         <li class="nav-item dropdown" data-bs-auto-close="true">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-user me-1"></i>
-            <span class="text-capitalize text-small-caps">felhasználó</span>
+            <span class="text-capitalize text-small-caps">{{lang.data.user}}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end fs-5">
             <!----------------------Felhasználó neve------------------>
@@ -74,7 +74,7 @@
             <li class="nav-item" ng-if="!$root.user.id">
               <a class="dropdown-item" ui-sref="login" ui-sref-active="active">
                 <i class="fa-solid fa-right-to-bracket me-1"></i>
-                <span class="text-capitalize text-small-caps">bejelentkezés</span>
+                <span class="text-capitalize text-small-caps">{{lang.data.login}}</span>
               </a>
             </li>
 
@@ -82,7 +82,7 @@
             <li class="nav-item" ng-if="!$root.user.id">
               <a class="dropdown-item" ui-sref="register" ui-sref-active="active">
                 <i class="fa-solid fa-id-card me-1"></i>
-                <span class="text-capitalize text-small-caps">regisztráció</span>
+                <span class="text-capitalize text-small-caps">{{lang.data.register}}</span>
               </a>
             </li>
 
@@ -90,7 +90,7 @@
             <li class="nav-item" ng-if="$root.user.id">
               <a class="dropdown-item" ui-sref="profile" ui-sref-active="active">
                 <i class="fa-regular fa-address-card me-1"></i>
-                <span class="text-capitalize text-small-caps">profil</span>
+                <span class="text-capitalize text-small-caps">{{lang.data.profile}}</span>
               </a>
             </li>
 
@@ -98,7 +98,7 @@
             <li class="nav-item" ng-if="$root.user.type==='A'">
               <a class="dropdown-item" ui-sref="users" ui-sref-active="active">
                 <i class="fa-solid fa-users me-1"></i>
-                <span class="text-capitalize text-small-caps">felhasználók</span>
+                <span class="text-capitalize text-small-caps">{{lang.data.users}}</span>
               </a>
             </li>
 
@@ -111,7 +111,7 @@
             <li class="nav-item" ng-if="$root.user.id">
               <a class="dropdown-item cursor-pointer" ng-click="$root.logout()">
                 <i class="fa-solid fa-right-from-bracket me-1"></i>
-                <span class="text-capitalize text-small-caps">kijelentkezés</span>
+                <span class="text-capitalize text-small-caps">{{lang.data.logout}}</span>
               </a>
             </li>
           </ul>
@@ -134,7 +134,7 @@
               </span>
             </a>
 
-            <!-- Languages -->
+            <!----------Nyelvek--------------->
             <ul class="dropdown-menu dropdown-menu-end">
               <li ng-repeat="x in lang.available"
                   ng-if="x.id !== lang.available[lang.index].id"

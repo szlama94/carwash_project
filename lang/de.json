@@ -133,5 +133,110 @@
   "table_not_exist": "die tabelle existiert nicht",
   "invoice": "rechnung",
   "about_us": "über uns",
-  "page_title": "Super Car Wash"
+  "page_title": "Super Car Wash",
+  "who_are_we": "wer sind wir...?",
+  "about_us_1p": "entdecken Sie die Geschichte von Super Car Wash! Super Car Wash begann vor über 10 Jahren als kleines Familienunternehmen.",
+  "about_us_2p": "unsere Leidenschaft für Autos und unser Engagement für gründliche Reinigung haben uns geholfen, uns ständig weiterzuentwickeln und unser Angebot zu erweitern.",
+  "about_us_3p": "im Laufe der Jahre sind wir dank des Vertrauens und der Zufriedenheit unserer Kunden zu einem bekannten und zuverlässigen Unternehmen geworden.",
+  "about_us_4p": "wählen Sie Super Car Wash, wo Familienwerte, Qualität und Zuverlässigkeit aufeinandertreffen! 🚗✨",
+  "opinion_title": "teilen Sie uns Ihre Meinung mit!",
+  "rating": "bewertung",
+  "opinion": "meinung",
+  "opinion_send": "bewertung senden",
+  "my_appointments": "meine termine",
+  "services_video_alert": "dein browser unterstützt diesen videoplayer nicht.",
+  "our_services": "unsere dienstleistungen",
+  "services_p1":"entdecke unsere premium-dienstleistungen! unsere autowaschanlage steht für höchste qualität, sei es außen- und innenreinigung, polieren, felgenreinigung, wachsen oder keramikbeschichtung. mit unseren umweltfreundlichen reinigungsmitteln schützen wir die natur und verleihen deinem auto strahlende sauberkeit.",
+  "search":"suche",
+  "price_category": "preiskategorie",
+  "search_alert": "keine dienstleistungen basierend auf den filtern anzuzeigen.",
+  "appointment_button": "ich buche einen termin!",
+  "home_p1": "Willkommen in der welt von super car wash, wo ihr auto immer besondere aufmerksamkeit und professionelle pflege erhält! bei uns erwartet sie mehr als nur eine einfache autowäsche – premium-dienstleistungen sorgen dafür, dass ihr fahrzeug wie ein neues auto glänzt. buchen sie schnell und einfach einen termin, wählen sie aus unseren verschiedenen waschpaketen und erleben sie, was echter automobil-luxus bedeutet!",
+  "home_appointment_btn": "buchen sie jetzt einen termin!",
+  "loyalty_title": "wir belohnen ihre treue!",
+  "vip_text":"werden sie mitglied im super car wash vip-club! wir belohnen unsere treuen kunden mit besonderen rabatten und exklusiven angeboten, um die premium-autopflege noch angenehmer zu gestalten. wenn sie ihr auto regelmäßig bei uns waschen lassen, haben sie als vip-kunde zugang zu einzigartigen diensten und geschenken. wir schätzen ihr vertrauen und möchten etwas davon zurückgeben!",
+  "home_cards": [
+    {
+      "title": "Professionell",
+      "text": "Unser geschultes Personal mit jahrelanger Erfahrung in der Autopflege kümmert sich um Ihr Fahrzeug.",
+      "icon": "fa-solid fa-user-tie text-primary"
+    },
+    {
+      "title": "Umweltfreundlich",
+      "text": "Alle unsere Reinigungsprodukte sind umweltfreundlich und gewährleisten eine minimale Belastung, während Ihr Auto makellos sauber wird.",
+      "icon": "fa-solid fa-leaf text-success"
+    },
+    {
+      "title": "Erschwinglich",
+      "text": "Testen Sie uns und fordern Sie ein Angebot an! Alle unsere Dienstleistungen stehen Ihnen zu wettbewerbsfähigen Preisen zur Verfügung.",
+      "icon": "fa-solid fa-wallet text-warning"
+    }
+  ],
+  "footer_main":[
+    {
+      "section": "find_us",
+      "title": "Finden Sie uns",
+      "description": "",
+      "icons": [
+        { "class": "bi-facebook", "url": "https://www.facebook.com" },
+        { "class": "bi-instagram", "url": "https://www.instagram.com" },
+        { "class": "bi-tiktok", "url": "https://www.tiktok.com" }
+      ]
+    },
+    {
+      "section": "links",
+      "title": "Links",
+      "items": [
+        { "icon": "fa-solid fa-house", "label": "Startseite", "state": "home" },
+        { "icon": "bi bi-car-front", "label": "Dienstleistungen", "state": "page1" },
+        { "icon": "bi bi-info-circle-fill", "label": "Über uns", "state": "page2" }
+      ]
+    },
+    {
+      "section": "contact",
+      "title": "Kontakt",
+      "details": {
+        "address": "Makó, Habfürdő Straße 6.",
+        "phone": "+36 30 610 0666",
+        "email": "info@supercarwash.hu"
+      }
+    },
+    {
+      "section": "opening_hours",
+      "title": "Öffnungszeiten",
+      "hours": [
+        { "day": "Montag - Freitag", "time": "8:00 - 19:00 Uhr" },
+        { "day": "Samstag", "time": "8:00 - 12:00 Uhr" }
+      ]
+    },
+    {
+      "section": "map",
+      "title": "Karte",
+      "map_embed": "https://www.google.com/maps/embed?pb=!1m18"
+    }
+  ],
+  "services_dropdown_menu": [
+    {
+      "label": "Alle Preiskategorien",
+      "value": ""
+    },
+    {
+      "label": "0 Ft - 20.000 Ft",
+      "value": [0, 20000]
+    },
+    {
+      "label": "20.001 Ft - 40.000 Ft",
+      "value": [20001, 40000]
+    },
+    {
+      "label": "Über 40.000 Ft",
+      "value": [40001, 1000000000]
+    }
+  ],
+  "login_do_account": "haben sie noch kein konto? klicken sie unten auf die registrieren-taste!",
+  "passw_show":"passwort anzeigen",
+  "personal_data":"persönliche daten",
+  "appointment_booking":"terminbuchung",
+  "my_bookings": "meine buchungen",
+  "postcode_alert":"bitte geben sie eine gültige postleitzahl ein!"
 }

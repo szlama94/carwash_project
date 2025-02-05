@@ -31,7 +31,7 @@
   "female": "nő",
   "image": "kép",
   "country": "ország",
-  "phone": "telefon",
+  "phone": "telefonszám",
   "phone_rule": "7-10 számjegy, és nem kezdődhet nullával",
   "city": "város",
   "postcode": "irányítószám",
@@ -134,5 +134,116 @@
   "table_not_exist": "",
   "invoice": "számla",
   "about_us": "rólunk",
-  "page_title": "Super Car Wash"
+  "page_title": "Super Car Wash",
+  "who_are_we": "kik vagyunk...?",
+  "about_us_1p": "ismerd meg a Super Car Wash történetét! a Super Car Wash több mint 10 éve kezdte meg működését egy kis családi vállalkozásként.",
+  "about_us_2p": "szenvedélyünk az autók iránt és az igényes tisztítás iránti elkötelezettségünk segített minket abban, hogy folyamatosan fejlődjünk és bővítsük szolgáltatásainkat.",
+  "about_us_3p": "az évek során ügyfeleink bizalmának és elégedettségének köszönhetően mára egy jól ismert, megbízható vállalkozássá váltunk.",
+  "about_us_4p": "válaszd a Super Car Wash-t, ahol a családi értékek, a minőség és a megbízhatóság találkozik! 🚗✨",
+  "opinion_title": "ossza meg velünk véleményét!",
+  "rating": "értékelés",
+  "opinion": "vélemény",
+  "opinion_send": "vélemény elküldése",
+  "my_appointments": "időpontjaim",
+  "services_video_alert": "a böngésződ nem támogatja ezt a videólejátszót.",
+  "our_services":"szolgáltatásaink",
+  "services_p1":"fedezd fel prémium szolgáltatásainkat! autómosónk a legmagasabb színvonalat képviseli, legyen szó külső-belső takarításról, polírozásról, felni tisztításról, viaszolásról vagy kerámia bevonatról. környezetbarát tisztítószereinkkel óvjuk a természetet, miközben autód ragyogó tisztaságot kap.",
+  "search": "keresés",
+  "price_category": "árkategória",
+  "search_alert": "nincs megjeleníthető szolgáltatás a szűrők alapján.",
+  "appointment_button": "időpontot foglalok!",
+  "home_p1": "Üdvözlünk a super car wash világában, ahol az autója mindig kiemelt figyelmet és professzionális törődést kap! nálunk nemcsak egy egyszerű autómosás vár, hanem prémium szolgáltatások, amelyek garantálják, hogy járműve ragyogjon, akár egy új autó. foglaljon időpontot gyorsan és könnyedén, válasszon a különböző mosási csomagjaink közül, és tapasztalja meg, mit jelent az igazi autós luxus!",
+  "home_appointment_btn": "foglaljon időpontot most!",
+  "loyalty_title": "díjazzuk a hűségét!",
+  "vip_text":"legyen ön is a super car wash vip klub tagja! hűséges ügyfeleinket különleges kedvezményekkel és exkluzív ajánlatokkal jutalmazzuk, hogy még élvezetesebbé tegyük a prémium autóápolást. ha rendszeresen nálunk mosatja autóját, vip ügyfelünkként egyedi szolgáltatásokhoz és ajándékokhoz is hozzáférhet. értékeljük a bizalmát, és szeretnénk visszaadni belőle!",
+  "home_cards": [
+    {
+      "title": "Professzionális",
+      "text": "Szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak autójával.",
+      "icon": "fa-solid fa-user-tie text-primary"
+    },
+    {
+      "title": "Környezetbarát",
+      "text": "Minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autóját.",
+      "icon": "fa-solid fa-leaf text-success"
+    },
+    {
+      "title": "Megfizethető",
+      "text": "Tegyen minket próbára, kérjen ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudja igénybe venni.",
+      "icon": "fa-solid fa-wallet text-warning"
+    }
+  ],
+  "footer_main": [
+    {
+      "section": "find_us",
+      "title": "Keress minket",
+      "description": "",
+      "icons": [
+        { "class": "bi-facebook", "url": "https://www.facebook.com" },
+        { "class": "bi-instagram", "url": "https://www.instagram.com" },
+        { "class": "bi-tiktok", "url": "https://www.tiktok.com" }
+      ]
+    },
+    {
+      "section": "links",
+      "title": "Linkek",
+      "items": [
+        { "icon": "fa-solid fa-house", "label": "Kezdőlap", "state": "home" },
+        { "icon": "bi bi-car-front", "label": "Szolgáltatások", "state": "page1" },
+        { "icon": "bi bi-info-circle-fill", "label": "Rólunk", "state": "page2" }
+      ]
+    },
+    {
+      "section": "contact",
+      "title": "Kapcsolat",
+      "details": {
+        "address": "Makó, Habfürdő utca 6.",
+        "phone": "+36 30 610 0666",
+        "email": "info@supercarwash.hu"
+      }
+    },
+    {
+      "section": "opening_hours",
+      "title": "Nyitvatartás",
+      "hours": [
+        { "day": "Hétfő - Péntek", "time": "8:00 - 19:00" },
+        { "day": "Szombat", "time": "8:00 - 12:00" }
+      ]
+    },
+    {
+      "section": "map",
+      "title": "Térkép",
+      "map_embed": "https://www.google.com/maps/embed?pb=!1m18"
+    }
+  ],
+  "services_dropdown_menu": [
+    {
+      "label": "Összes árkategória",
+      "value": ""
+    },
+    {
+      "label": "0 Ft - 20 000 Ft",
+      "value": [0, 20000]
+    },
+    {
+      "label": "20 000 Ft - 40 000 Ft",
+      "value": [20001, 40000]
+    },
+    {
+      "label": "40 000 Ft felett",
+      "value": [40001,1000000000]
+    }
+  ],
+  "login_do_account": "nincs még fiókja? kattintson a regisztráció gombra lent!",
+  "passw_show":"jelszó mutat",
+  "personal_data":"személyes adatok",
+  "appointment_booking":"időpontfoglalás",
+  "my_bookings": "foglalásaim",
+  "postcode_alert":"Érvényes irányítószámot adjon meg!",
+  
+  "gender_options": {
+      "female": "Nő",
+      "male": "Férfi"
+  }
+  
 }

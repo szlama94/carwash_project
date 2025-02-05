@@ -133,5 +133,110 @@
   "table_not_exist": "the table does not exist",
   "invoice": "invoice",
   "about_us": "about us",
-  "page_title": "Super Car Wash"
+  "page_title": "Super Car Wash",
+  "who_are_we": "who are we...?",
+  "about_us_1p": "discover the story of Super Car Wash! Super Car Wash started its journey over 10 years ago as a small family business.",
+  "about_us_2p": "our passion for cars and commitment to meticulous cleaning have helped us continuously grow and expand our services.",
+  "about_us_3p": "over the years, thanks to our customers' trust and satisfaction, we have become a well-known and reliable company.",
+  "about_us_4p": "choose Super Car Wash, where family values, quality, and reliability come together! 🚗✨",
+  "opinion_title": "share your opinion with us!",
+  "rating": "rating",
+  "opinion": "opinion",
+  "opinion_send": "submit review",
+  "my_appointments": "my appointments",
+  "services_video_alert": "your browser does not support this video player.",
+  "our_services": "our services",
+  "services_p1":"discover our premium services! our car wash represents the highest standards, whether it’s exterior and interior cleaning, polishing, wheel cleaning, waxing, or ceramic coating. with our eco-friendly cleaning products, we protect nature while giving your car a sparkling clean finish.",
+  "search": "search",
+  "price_category": "price category",
+  "search_alert": "no services to display based on the filters.",
+  "appointment_button": "booking an appointment!",
+  "home_p1": " Welcome to the world of super car wash, where your car always receives special attention and professional care! with us, it’s more than just a car wash—premium services ensure your vehicle shines like a brand-new car. book an appointment quickly and easily, choose from our various washing packages, and experience the true meaning of automotive luxury!",
+  "home_appointment_btn": "book an appointment now!",
+  "loyalty_title": "we reward your loyalty!",
+  "vip_text":"become a member of the super car wash vip club! we reward our loyal customers with special discounts and exclusive offers to make premium car care even more enjoyable. if you regularly wash your car with us, as a vip client, you can access unique services and gifts. we value your trust and want to give back!",
+  "home_cards": [
+    {
+      "title": "Professional",
+      "text": "Our skilled staff with years of car detailing experience will take care of your vehicle.",
+      "icon": "fa-solid fa-user-tie text-primary"
+    },
+    {
+      "title": "Eco-friendly",
+      "text": "All our cleaning products are eco-friendly, ensuring minimal impact while making your car spotless.",
+      "icon": "fa-solid fa-leaf text-success"
+    },
+    {
+      "title": "Affordable",
+      "text": "Put us to the test and request a quote! All our services are available at competitive pricing.",
+      "icon": "fa-solid fa-wallet text-warning"
+    }
+  ],
+  "footer_main":[
+    {
+      "section": "find_us",
+      "title": "Find Us",
+      "description": "",
+      "icons": [
+        { "class": "bi-facebook", "url": "https://www.facebook.com" },
+        { "class": "bi-instagram", "url": "https://www.instagram.com" },
+        { "class": "bi-tiktok", "url": "https://www.tiktok.com" }
+      ]
+    },
+    {
+      "section": "links",
+      "title": "Links",
+      "items": [
+        { "icon": "fa-solid fa-house", "label": "Home", "state": "home" },
+        { "icon": "bi bi-car-front", "label": "Services", "state": "page1" },
+        { "icon": "bi bi-info-circle-fill", "label": "About Us", "state": "page2" }
+      ]
+    },
+    {
+      "section": "contact",
+      "title": "Contact",
+      "details": {
+        "address": "Makó, Habfürdő Street 6.",
+        "phone": "+36 30 610 0666",
+        "email": "info@supercarwash.hu"
+      }
+    },
+    {
+      "section": "opening_hours",
+      "title": "Opening Hours",
+      "hours": [
+        { "day": "Monday - Friday", "time": "8:00 AM - 7:00 PM" },
+        { "day": "Saturday", "time": "8:00 AM - 12:00 PM" }
+      ]
+    },
+    {
+      "section": "map",
+      "title": "Map",
+      "map_embed": "https://www.google.com/maps/embed?pb=!1m18"
+    }
+  ],
+  "services_dropdown_menu": [
+    {
+      "label": "All price categories",
+      "value": ""
+    },
+    {
+      "label": "0 Ft - 20,000 Ft",
+      "value": [0, 20000]
+    },
+    {
+      "label": "20,001 Ft - 40,000 Ft",
+      "value": [20001, 40000]
+    },
+    {
+      "label": "Over 40,000 Ft",
+      "value": [40001, 1000000000]
+    }
+  ],
+  "login_do_account": "don't have an account yet? click the registration button below!",
+  "passw_show":"show password",
+  "personal_data":"personal data",
+  "appointment_booking":"appointment booking",
+  "my_bookings": "my bookings",
+  "postcode_alert":"please provide a valid postal code!"
 }

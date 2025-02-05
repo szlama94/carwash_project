@@ -1,196 +1,199 @@
-<div class="container px-4 px-lg-5 my-5">
+<div class="container px-4 px-lg-5 my-5 text-capitalize">
   <div class="row gx-4 gx-lg-5 align-items-center">
     <div class="col-lg-12">
       <div class="card bg-dark border-0 rounded-3 shadow-lg">
         <div class="card-body p-5">
           <div class="row align-items-center">
-<!-------------------Bal oldali szöveg-------------->
+            <!-------------------Bal oldali szöveg-------------->
             <div class="col-lg-6">
-              <h2 class="text-warning fw-bold display-5 text-center text-lg-start mb-4">Kik vagyunk...?</h2>
-              <p class="text-white text-justify">
-                Ismerd meg a Super Car Wash történetét! A Super Car Wash több mint 10 éve 
-                kezdte meg működését egy kis családi vállalkozásként.
-              </p>
-              <p class="text-white text-justify">
-                Szenvedélyünk az autók iránt és az igényes tisztítás iránti 
-                elkötelezettségünk segített minket abban, hogy folyamatosan 
-                fejlődjünk és bővítsük szolgáltatásainkat.
-              </p>
-              <p class="text-white text-justify">
-                Az évek során ügyfeleink bizalmának és elégedettségének 
-                köszönhetően mára egy jól ismert, megbízható vállalkozássá váltunk.
-              </p>
-              <p class="text-white text-justify">
-                Válaszd a Super Car Wash-t, ahol a családi értékek,
-                 a minőség és a megbízhatóság találkozik! 🚗✨
-              </p>
+              <h2
+                class="text-warning fw-bold display-5 text-center text-lg-start mb-4">
+                {{lang.data.who_are_we}}
+              </h2>
+              <p class="text-white text-justify">{{lang.data.about_us_1p}}</p>
+              <p class="text-white text-justify">{{lang.data.about_us_2p}}</p>
+              <p class="text-white text-justify">{{lang.data.about_us_3p}}</p>
+              <p class="text-white text-justify">{{lang.data.about_us_4p}}</p>
             </div>
-<!-----------------Csapat kép-------------------->
+            <!-----------------Csapat kép-------------------->
             <div class="col-lg-6 text-center">
-              <img ng-src="{{ourTeam_img}}" 
-                   class="img-fluid border-primary rounded-3" 
-                   alt="ourTeam">
+              <img
+                ng-src="{{ourTeam_img}}"
+                class="img-fluid border-primary rounded-3"
+                alt="ourTeam">
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-<!------------------Vélemény és Carousel---------->
+  <!------------------Vélemény és Carousel---------->
   <div class="row gx-4 gx-lg-5 justify-content-center mt-5">
     <div class="col-lg-12">
       <div class="card bg-dark text-white rounded-3 shadow-lg">
         <div class="card-body p-5">
           <div class="row align-items-stretch">
-<!--------------Bal oldali űrlap----------------->
+            <!--------------Bal oldali űrlap----------------->
             <div class="col-lg-6 d-flex flex-column justify-content-between">
               <h2 class="text-warning fw-bold mb-4">
-                Ossza meg velünk véleményét!
+                {{lang.data.opinion_title}}
               </h2>
-              <form name="feedbackForm" 
-                    ng-submit="submitFeedback()" 
-                    novalidate class="h-100 d-flex flex-column justify-content-between">
-<!---------------Név----------------------------->
+              <form
+                name="feedbackForm"
+                ng-submit="submitFeedback()"
+                novalidate
+                class="h-100 d-flex flex-column justify-content-between">
+                <!---------------Név----------------------------->
                 <div class="mb-3">
-                  <label for="name" 
-                         class="form-label">
-                         Név
-                    </label>
-                  <input type="text" 
-                         id="name" 
-                         class="form-control" 
-                         ng-model="feedback.name" 
-                         required>
-                </div>
-<!---------------Nem választó-------------------->
-                <div class="mb-3">
-                  <label class="form-label">
-                    Nem
+                  <label for="name" class="form-label">
+                    {{lang.data.name}}
                   </label>
-                  <br>
+                  <input
+                    type="text"
+                    id="name"
+                    class="form-control"
+                    ng-model="feedback.name"
+                    required>
+                </div>
+                <!---------------Nem választó-------------------->
+                <div class="mb-3">
+                  <label class="form-label"> {{lang.data.gender}} </label>
+                  <br/>
                   <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                      <input class="form-check-input" 
-                             type="radio" 
-                             ng-model="feedback.gender" 
-                             value="M"> 
-                      Férfi
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        ng-model="feedback.gender"
+                        value="M">
+                      {{lang.data.male}}
                     </label>
                   </div>
                   <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                      <input class="form-check-input" 
-                             type="radio" 
-                             ng-model="feedback.gender" 
-                             value="F"> 
-                      Nő
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        ng-model="feedback.gender"
+                        value="F">
+                      {{lang.data.female}}
                     </label>
                   </div>
                 </div>
-<!----------------Kor-------------------------->
+                <!----------------Kor-------------------------->
                 <div class="mb-3">
-                  <label for="age" 
-                         class="form-label">
-                         Kor
-                    </label>
-                  <input type="number" 
-                         id="age" 
-                         class="form-control" 
-                         ng-model="feedback.age" 
-                         min="1" 
-                         required>
-                </div>
-<!----------------Értékelés-------------------->
-                <div class="mb-3">
-                  <label>
-                    Értékelés
+                  <label for="age" class="form-label">
+                    {{lang.data.age}}
                   </label>
-                  <br>
-                  <span ng-repeat="star in [1,2,3,4,5]" 
-                        ng-mouseover="setHover(star)" 
-                        ng-mouseleave="clearHover()"
-                        ng-click="setRating(star)"
-                        class="fa fa-star star-rating"
-                        ng-class="{'hovered': star <= hoverRating, 'checked': star <= feedback.rating}">
+                  <input
+                    type="number"
+                    id="age"
+                    class="form-control"
+                    ng-model="feedback.age"
+                    min="1"
+                    required>
+                </div>
+                <!----------------Értékelés-------------------->
+                <div class="mb-3">
+                  <label> {{lang.data.rating}} </label>
+                  <br/>
+                  <span
+                    ng-repeat="star in [1,2,3,4,5]"
+                    ng-mouseover="setHover(star)"
+                    ng-mouseleave="clearHover()"
+                    ng-click="setRating(star)"
+                    class="fa fa-star star-rating"
+                    ng-class="{'hovered': star <= hoverRating, 'checked': star <= feedback.rating}">
                   </span>
                 </div>
-<!---------------Vélemény------------------------>
+                <!---------------Vélemény------------------------>
                 <div class="mb-3">
-                  <label for="comment" 
-                         class="form-label">
-                         Vélemény
-                    </label>
-                  <textarea id="comment" 
-                            class="form-control" 
-                            ng-model="feedback.comment" 
-                            rows="4" 
-                            required>
-                    </textarea>
+                  <label for="comment" class="form-label">
+                    {{lang.data.opinion}}
+                  </label>
+                  <textarea
+                    id="comment"
+                    class="form-control"
+                    ng-model="feedback.comment"
+                    rows="4"
+                    required>
+                  </textarea>
                 </div>
-                <button type="submit" 
-                        class="btn btn-warning w-100">
-                        Vélemény elküldése
-                  </button>
+                <button type="submit" class="btn btn-warning w-100">
+                  {{lang.data.opinion_send}}
+                </button>
               </form>
             </div>
-<!-----------------Elégedett kép--------------->
-            <div class="col-lg-6 d-flex flex-column justify-content-between text-center">
+            <!-----------------Elégedett kép--------------->
+            <div
+              class="col-lg-6 d-flex flex-column justify-content-between text-center">
               <!-- Kép -->
-              <img ng-src="{{satisfied_img}}" 
-                   class="img-fluid rounded-3 shadow-lg mb-4" 
-                   style="max-height: 250px; object-fit: cover;">
-<!-----------------Carousel--------.----------->
-              <div id="feedbackCarousel" 
-                   class="carousel slide" 
-                   data-bs-ride="carousel">
+              <img
+                ng-src="{{satisfied_img}}"
+                class="img-fluid rounded-3 shadow-lg mb-4"
+                style="max-height: 250px; object-fit: cover">
+              <!-----------------Carousel-------------------->
+              <div
+                id="feedbackCarousel"
+                class="carousel slide"
+                data-bs-ride="carousel">
                 <div class="carousel-inner">
-                  <div class="carousel-item" 
-                       ng-class="{'active': $index === 0}" 
-                       ng-repeat="fb in feedbacks">
-                    <div class="card bg-dark text-white shadow-lg h-100" 
-                         style="min-height: 300px;">
-                      <div class="card-body d-flex flex-column justify-content-between">
-<!----------------Név és nem ikon-------------------->
+                  <div
+                    class="carousel-item"
+                    ng-class="{'active': $index === 0}"
+                    ng-repeat="fb in feedbacks">
+                    <div
+                      class="card bg-dark text-white shadow-lg h-100"
+                      style="min-height: 300px">
+                      <div
+                        class="card-body d-flex flex-column justify-content-between">
+                        <!----------------Név és nem ikon-------------------->
                         <div class="d-flex align-items-center mb-3">
-                          <img ng-src="{{fb.gender === 'M' ? './media/image/male-blank.webp' : './media/image/female-blank.webp'}}" 
-                               width="50" 
-                               height="50" 
-                               class="rounded-circle me-3 border border-light">
-                          <h5 class="card-title m-0">{{fb.name}} ({{fb.age}} év) 
-                            <span ng-repeat="n in getStars(fb.rating)" 
-                            class="text-warning">
-                            ★
+                          <img
+                            ng-src="{{fb.gender === 'M' ? './media/image/male-blank.webp' : './media/image/female-blank.webp'}}"
+                            width="50"
+                            height="50"
+                            class="rounded-circle me-3 border border-light">
+                          <h5 class="card-title m-0">
+                            {{fb.name}} ({{fb.age}} év)
+                            <span
+                              ng-repeat="n in getStars(fb.rating)"
+                              class="text-warning">
+                              ★
                             </span>
                           </h5>
                         </div>
-<!----------------Görgethető vélemény------------------>
-                        <div class="flex-grow-1 bg-secondary text-white p-3 rounded overflow-auto">
+                        <!----------------Görgethető vélemény------------------>
+                        <div
+                          class="flex-grow-1 bg-secondary text-white p-3 rounded overflow-auto">
                           <p class="card-text m-0">{{fb.comment}}</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-<!----------------Navigáció----------------------------->
-                <button class="carousel-control-prev" 
-                        type="button" 
-                        data-bs-target="#feedbackCarousel" 
-                        data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" 
-                        aria-hidden="true"></span>
-                  <span class="visually-hidden">
-                    Előző
+                <!----------------Navigáció----------------------------->
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#feedbackCarousel"
+                  data-bs-slide="prev">
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true">
                   </span>
+                  <span class="visually-hidden"> Előző </span>
                 </button>
-                <button class="carousel-control-next" 
-                        type="button" 
-                        data-bs-target="#feedbackCarousel" 
-                        data-bs-slide="next">
-                  <span class="carousel-control-next-icon"
-                        aria-hidden="true"></span>
-                  <span class="visually-hidden">
-                    Következő
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#feedbackCarousel"
+                  data-bs-slide="next">
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true">
                   </span>
+                  <span class="visually-hidden"> Következő </span>
                 </button>
               </div>
             </div>

@@ -11,7 +11,7 @@
         <h3 class="text-center mb-4 text-white">
           <i class="fa-solid fa-id-card"></i>
           <span class="text-capitalize ms-2">
-            Regisztráció
+            {{lang.data.register}}
           </span>
         </h3>
         <form name="registerForm" novalidate>
@@ -22,14 +22,14 @@
               <div class="mb-3">
                 <label for="register-last_name" class="form-label text-white">
                   <i class="fa-solid fa-user me-1"></i> 
-                  Vezetéknév:
+                  {{lang.data.last_name}}:
                 </label>
                 <input 
                   id="register-last_name"
                   class="form-control bg-dark text-white border-secondary rounded"
                   name="last_name" 
                   type="text"
-                  placeholder="Vezetéknév"
+                  placeholder="{{lang.data.last_name}}"
                   required
                   maxlength="100"
                   ng-model="model.register.last_name">
@@ -38,14 +38,14 @@
               <div class="mb-3">
                 <label for="register-first_name" class="form-label text-white">
                   <i class="fa-solid fa-user me-1"></i> 
-                  Keresztnév:
+                  {{lang.data.first_name}}:
                 </label>
                 <input 
                   id="register-first_name"
                   class="form-control bg-dark text-white border-secondary rounded"
                   name="first_name" 
                   type="text"
-                  placeholder="Keresztnév"
+                  placeholder="{{lang.data.first_name}}"
                   required
                   maxlength="100"
                   ng-model="model.register.first_name">
@@ -54,7 +54,7 @@
               <div class="mb-3">
                 <label for="register-born" class="form-label text-white">
                   <i class="fa-solid fa-calendar-days me-1"></i> 
-                  Születési idő:
+                  {{lang.data.born}}:
                 </label>
                 <input 
                   id="register-born"
@@ -73,7 +73,7 @@
               <div class="mb-3">
                 <label for="register-phone" class="form-label text-white">
                   <i class="fa-solid fa-mobile-screen me-1"></i> 
-                  Telefonszám:
+                  {{lang.data.phone}}:
                 </label>
                 <div class="input-group">
                   <input
@@ -90,7 +90,7 @@
                     id="register-phone"
                     name="phone"
                     type="tel"
-                    placeholder="Telefonszám"
+                    placeholder="{{lang.data.phone}}"
                     class="form-control bg-dark text-white border-secondary rounded"
                     autocomplete="off"
                     maxlength="10"
@@ -102,7 +102,7 @@
               <div class="mb-3">
                 <label class="form-label text-white">
                   <i class="fa-solid fa-venus-mars me-1"></i> 
-                  Neme:
+                  {{lang.data.gender}}:
                 </label>
                 <div class="form-check form-check-inline">
                   <input 
@@ -114,7 +114,7 @@
                     ng-model="model.register.gender">
                   <label for="register-male" 
                          class="form-check-label text-white">
-                   Férfi
+                   {{lang.data.male}}
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -127,7 +127,7 @@
                     ng-model="model.register.gender">
                   <label for="register-female" 
                          class="form-check-label text-white">
-                    Nő
+                    {{lang.data.female}}
                   </label>
                 </div>
               </div>
@@ -152,14 +152,14 @@
               <div class="mb-3">
                 <label for="register-emailConfirm" 
                        class="form-label text-white">
-                  E-mail megerősítés:
+                  E-mail {{lang.data.confirmation}}:
                 </label>
                 <input 
                   id="register-emailConfirm"
                   class="form-control bg-dark text-white border-secondary rounded"
                   name="emailConfirm" 
                   type="email"
-                  placeholder="E-mail megerősítés"
+                  placeholder="E-mail {{lang.data.confirmation}}"
                   required
                   ng-model="model.register.emailConfirm">
               </div>
@@ -168,14 +168,14 @@
                 <label for="register-password" 
                        class="form-label text-white">
                   <i class="fa-solid fa-key me-1"></i> 
-                  Jelszó:
+                  {{lang.data.password}}:
                 </label>
                 <input 
                   id="register-password"
                   class="form-control bg-dark text-white border-secondary rounded"
                   name="password" 
                   type="{{model.register.showPassword ? 'text' : 'password'}}"
-                  placeholder="Jelszó"
+                  placeholder="{{lang.data.password}}"
                   required
                   minlength="6"
                   maxlength="20"
@@ -184,14 +184,14 @@
 <!-------------------------Jelszó megerősítés--------------------------->
               <div class="mb-3">
                 <label for="register-passwordConfirm" class="form-label text-white">
-                  Jelszó megerősítés:
+                  {{lang.data.password}} {{lang.data.confirmation}}:
                 </label>
                 <input 
                   id="register-passwordConfirm"
                   class="form-control bg-dark text-white border-secondary rounded"
                   name="passwordConfirm" 
                   type="{{model.register.showPassword ? 'text' : 'password'}}"
-                  placeholder="Jelszó megerősítés"
+                  placeholder="{{lang.data.password}} {{lang.data.confirmation}}"
                   required
                   minlength="6"
                   maxlength="20"
@@ -207,7 +207,7 @@
                   ng-checked="model.register.showPassword">
                 <label for="register-showPassword" 
                        class="form-check-label text-white">
-                  Jelszó mutat
+                  {{lang.data.passw_show}}
                 </label>
               </div>
             </div>
@@ -219,7 +219,7 @@
               class="btn btn-warning px-5"
               ng-disabled="registerForm.$invalid"
               ng-click="methods.registerUser()">
-              Regisztráció
+              {{lang.data.register}}
             </button>
           </div>
         </form>

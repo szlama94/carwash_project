@@ -7,38 +7,32 @@
       height: auto;
       display: flex;
       flex-direction: row;
-      border-radius: 15px;
-    "
-  >
+      border-radius: 15px;">
     <!--------------------Odalmenü sáv------------------->
     <div
       class="p-4 bg-dark border-end"
-      style="width: 250px; border-radius: 15px 0 0 15px"
-    >
+      style="width: 250px; border-radius: 15px 0 0 15px">
       <ul class="list-unstyled">
         <li
           class="mb-3 pointer py-2 px-3"
           ng-click="selectedSection = 'personal'"
-          ng-class="{'bg-warning text-dark rounded-3': selectedSection === 'personal'}"
-        >
+          ng-class="{'bg-warning text-dark rounded-3': selectedSection === 'personal'}">
           <i class="fa-solid fa-user me-2"></i>
-          Személyes adatok
+          {{lang.data.personal_data}}
         </li>
         <li
           class="mb-3 pointer py-2 px-3"
           ng-click="selectedSection = 'schedule'"
-          ng-class="{'bg-warning text-dark rounded-3': selectedSection === 'schedule'}"
-        >
+          ng-class="{'bg-warning text-dark rounded-3': selectedSection === 'schedule'}">
           <i class="fa-solid fa-clock me-2"></i>
-          Időpontfoglalás
+          {{lang.data.appointment_booking}}
         </li>
         <li
           class="mb-3 pointer py-2 px-3"
           ng-click="selectedSection = 'myBookings'"
-          ng-class="{'bg-warning text-dark rounded-3': selectedSection === 'myBookings'}"
-        >
+          ng-class="{'bg-warning text-dark rounded-3': selectedSection === 'myBookings'}">
           <i class="fa-solid fa-calendar-check me-2"></i>
-          Foglalásaim
+          {{lang.data.my_bookings}}
         </li>
       </ul>
     </div>
@@ -55,21 +49,19 @@
                 <h3 class="text-center">
                   <i class="fa-regular fa-address-card"></i>
                   <span class="text-capitalize text-small-caps ms-2">
-                    profil
+                    {{lang.data.profile}}
                   </span>
                 </h3>
               </div>
-
               <!-----------------Form------------------->
               <form name="profileForm" novalidate>
                 <!----------------Azonosság/Típus--------->
                 <div class="row mb-3">
                   <label
                     for="profile-id"
-                    class="col-form-label col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-md-4 text-md-end">
                     <i class="fa-solid fa-fingerprint me-1"></i>
-                    <span class="text-capitalize"> azonosító: </span>
+                    <span class="text-capitalize"> {{lang.data.identifier}}:</span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -79,16 +71,14 @@
                       type="text"
                       maxlength="300"
                       ng-model="$root.user.id"
-                      disabled
-                    />
+                      disabled>
                   </div>
                 </div>
                 <!--------------------Email------------->
                 <div class="row mb-3">
                   <label
                     for="profile-email"
-                    class="col-form-label col-12 col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-envelope me-1"></i>
                     <span class="text-capitalize"> e-mail: </span>
                   </label>
@@ -99,19 +89,17 @@
                       name="email"
                       type="text"
                       ng-model="$root.user.email"
-                      disabled
-                    />
+                      disabled>
                   </div>
                 </div>
                 <!---------------Keresztnév---------------->
                 <div class="row mb-3">
                   <label
                     for="profile-first_name"
-                    class="col-form-label col-12 col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-user fa-2xl me-1"></i>
                     <i class="fa-solid fa-star fa-2xs text-danger"></i>
-                    <span class="text-capitalize"> Keresztnév: </span>
+                    <span class="text-capitalize"> {{lang.data.first_name}}: </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -124,18 +112,16 @@
                       autocomplete="off"
                       maxlength="100"
                       ng-model="$root.user.first_name"
-                      ng-clear-icon
-                    />
+                      ng-clear-icon>
                   </div>
                 </div>
                 <!----------------Vezetéknév----------------->
                 <div class="row mb-3">
                   <label
                     for="profile-last_name"
-                    class="col-form-label col-12 col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-star fa-2xs text-danger"></i>
-                    <span class="text-capitalize"> Vezetéknév: </span>
+                    <span class="text-capitalize"> {{lang.data.last_name}}: </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -148,24 +134,21 @@
                       autocomplete="off"
                       maxlength="100"
                       ng-model="$root.user.last_name"
-                      ng-clear-icon
-                    />
+                      ng-clear-icon>
                   </div>
                 </div>
                 <!--------------Születési idő------------------------>
                 <div class="row mb-3">
                   <label
                     for="profile-born"
-                    class="col-form-label col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-md-4 text-md-end">
                     <i class="fa-solid fa-calendar-days me-1"></i>
-                    <span class="text-capitalize"> születési idő: </span>
+                    <span class="text-capitalize"> {{lang.data.born}}: </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <span
                       id="profile-born"
-                      class="form-control form-control-disabled"
-                    >
+                      class="form-control form-control-disabled">
                       {{ user.born || 'Nincs megadva' }}
                     </span>
                   </div>
@@ -175,28 +158,24 @@
                   <legend class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-star fa-2xs text-danger"></i>
                     <i class="fa-solid fa-venus-mars me-1"></i>
-                    <span class="text-capitalize"> neme: </span>
+                    <span class="text-capitalize"> {{lang.data.gender}}: </span>
                   </legend>
                   <div
-                    class="col-11 col-md-7 position-relative d-flex align-items-center"
-                  >
+                    class="col-11 col-md-7 position-relative d-flex align-items-center">
                     <div
                       class="form-check form-check-inline me-4"
-                      ng-repeat="x in ['Nő','Férfi'] track by $index"
-                    >
+                      ng-repeat="x in ['Female','Male'] track by $index">
                       <input
                         id="profile-{{x}}"
                         name="gender"
                         type="radio"
-                        ng-value="x === 'Nő' ? 'F' : 'M'"
+                        ng-value="x === 'Female' ? 'F' : 'M'"
                         class="form-check-input"
                         ng-model="user.gender"
-                        required
-                      />
+                        required>
                       <label
                         for="profile-{{x}}"
-                        class="form-check-label opacity-100"
-                      >
+                        class="form-check-label opacity-100">
                         {{x}}
                       </label>
                     </div>
@@ -206,10 +185,9 @@
                 <div class="row input-row mb-3">
                   <label
                     for="profile-country"
-                    class="col-form-label col-12 col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-flag me-1"></i>
-                    <span class="text-capitalize"> ország: </span>
+                    <span class="text-capitalize"> {{lang.data.country}}: </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -222,18 +200,16 @@
                       autocomplete="off"
                       maxlength="100"
                       ng-model="user.country"
-                      ng-clear-icon
-                    />
+                      ng-clear-icon>
                   </div>
                 </div>
                 <!----------- telefonszám (osrszág kód / telefonszám)------------->
                 <div class="row input-row mb-3">
                   <label
                     for="profile-phone"
-                    class="col-form-label col-12 col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-mobile-screen me-1"></i>
-                    <span class="text-capitalize"> telefonszám: </span>
+                    <span class="text-capitalize"> {{lang.data.phone}}: </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <div class="input-group">
@@ -246,8 +222,7 @@
                         maxlength="10"
                         ng-model="user.countryCode"
                         ng-clear-icon='{"left":"100px"}'
-                        style="max-width: 100px"
-                      />
+                        style="max-width: 100px">
                       <input
                         id="profile-phone"
                         name="phone"
@@ -259,17 +234,14 @@
                         maxlength="10"
                         ng-model="user.phone"
                         ng-pattern="/^[1-9][0-9]{6,9}$/"
-                        ng-clear-icon='{"right":"8px"}'
-                      />
+                        ng-clear-icon='{"right":"8px"}'>
                     </div>
                   </div>
                   <div
-                    class="col-1 d-flex align-items-center justify-content-start ps-1"
-                  >
+                    class="col-1 d-flex align-items-center justify-content-start ps-1">
                     <span
                       class="fw-bolder text-success"
-                      ng-class="{'invisible': profileForm.phone.$invalid}"
-                    >
+                      ng-class="{'invisible': profileForm.phone.$invalid}">
                       &check;
                     </span>
                   </div>
@@ -278,10 +250,9 @@
                 <div class="row input-row mb-3">
                   <label
                     for="profile-city"
-                    class="col-form-label col-12 col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-city me-1"></i>
-                    <span class="text-capitalize"> város: </span>
+                    <span class="text-capitalize"> {{lang.data.city}}: </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -294,18 +265,16 @@
                       autocomplete="off"
                       maxlength="100"
                       ng-model="user.city"
-                      ng-clear-icon
-                    />
+                      ng-clear-icon>
                   </div>
                 </div>
                 <!-----------------Irányítószám-------------------->
                 <div class="row input-row mb-3">
                   <label
                     for="profile-postcode"
-                    class="col-form-label col-12 col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-list-ol me-1"></i>
-                    <span class="text-capitalize"> irányítószám: </span>
+                    <span class="text-capitalize"> {{lang.data.postcode}}: </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <input
@@ -320,23 +289,19 @@
                       ng-model="user.postcode"
                       ng-pattern="/^[0-9]{4}$/"
                       style="max-width: 120px"
-                      ng-clear-icon='{"left":"110px"}'
-                    />
+                      ng-clear-icon='{"left":"110px"}'>
                   </div>
                   <div
-                    class="col-1 d-flex align-items-center justify-content-start ps-1"
-                  >
+                    class="col-1 d-flex align-items-center justify-content-start ps-1">
                     <span
                       class="fw-bolder text-success"
-                      ng-class="{'invisible': profileForm.postcode.$invalid}"
-                    >
+                      ng-class="{'invisible': profileForm.postcode.$invalid}">
                       &check;
                     </span>
                     <span
                       class="text-danger"
-                      ng-if="profileForm.postcode.$invalid && profileForm.postcode.$touched"
-                    >
-                      Érvényes irányítószámot adjon meg!
+                      ng-if="profileForm.postcode.$invalid && profileForm.postcode.$touched">
+                      {{lang.data.postcode_alert}}
                     </span>
                   </div>
                 </div>
@@ -344,10 +309,9 @@
                 <div class="row input-row mb-5">
                   <label
                     for="profile-address"
-                    class="col-form-label col-12 col-md-4 text-md-end"
-                  >
+                    class="col-form-label col-12 col-md-4 text-md-end">
                     <i class="fa-solid fa-location-dot me-1"></i>
-                    <span class="text-capitalize"> cím: </span>
+                    <span class="text-capitalize"> {{lang.data.address}}: </span>
                   </label>
                   <div class="col-11 col-md-7 position-relative">
                     <textarea
@@ -359,8 +323,7 @@
                       autocomplete="off"
                       rows="1"
                       ng-model="user.address"
-                      ng-clear-icon
-                    >
+                      ng-clear-icon>
                     </textarea>
                   </div>
                 </div>
@@ -370,9 +333,8 @@
                     type="button"
                     class="btn btn-primary"
                     ng-disabled="!isModified || profileForm.$invalid"
-                    ng-click="methods.httpRequest()"
-                  >
-                    Mentés
+                    ng-click="methods.httpRequest()">
+                    {{lang.data.save}}
                   </button>
                 </div>
               </form>

@@ -11,12 +11,12 @@
         <h3 class="text-center mb-4 text-white">
           <i class="fa-solid fa-right-to-bracket"></i>
           <span class="text-capitalize ms-2">
-            Bejelentkezés
+            {{lang.data.login}}
           </span>
         </h3>
 <!---------------Üzenet, ha nincs fiókja----------->
         <p class="text-center text-warning text-decoration-underline mb-3">
-          Nincs még fiókja? Kattintson a regisztráció gombra lent!
+          {{lang.data.login_do_account}}
         </p>
         <form name="loginForm" 
               novalidate>
@@ -25,7 +25,7 @@
             <label for="login-email" class="form-label text-white">
               <i class="fa-solid fa-star fa-2xs text-danger"></i>
               <i class="fa-solid fa-envelope me-1"></i> 
-              E-mail:
+              E-mail
             </label>
             <input
               id="login-email"
@@ -46,7 +46,7 @@
             <label for="login-password" class="form-label text-white">
               <i class="fa-solid fa-star fa-2xs text-danger"></i>
               <i class="fa-solid fa-key me-1"></i> 
-              Jelszó:
+              {{lang.data.password}}
             </label>
             <input
               id="login-password"
@@ -74,7 +74,7 @@
               ng-model="model.showPassword">
             <label for="login-showPassword" 
                    class="form-check-label text-white">
-              Jelszó mutat
+              {{lang.data.passw_show}}
             </label>
           </div>
 <!---------Bejelentkezés és Regisztráció gombok------>
@@ -84,13 +84,13 @@
               class="btn btn-warning px-5 mb-2"
               ng-disabled="loginForm.$invalid"
               ng-click="methods.login()">
-              Bejelentkezés
+              {{lang.data.login}}
             </button>
             <button
               type="button"
               class="btn btn-primary px-5"
               ng-click="methods.redirectToRegister()">
-              Regisztráció
+              {{lang.data.register}}
             </button>
           </div>
         </form>

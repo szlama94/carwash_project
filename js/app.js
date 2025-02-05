@@ -366,104 +366,124 @@
   ])
   //----------Language controller------------->
   .controller('languageController', [
-    '$scope',
-    function($scope) {
-
+    '$scope', '$rootScope',
+    function($scope, $rootScope) {
+  
       // Set local methods
       let methods = {
-
+  
         // Initialize
         init: () => {
-
+  
           // Get available languages
           fetch('./lang/available.json')
-          .then(response => response.json())
-          .then(response => {
-
-            // Set language
-            $scope.lang = {
-              available: response
-            };
-
-            // Get last language identifier
-            let langID = localStorage.getItem('languageID');
-
-            // When exist, then change html lang attribute value
-            if (langID) document.documentElement.lang = langID;
-
-            // Set selected language identifier
-            $scope.lang.id = document.documentElement.lang;
-
-            // Get actual language index
-            $scope.lang.index = methods.indexByKeyValue(
-                                  $scope.lang.available, 'id', $scope.lang.id);
-
-            // Get language
-            methods.getLanguage().then(() => {
-
-              // Change html title
-              document.title = $scope.lang.data.page_title;
-            });
-          })
-          .catch(error => console.log(error));
-        },
-
-        // Get language
-        getLanguage: () => {
-          return new Promise((resolve, reject) => {
-            fetch(`./lang/${$scope.lang.id}.json`)
             .then(response => response.json())
             .then(response => {
-              $scope.lang.data = response;
-              $scope.$applyAsync();
-              resolve();
+  
+              // Set language in rootScope
+              $rootScope.lang = {
+                available: response
+              };
+  
+              // Get last language identifier from localStorage or default to 'hu'
+              let langID = localStorage.getItem('languageID') || 'hu';
+  
+              // Set HTML lang attribute
+              document.documentElement.lang = langID;
+  
+              // Set selected language identifier in rootScope
+              $rootScope.lang.id = langID;
+  
+              // Get actual language index
+              $rootScope.lang.index = methods.indexByKeyValue(
+                $rootScope.lang.available, 'id', $rootScope.lang.id
+              );
+  
+              // Get the selected language's data
+              methods.getLanguage().then(() => {
+                // Change the HTML title to the loaded language's title
+                document.title = methods.capitalizeSentences($rootScope.lang.data.page_title);
+  
+                // Broadcast the event that the language has loaded
+                $rootScope.$broadcast('languageLoaded');
+              });
             })
-            .catch(error => {
-              console.log(error);
-              reject();
-            });
-          });
+            .catch(error => console.log(error));
         },
-
+  
+        // Get language and store in $rootScope
+        getLanguage: () => {
+          return fetch(`./lang/${$rootScope.lang.id}.json`)
+            .then(response => response.json())
+            .then(response => {
+  
+              // Capitalize sentences in all string fields
+              for (let key in response) {
+                if (typeof response[key] === 'string') {
+                  response[key] = methods.capitalizeSentences(response[key]);
+                }
+              }
+  
+              // Store all language data globally in $rootScope
+              $rootScope.lang.data = response;
+  
+              // Optionally set specific sections globally (e.g., home_cards)
+              $rootScope.home_cards = $rootScope.lang.data.home_cards;
+  
+              $scope.$applyAsync();
+            })
+            .catch(error => console.log(error));
+        },
+  
         // Index array of object key value
         indexByKeyValue: (a, k, v) => a.findIndex(o => o[k] === v),
-
-        // Capitalize
-        capitalize: (s) => s[0].toUpperCase() + s.slice(1)
-      }
-
-      // Set scope methods
-      $scope.methods = {
-
-        // Language changed
-        languageChanged: (langID) => {
-
-          // Set selected language identifier
-          $scope.lang.id = langID;
-
-          // Save selected language identifier to local storige
-          localStorage.setItem('languageID', langID);
-
-          // Change html lang attribute value
-          document.documentElement.lang = langID;
-
-          // Get selected language index
-          $scope.lang.index = methods.indexByKeyValue(
-            $scope.lang.available, 'id', $scope.lang.id);
-
-          // Get language
-          methods.getLanguage().then(() => {
-
-            // Change html title
-            document.title = methods.capitalize($scope.lang.data.language);
+  
+        // Capitalize first letter of string
+        capitalize: (s) => s[0].toUpperCase() + s.slice(1),
+  
+        // Capitalize the first letter after sentence-ending punctuation
+        capitalizeSentences: (text) => {
+          return text.replace(/(?:^|[.!?]\s+)([a-z])/g, (match, firstLetter) => {
+            return match.replace(firstLetter, firstLetter.toUpperCase());
           });
         }
       };
-
-      // Initialize
+  
+      // Set scope methods
+      $scope.methods = {
+  
+        // Language change handler
+        languageChanged: (langID) => {
+  
+          // Set selected language identifier
+          $rootScope.lang.id = langID;
+  
+          // Save selected language identifier to local storage
+          localStorage.setItem('languageID', langID);
+  
+          // Change HTML lang attribute value
+          document.documentElement.lang = langID;
+  
+          // Get selected language index
+          $rootScope.lang.index = methods.indexByKeyValue(
+            $rootScope.lang.available, 'id', $rootScope.lang.id
+          );
+  
+          // Get the newly selected language and update content
+          methods.getLanguage().then(() => {
+            // Update HTML title
+            document.title = methods.capitalizeSentences($rootScope.lang.data.page_title);
+  
+            // Broadcast the event that the language has been updated
+            $rootScope.$broadcast('languageLoaded');
+          });
+        }
+      };
+  
+      // Initialize the language controller
       methods.init();
     }
-  ])
+  ])  
   //----------Login-controller---------------->
   .controller('loginController', [
       '$rootScope',
@@ -609,6 +629,7 @@
               postcode: '',
               address: ''
           };
+          
   
           // Felhasználói adatok betöltése
           $http.post('./php/profile.php', { id: $rootScope.user.id })
@@ -668,66 +689,39 @@
   }])    
   //----------Footer-controller--------------->
   .controller('footerController', [
-      '$scope', 
-      '$sce',
+    '$scope', '$rootScope', '$sce',
+    function($scope, $rootScope, $sce) {
+  
+      // Hallgatjuk a nyelvi adatok betöltésének eseményét
+      $rootScope.$on('languageLoaded', () => {
+        $scope.footerSections = $rootScope.lang.data.footer_main;
 
-      function ($scope, $sce) {
-      $scope.about = {
-        title: 'Keress minket',
-        description: 'Autómosónkban a legjobb minőségű szolgáltatásokkal várjuk ügyfeleinket.',
-        icons: [
-                {class:'bi-facebook', url: 'https://www.facebook.com'},
-                {class:'bi-instagram', url: 'https://www.instagram.com'},
-                {class:'bi-tiktok', url: 'https://www.tiktok.com'}
-                
-              ]
-      };
+         // Frissítjük a nézetet
+        $scope.$applyAsync(); 
 
-      $scope.links = [
-        { icon: 'fa-solid fa-house', label: 'Kezdőlap', state: 'home' },
-        { icon: 'bi bi-car-front', label: 'Szolgáltatások', state: 'page1' },
-        { icon: 'bi bi-info-circle-fill', label: 'Rólunk', state: 'page2' }
-      ];
+        // Térkép URL beágyazása
+        $scope.mapUrl = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2760.836396232944!2d20.473138775978818!3d46.21370948311983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu');
 
-      $scope.contact = {
-        title: 'Kapcsolat',
-        address: 'Makó, Habfürdő utca 6.',
-        phone: '+36 30 610 0666',
-        email: 'info@supercarwash.hu'
-      }
-
-      $scope.mapUrl = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2760.836396232944!2d20.473138775978818!3d46.21370948311983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu');
-
-  }])
+      });
+    }
+  ])
   //---------Home-controller------------------>
   .controller('homeController', [
       '$scope', 
       '$state', 
       '$rootScope',
+      '$timeout',
 
-      function ($scope, $state, $rootScope) {
+      function ($scope, $state, $rootScope, $timeout) {
 
       $scope.videoUrl = "./media/video/spwc_video.mp4";
-    
-      // Felsorolás adatok
-      $scope.cards = [
-        {
-          title: 'Professzionális',
-          text: 'Szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak autójával.',
-          icon: 'fa-solid fa-user-tie text-primary'
-        },
-        {
-          title: 'Környezetbarát',
-          text: 'Minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autóját.',
-          icon: 'fa-solid fa-leaf text-success'
-        },
-        {
-          title: 'Megfizethető',
-          text: 'Tegyen minket próbára, kérjen ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudja igénybevenni.',
-          icon: 'fa-solid fa-wallet text-warning'
-        }
-      ];
-    
+        
+    //Cardok nyelvi adatinak betöltése
+      $rootScope.$on('languageLoaded', () => {
+      $scope.home_cards = $rootScope.lang.data.home_cards;
+      });
+
+  
       // Átirányítás függvény
       $scope.redirectToAppointment = function () {
         if ($rootScope.user && $rootScope.user.id) {
@@ -766,11 +760,12 @@
 
         // Ár kategóriák definiálása
         $scope.priceCategories = [
-            { label: 'Összes árkategória', value: '' },
-            { label: '0 Ft - 20 000 Ft', value: [0, 20000] },
-            { label: '20 000 Ft - 40 000 Ft', value: [20001, 40000] },
-            { label: '40 000 Ft felett', value: [40001, Infinity] }
+          { label: 'Összes árkategória', value: '' },
+          { label: '0 Ft - 20 000 Ft', value: [0, 20000] },
+          { label: '20 000 Ft - 40 000 Ft', value: [20001, 40000] },
+          { label: '40 000 Ft felett', value: [40001, Infinity] }
         ];
+
 
         // Szolgáltatások betöltése az API-ból
         $http.get("./php/services.php").then(function (response) {
