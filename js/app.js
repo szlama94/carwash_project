@@ -402,7 +402,7 @@
             methods.getLanguage().then(() => {
 
               // Change html title
-              document.title = methods.capitalize($scope.lang.data.language);
+              document.title = $scope.lang.data.page_title;
             });
           })
           .catch(error => console.log(error));
