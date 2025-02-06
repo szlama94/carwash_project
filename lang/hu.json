@@ -156,90 +156,32 @@
   "home_appointment_btn": "foglaljon időpontot most!",
   "loyalty_title": "díjazzuk a hűségét!",
   "vip_text":"legyen ön is a super car wash vip klub tagja! hűséges ügyfeleinket különleges kedvezményekkel és exkluzív ajánlatokkal jutalmazzuk, hogy még élvezetesebbé tegyük a prémium autóápolást. ha rendszeresen nálunk mosatja autóját, vip ügyfelünkként egyedi szolgáltatásokhoz és ajándékokhoz is hozzáférhet. értékeljük a bizalmát, és szeretnénk visszaadni belőle!",
-  "home_cards": [
-    {
-      "title": "Professzionális",
-      "text": "Szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak autójával.",
-      "icon": "fa-solid fa-user-tie text-primary"
-    },
-    {
-      "title": "Környezetbarát",
-      "text": "Minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autóját.",
-      "icon": "fa-solid fa-leaf text-success"
-    },
-    {
-      "title": "Megfizethető",
-      "text": "Tegyen minket próbára, kérjen ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudja igénybe venni.",
-      "icon": "fa-solid fa-wallet text-warning"
-    }
-  ],
-  "footer_main": [
-    {
-      "section": "find_us",
-      "title": "Keress minket",
-      "description": "",
-      "icons": [
-        { "class": "bi-facebook", "url": "https://www.facebook.com" },
-        { "class": "bi-instagram", "url": "https://www.instagram.com" },
-        { "class": "bi-tiktok", "url": "https://www.tiktok.com" }
-      ]
-    },
-    {
-      "section": "links",
-      "title": "Linkek",
-      "items": [
-        { "icon": "fa-solid fa-house", "label": "Kezdőlap", "state": "home" },
-        { "icon": "bi bi-car-front", "label": "Szolgáltatások", "state": "page1" },
-        { "icon": "bi bi-info-circle-fill", "label": "Rólunk", "state": "page2" }
-      ]
-    },
-    {
-      "section": "contact",
-      "title": "Kapcsolat",
-      "details": {
-        "address": "Makó, Habfürdő utca 6.",
-        "phone": "+36 30 610 0666",
-        "email": "info@supercarwash.hu"
-      }
-    },
-    {
-      "section": "opening_hours",
-      "title": "Nyitvatartás",
-      "hours": [
-        { "day": "Hétfő - Péntek", "time": "8:00 - 19:00" },
-        { "day": "Szombat", "time": "8:00 - 12:00" }
-      ]
-    },
-    {
-      "section": "map",
-      "title": "Térkép",
-      "map_embed": "https://www.google.com/maps/embed?pb=!1m18"
-    }
-  ],
-  "services_dropdown_menu": [
-    {
-      "label": "Összes árkategória",
-      "value": ""
-    },
-    {
-      "label": "0 Ft - 20 000 Ft",
-      "value": [0, 20000]
-    },
-    {
-      "label": "20 000 Ft - 40 000 Ft",
-      "value": [20001, 40000]
-    },
-    {
-      "label": "40 000 Ft felett",
-      "value": [40001,1000000000]
-    }
-  ],
+  "card1_title": "professzionális",
+  "card1_text": "szakképzett kollégáink több éves autókozmetikai tapasztalattal foglalkoznak autójával.",
+  "card2_title": "környezetbarát",
+  "card2_text": "minden tisztítószerünk környezetbarát, így a lehető legkisebb terheléssel varázsoljuk tisztává autóját.",
+  "card3_title": "megfizethető",
+  "card3_text": "tegyen minket próbára, kérjen ajánlatot! Minden szolgáltatásunkat versenyképes árazással tudja igénybe venni.",
+  "find_us": "keress minket",
+  "links": "linkek",
+  "contact": "kapcsolat",
+  "opening_hours": "nyitvatartás",
+  "map": "térkép",
+  "home": "kezdőlap",
+  "address_label": "cím",
+  "phone_label": "telefon",
+  "email_label": "Email",
+  "monday_to_friday": "hétfő - Péntek",
+  "saturday_label": "szombat",
   "login_do_account": "nincs még fiókja? kattintson a regisztráció gombra lent!",
   "passw_show":"jelszó mutat",
   "personal_data":"személyes adatok",
   "appointment_booking":"időpontfoglalás",
   "my_bookings": "foglalásaim",
-  "postcode_alert":"Érvényes irányítószámot adjon meg!",
+  "postcode_alert":"érvényes irányítószámot adjon meg!",
+
+
+
 
   "exterior_wash": "Külső mosás",
   "desctiption1": "Varázsolja autója külsejét újjá prémium tisztítószereink erejével, hogy minden tekintetet magára vonzzon!",

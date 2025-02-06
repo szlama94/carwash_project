@@ -155,66 +155,30 @@
   "home_appointment_btn": "book an appointment now!",
   "loyalty_title": "we reward your loyalty!",
   "vip_text":"become a member of the super car wash vip club! we reward our loyal customers with special discounts and exclusive offers to make premium car care even more enjoyable. if you regularly wash your car with us, as a vip client, you can access unique services and gifts. we value your trust and want to give back!",
-  "home_cards": [
-    {
-      "title": "Professional",
-      "text": "Our skilled staff with years of car detailing experience will take care of your vehicle.",
-      "icon": "fa-solid fa-user-tie text-primary"
-    },
-    {
-      "title": "Eco-friendly",
-      "text": "All our cleaning products are eco-friendly, ensuring minimal impact while making your car spotless.",
-      "icon": "fa-solid fa-leaf text-success"
-    },
-    {
-      "title": "Affordable",
-      "text": "Put us to the test and request a quote! All our services are available at competitive pricing.",
-      "icon": "fa-solid fa-wallet text-warning"
-    }
-  ],
-  "footer_main":[
-    {
-      "section": "find_us",
-      "title": "Find Us",
-      "description": "",
-      "icons": [
-        { "class": "bi-facebook", "url": "https://www.facebook.com" },
-        { "class": "bi-instagram", "url": "https://www.instagram.com" },
-        { "class": "bi-tiktok", "url": "https://www.tiktok.com" }
-      ]
-    },
-    {
-      "section": "links",
-      "title": "Links",
-      "items": [
-        { "icon": "fa-solid fa-house", "label": "Home", "state": "home" },
-        { "icon": "bi bi-car-front", "label": "Services", "state": "page1" },
-        { "icon": "bi bi-info-circle-fill", "label": "About Us", "state": "page2" }
-      ]
-    },
-    {
-      "section": "contact",
-      "title": "Contact",
-      "details": {
-        "address": "Makó, Habfürdő Street 6.",
-        "phone": "+36 30 610 0666",
-        "email": "info@supercarwash.hu"
-      }
-    },
-    {
-      "section": "opening_hours",
-      "title": "Opening Hours",
-      "hours": [
-        { "day": "Monday - Friday", "time": "8:00 AM - 7:00 PM" },
-        { "day": "Saturday", "time": "8:00 AM - 12:00 PM" }
-      ]
-    },
-    {
-      "section": "map",
-      "title": "Map",
-      "map_embed": "https://www.google.com/maps/embed?pb=!1m18"
-    }
-  ],
+  "card1_title": "Professional",
+  "card1_text": "Our skilled colleagues take care of your car with years of experience in car cosmetics.",
+  "card2_title": "Eco-friendly",
+  "card2_text": "All our cleaning products are environmentally friendly, ensuring the cleanest result with minimal environmental impact.",
+  "card3_title": "Affordable",
+  "card3_text": "Try us out and request an offer! All our services are available at competitive prices.",
+  "find_us": "Find Us",
+  "links": "Links",
+  "contact": "Contact",
+  "opening_hours": "Opening Hours",
+  "map": "Map",
+  "home": "Home",
+  "address_label": "Address",
+  "phone_label": "Phone",
+  "email_label": "Email",
+  "monday_to_friday": "Monday to Friday",
+  "saturday_label": "Saturday",
+  
+  
+  
+  
+  
+  
+  
   "services_dropdown_menu": [
     {
       "label": "All price categories",

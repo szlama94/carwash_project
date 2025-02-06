@@ -1,74 +1,70 @@
-<!------------------Footer----------------------------->
-<footer class="footer-custom navbar navbar-expand-sm text-white mt-5 border-primary rounded-3">
+<footer class="footer-custom navbar navbar-expand-sm 
+               text-white mt-5 border-primary rounded-3">
   <div class="container w-auto py-4">
     <div class="row justify-content-between">
-      <!----------------Rólunk szekció ---------------------->
-      <div class="col-lg-2 col-md-4 mb-4" 
-           ng-repeat="section in footerSections">
-        <h5 class="fw-bold">{{section.title}}</h5>
-
-        <!----------Keress minket--------------->
-        <div ng-if="section.section === 'find_us'" 
-             class="d-flex justify-content-start 
-                    align-items-center flex-wrap gap-2">
-          <a ng-repeat="icon in section.icons" 
+      
+      <!-- Keress minket szekció -->
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h5 class="fw-bold">{{lang.find_us}}</h5>
+        <div class="d-flex gap-2">
+          <a ng-repeat="icon in footerSections[0].icons" 
              ng-href="{{icon.url}}" 
              class="text-decoration-none text-white" 
              target="_blank">
             <i class="{{icon.class}} fa-2x"></i>
           </a>
         </div>
+      </div>
 
-        <!----------Link szekció --------------->
-        <div ng-if="section.section === 'links'">
-          <p ng-repeat="link in section.items" class="mb-1">
-            <i class="{{link.icon}} me-1"></i>
-            <a ui-sref="{{link.state}}" 
-               class="text-decoration-none text-white">
-              {{link.label}}
+      <!-- Linkek szekció -->
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h5 class="fw-bold">{{lang.links}}</h5>
+        <p ng-repeat="link in footerSections[1].items" class="mb-1">
+          <i class="{{link.icon}} me-1"></i>
+          <a ui-sref="{{link.state}}" 
+             class="text-decoration-none text-white">
+             {{lang[link.label]}}
             </a>
-          </p>
-        </div>
+        </p>
+      </div>
 
-        <!----------Kontakt szekció --------------->
-        <div ng-if="section.section === 'contact'">
-          <div class="d-flex align-items-center mb-2">
-            <i class="fa-solid fa-location-dot me-2"></i>
-            <p class="mb-0">{{section.details.address}}</p>
-          </div>
-          <div class="d-flex align-items-center mb-2">
-            <i class="fa-solid fa-phone me-2"></i>
-            <p class="mb-0">{{section.details.phone}}</p>
-          </div>
-          <div class="d-flex align-items-center">
-            <i class="fa-solid fa-envelope me-2"></i>
-            <p class="mb-0">{{section.details.email}}</p>
-          </div>
-        </div>
+      <!-- Kapcsolat szekció -->
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h5 class="fw-bold">{{lang.contact}}</h5>
+        <p><i class="fa-solid fa-location-dot me-2"></i> 
+          {{footerSections[2].details.address}}
+        </p>
+        <p><i class="fa-solid fa-phone me-2"></i> 
+          {{footerSections[2].details.phone}}
+        </p>
+        <p><i class="fa-solid fa-envelope me-2"></i>
+          {{footerSections[2].details.email}}</p>
+      </div>
 
-        <!----------Nyitvatartás szekció --------------->
-        <ul ng-if="section.section === 'opening_hours'" 
-            class="list-unstyled">
-          <li ng-repeat="hour in section.hours" 
-              class="mb-2">
-            <i class="fa-solid fa-clock me-2"></i> 
-            {{hour.day}}: {{hour.time}}
-          </li>
-        </ul>
+      <!-- Nyitvatartás szekció -->
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h5 class="fw-bold">
+          {{lang.opening_hours}}
+        </h5>
+        <p ng-repeat="hour in footerSections[3].hours">
+          <i class="fa-solid fa-clock me-2"></i> 
+          {{lang[hour.day]}}: {{hour.time}}
+        </p>
+      </div>      
 
-        <!----------Térkép szekció--------------->
-        <div ng-if="section.section === 'map'">
-          <iframe
-            ng-src="{{mapUrl}}"
-            width="200"
-            height="150"
-            style="border: 0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            class="text-center border-primary rounded-3">
-          </iframe>
-        </div>
+      <!-- Térkép szekció -->
+      <div class="col-lg-2 col-md-4 mb-4">
+        <h5 class="fw-bold">{{lang.map}}</h5>
+        <iframe
+          ng-src="{{mapUrl}}"
+          width="200"
+          height="150"
+          style="border: 0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="text-center border-primary rounded-3">
+        </iframe>
       </div>
     </div>
   </div>

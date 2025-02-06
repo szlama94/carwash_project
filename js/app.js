@@ -442,61 +442,119 @@
 
   //----------Footer-controller--------------->
   .controller('footerController', [
-    '$scope', '$rootScope', '$sce',
-    function($scope, $rootScope, $sce) {
+    '$scope', 
+    '$rootScope',
+    '$sce',    
+    function ($scope, $rootScope,$sce) {
   
-      // Hallgatjuk a nyelvi adatok betöltésének eseményét
-      $rootScope.$on('languageLoaded', () => {
-        $scope.footerSections = $rootScope.lang.data.footer_main;
-         // Frissítjük a nézetet
-        $scope.$applyAsync(); 
+      // Footer szekciók statikus adatai
+      $scope.footerSections = [
+        {
+          section: "find_us",
+          icons: [
+            { class: "fa-brands fa-facebook-f", url: "https://www.facebook.com" },
+            { class: "fa-brands fa-instagram", url: "https://www.instagram.com" },
+            { class: "fa-brands fa-tiktok", url: "https://www.tiktok.com" }
+          ]
+        },
+        {
+          section: "links",
+          items: [
+            { icon: "fa-solid fa-house", label: "home", state: "home" },
+            { icon: "fa-solid fa-car", label: "services", state: "services" },
+            { icon: "fa-solid fa-circle-info", label: "about_us", state: "about_us" }
+          ]
+        },
+        {
+          section: "contact",
+          details: {
+            address: "Makó, Habfürdő utca 6.",
+            phone: "+36 30 610 0666",
+            email: "info@supercarwash.hu"
+          }
+        },
+        {
+          section: "opening_hours",
+          hours: [
+            { day: "monday_to_friday", time: "8:00 - 19:00" },
+            { day: "saturday_label", time: "8:00 - 12:00" }
+          ]
+        }
+      ];
+  
+      // Térkép URL beágyazása
+      $scope.mapUrl = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2760.836396232944!2d20.473138775978818!3d46.21370948311983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu');
 
-        // Térkép URL beágyazása
-        $scope.mapUrl = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2760.836396232944!2d20.473138775978818!3d46.21370948311983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu');
-
+  
+      // Hallgatózás a nyelv betöltésére
+      $rootScope.$on('languageLoaded', function() {
+        $scope.lang = $rootScope.lang.data;  // Aktuális nyelvi adatok
       });
     }
-  ])
-
+  ])  
+  
   //---------Home-controller------------------>
   .controller('homeController', [
-      '$scope', 
-      '$state', 
-      '$rootScope',
-      '$timeout',
-
-      function ($scope, $state, $rootScope, $timeout) {
-
+    '$scope', 
+    '$state', 
+    '$rootScope',
+    '$timeout',
+  
+    function ($scope, $state, $rootScope, $timeout) {
+  
       $scope.videoUrl = "./media/video/spwc_video.mp4";
-        
-    //Cardok nyelvi adatinak betöltése
-      $rootScope.$on('languageLoaded', () => {
-      $scope.home_cards = $rootScope.lang.data.home_cards;
+  
+      // Kártyákhoz tartozó ikonok
+      $scope.cardIcons = [
+        'fa-solid fa-user-tie text-primary',   // Card 1
+        'fa-solid fa-leaf text-success',       // Card 2
+        'fa-solid fa-wallet text-warning'      // Card 3
+      ];
+  
+      // Cardok nyelvi adatinak betöltése
+      $rootScope.$on('languageLoaded', function() {
+        if ($rootScope.lang && $rootScope.lang.data) {
+          $scope.cards = [
+            {
+              title: $rootScope.lang.data.card1_title,
+              text: $rootScope.lang.data.card1_text,
+              icon: $scope.cardIcons[0]
+            },
+            {
+              title: $rootScope.lang.data.card2_title,
+              text: $rootScope.lang.data.card2_text,
+              icon: $scope.cardIcons[1]
+            },
+            {
+              title: $rootScope.lang.data.card3_title,
+              text: $rootScope.lang.data.card3_text,
+              icon: $scope.cardIcons[2]
+            }
+          ];
+        }
       });
-
   
       // Átirányítás függvény
       $scope.redirectToAppointment = function () {
         if ($rootScope.user && $rootScope.user.id) {
-          // Ha be van jelentkezve, navigálj az időpontfoglalásra
           $state.go('profile', { section: 'schedule' });
         } else {
-          // Ha nincs bejelentkezve, navigálj a bejelentkezési oldalra
           $state.go('login');
         }
       };
-    
+  
       $scope.cardStyle = {
-        'background-image': 'url(./media/image/)',
+        'background-image': 'url(./media/image/card_background.jpg)',
         'background-size': 'cover',
         'background-position': 'center',
         'background-repeat': 'no-repeat'
       };
-    
-      // A VIP kép a home-page -en
+  
+      // A VIP kép a home-page-en
       $scope.homepg_vip_pic = './media/image/vip_pic.png';
-  }])
-
+    }
+  ])
+  
   //--------Services controller--------------->
   .controller('servicesController', [
     '$rootScope',
