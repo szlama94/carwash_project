@@ -1,5 +1,6 @@
 <nav
-  class="header-custom navbar navbar-expand-md text-white fs-5 border-primary rounded-3"
+  class="header-custom navbar navbar-expand-md 
+         text-white fs-5 border-primary rounded-3"
   data-bs-theme="dark">
   <div class="container-fluid">
     <!---------Hamburger icon---------------->
@@ -15,59 +16,94 @@
     </button>
     
     <!------------Navbar tartalom------------->
-    <div id="navbar_content" class="collapse navbar-collapse mt-3 mt-md-0">
-      <a class="nav-link" ui-sref="home" ui-sref-active="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"></a>
+    <div id="navbar_content" 
+         class="collapse navbar-collapse mt-3 mt-md-0">
+      <a class="nav-link" 
+         ui-sref="home" 
+         ui-sref-active="active" 
+         data-bs-toggle="collapse" 
+         data-bs-target=".navbar-collapse.show"></a>
 
       <!-----------Navbar tartalom bal oldal.....-->
       <ul class="navbar-nav me-auto">
+
         <!-------------------Home--------------------->
         <li class="nav-item mx-1">
-          <a class="nav-link" ui-sref="home" ui-sref-active="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+          <a class="nav-link" 
+             ui-sref="home" 
+             ui-sref-active="active" 
+             data-bs-toggle="collapse" 
+             data-bs-target=".navbar-collapse.show">
             <i class="fa-solid fa-house me-1"></i>
-            <span class="text-capitalize">{{lang.data.home_page}}</span>
+            <span class="text-capitalize">
+              {{lang.data.home_page}}
+            </span>
           </a>
         </li>
 
         <!--------------Szolgáltatások oldal--------->
         <li class="nav-item mx-1">
-          <a class="nav-link" ui-sref="services" ui-sref-active="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-            <!-- <i class="bi bi-car-front"></i> -->
+          <a class="nav-link" 
+             ui-sref="services" 
+             ui-sref-active="active" 
+             data-bs-toggle="collapse" 
+             data-bs-target=".navbar-collapse.show">
             <i class="fa-solid fa-car"></i>
-            <span class="text-capitalize">{{lang.data.services}}</span>
+            <span class="text-capitalize">
+              {{lang.data.services}}
+            </span>
           </a>
         </li>
 
         <!-------------Rólunk oldal------------------->
         <li class="nav-item mx-1">
-          <a class="nav-link" ui-sref="about_us" ui-sref-active="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+          <a class="nav-link" 
+             ui-sref="about_us" 
+             ui-sref-active="active"
+             data-bs-toggle="collapse" 
+             data-bs-target=".navbar-collapse.show">
             <!-- <i class="bi bi-info-circle-fill"></i> -->
             <i class="fa-solid fa-circle-info"></i>
-            <span class="text-capitalize">{{lang.data.about_us}}</span>
+            <span class="text-capitalize">
+              {{lang.data.about_us}}
+            </span>
           </a>
         </li>
       </ul>
 
       <!--------------Navbar tartalom jobb oldal------------------->
       <ul class="navbar-nav ms-auto">
+
         <!-------------------Foglalásaim--------------------------->
-        <li class="nav-item mx-1 bg-warning rounded-3" ng-if="$root.user && $root.user.id">
-          <a class="nav-link" ui-sref="profile({ section: 'myBookings' })">
+        <li class="nav-item mx-1 bg-warning rounded-3" 
+            ng-if="$root.user && $root.user.id">
+          <a class="nav-link" 
+             ui-sref="profile({ section: 'myBookings' })">
             <i class="fa-regular fa-calendar"></i>
-            <!-- <i class="bi bi-calendar-check "></i>  -->
             {{lang.data.my_appointments}}
           </a>
         </li>
 
         <!---------------------Felhasználó----------------------------->
-        <li class="nav-item dropdown" data-bs-auto-close="true">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown" 
+            data-bs-auto-close="true">
+          <a class="nav-link dropdown-toggle" 
+             href="#" 
+             role="button" 
+             data-bs-toggle="dropdown" 
+             aria-expanded="false">
             <i class="fa-solid fa-user me-1"></i>
-            <span class="text-capitalize text-small-caps">{{lang.data.user}}</span>
+            <span class="text-capitalize text-small-caps">
+              {{lang.data.user}}
+            </span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end fs-5">
+
             <!----------------------Felhasználó neve------------------>
             <li class="nav-item">
-              <span class="dropdown-item-text text-capitalize text-small-caps text-nowrap" ng-if="$root.user.id">
+              <span class="dropdown-item-text text-capitalize 
+                            text-small-caps text-nowrap" 
+                    ng-if="$root.user.id">
                 <span>{{$root.user.last_name}}</span>
                 <span>{{$root.user.first_name}}</span>
                 <span>{{$root.user.middle_name}}</span>
@@ -75,34 +111,54 @@
             </li>
 
             <!--------------------------Bejelentkezés------------------------->
-            <li class="nav-item" ng-if="!$root.user.id">
-              <a class="dropdown-item" ui-sref="login" ui-sref-active="active">
+            <li class="nav-item" 
+                ng-if="!$root.user.id">
+              <a class="dropdown-item" 
+                 ui-sref="login" 
+                 ui-sref-active="active">
                 <i class="fa-solid fa-right-to-bracket me-1"></i>
-                <span class="text-capitalize text-small-caps">{{lang.data.login}}</span>
+                <span class="text-capitalize text-small-caps">
+                  {{lang.data.login}}
+                </span>
               </a>
             </li>
 
             <!--------------------------Regisztráció------------------------->
-            <li class="nav-item" ng-if="!$root.user.id">
-              <a class="dropdown-item" ui-sref="register" ui-sref-active="active">
+            <li class="nav-item" 
+                ng-if="!$root.user.id">
+              <a class="dropdown-item" 
+                 ui-sref="register" 
+                 ui-sref-active="active">
                 <i class="fa-solid fa-id-card me-1"></i>
-                <span class="text-capitalize text-small-caps">{{lang.data.register}}</span>
+                <span class="text-capitalize text-small-caps">
+                  {{lang.data.register}}
+                </span>
               </a>
             </li>
 
             <!--------------------------Profil------------------------->
-            <li class="nav-item" ng-if="$root.user.id">
-              <a class="dropdown-item" ui-sref="profile" ui-sref-active="active">
+            <li class="nav-item" 
+                ng-if="$root.user.id">
+              <a class="dropdown-item" 
+                 ui-sref="profile" 
+                 ui-sref-active="active">
                 <i class="fa-regular fa-address-card me-1"></i>
-                <span class="text-capitalize text-small-caps">{{lang.data.profile}}</span>
+                <span class="text-capitalize text-small-caps">
+                  {{lang.data.profile}}
+                </span>
               </a>
             </li>
 
             <!---------------------Felhasználók------------------------->
-            <li class="nav-item" ng-if="$root.user.type==='A'">
-              <a class="dropdown-item" ui-sref="users" ui-sref-active="active">
+            <li class="nav-item" 
+                ng-if="$root.user.type==='A'">
+              <a class="dropdown-item" 
+                 ui-sref="users" 
+                 ui-sref-active="active">
                 <i class="fa-solid fa-users me-1"></i>
-                <span class="text-capitalize text-small-caps">{{lang.data.users}}</span>
+                <span class="text-capitalize text-small-caps">
+                  {{lang.data.users}}
+                </span>
               </a>
             </li>
 
@@ -112,10 +168,14 @@
             </li>
 
             <!--------------------------Kijelentkezés------------------------------------->
-            <li class="nav-item" ng-if="$root.user.id">
-              <a class="dropdown-item cursor-pointer" ng-click="$root.logout()">
+            <li class="nav-item" 
+                ng-if="$root.user.id">
+              <a class="dropdown-item cursor-pointer" 
+                 ng-click="$root.logout()">
                 <i class="fa-solid fa-right-from-bracket me-1"></i>
-                <span class="text-capitalize text-small-caps">{{lang.data.logout}}</span>
+                <span class="text-capitalize text-small-caps">
+                  {{lang.data.logout}}
+                </span>
               </a>
             </li>
           </ul>

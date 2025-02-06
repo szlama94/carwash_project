@@ -23,11 +23,13 @@
         <div ng-if="section.section === 'links'">
           <p ng-repeat="link in section.items" class="mb-1">
             <i class="{{link.icon}} me-1"></i>
-            <a ui-sref="{{link.state}}" class="text-decoration-none text-white">
+            <a ui-sref="{{link.state}}" 
+               class="text-decoration-none text-white">
               {{link.label}}
             </a>
           </p>
         </div>
+
         <!----------Kontakt szekció --------------->
         <div ng-if="section.section === 'contact'">
           <div class="d-flex align-items-center mb-2">
@@ -43,12 +45,17 @@
             <p class="mb-0">{{section.details.email}}</p>
           </div>
         </div>
+
         <!----------Nyitvatartás szekció --------------->
-        <ul ng-if="section.section === 'opening_hours'" class="list-unstyled">
-          <li ng-repeat="hour in section.hours" class="mb-2">
-            <i class="fa-solid fa-clock me-2"></i> {{hour.day}}: {{hour.time}}
+        <ul ng-if="section.section === 'opening_hours'" 
+            class="list-unstyled">
+          <li ng-repeat="hour in section.hours" 
+              class="mb-2">
+            <i class="fa-solid fa-clock me-2"></i> 
+            {{hour.day}}: {{hour.time}}
           </li>
         </ul>
+
         <!----------Térkép szekció--------------->
         <div ng-if="section.section === 'map'">
           <iframe

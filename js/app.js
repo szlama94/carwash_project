@@ -218,6 +218,7 @@
       methods.init();
     }
   ])  
+
   //----------Login-controller---------------->
   .controller('loginController', [
       '$rootScope',
@@ -279,6 +280,7 @@
         methods.init();
       }
   ])
+
   //----------Register-controller------------->
   .controller('registerController', [
       '$scope',
@@ -335,6 +337,7 @@
           };
       }
   ])
+
   //----------Profile-controller-------------->
   .controller('profileController', [
       '$rootScope', 
@@ -436,6 +439,7 @@
         };
       
   }])    
+
   //----------Footer-controller--------------->
   .controller('footerController', [
     '$scope', '$rootScope', '$sce',
@@ -444,7 +448,6 @@
       // Hallgatjuk a nyelvi adatok betöltésének eseményét
       $rootScope.$on('languageLoaded', () => {
         $scope.footerSections = $rootScope.lang.data.footer_main;
-        console.log('languageLoaded');
          // Frissítjük a nézetet
         $scope.$applyAsync(); 
 
@@ -454,6 +457,7 @@
       });
     }
   ])
+
   //---------Home-controller------------------>
   .controller('homeController', [
       '$scope', 
@@ -492,6 +496,7 @@
       // A VIP kép a home-page -en
       $scope.homepg_vip_pic = './media/image/vip_pic.png';
   }])
+
   //--------Services controller--------------->
   .controller('servicesController', [
     '$rootScope',
@@ -584,6 +589,7 @@
         $scope.updateGroupedServices();
     }
   ])
+
   //--------About_us-controller--------------->
   .controller('aboutUsController', [
       '$scope', 
@@ -693,20 +699,20 @@
   }])
 
   // Custom factory
-  .factory('customFactoryName', [
-    function() {
-      let a = [];
-      return {
-        get: () => {
-          return a;
-        },
-        remove: (index) => {
-          a.splice(index);
-        },
-        add: (v) => {
-          a.push(v);
-        }
-      }
-    }
-  ]);
+  // .factory('customFactoryName', [
+  //   function() {
+  //     let a = [];
+  //     return {
+  //       get: () => {
+  //         return a;
+  //       },
+  //       remove: (index) => {
+  //         a.splice(index);
+  //       },
+  //       add: (v) => {
+  //         a.push(v);
+  //       }
+  //     }
+  //   }
+  // ]);
 })(window, angular);
