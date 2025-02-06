@@ -78,8 +78,8 @@
                      alt="{{service.services_name}}">
               </div>
               <div class="card-body rounded">
-                <h5 class="card-title">{{service.services_name}}</h5>
-                <p class="card-text">{{service.description}}</p>
+                <h5 class="card-title">{{lang.data[service.services_name]}}</h5>
+                <p class="card-text">{{lang.data[service.description]}}</p>
                 <p class="fw-bold text-warning text-center">{{service.price | currency:'' :0}} Ft</p>
                 <button class="btn btn-warning w-100">{{lang.data.appointment_button}}</button>
               </div>

@@ -3,10 +3,14 @@
   <div class="container w-auto py-4">
     <div class="row justify-content-between">
       <!----------------Rólunk szekció ---------------------->
-      <div class="col-lg-2 col-md-4 mb-4" ng-repeat="section in footerSections">
+      <div class="col-lg-2 col-md-4 mb-4" 
+           ng-repeat="section in footerSections">
         <h5 class="fw-bold">{{section.title}}</h5>
+
         <!----------Keress minket--------------->
-        <div ng-if="section.section === 'find_us'" class="d-flex justify-content-start align-items-center flex-wrap gap-2">
+        <div ng-if="section.section === 'find_us'" 
+             class="d-flex justify-content-start 
+                    align-items-center flex-wrap gap-2">
           <a ng-repeat="icon in section.icons" 
              ng-href="{{icon.url}}" 
              class="text-decoration-none text-white" 
@@ -14,6 +18,7 @@
             <i class="{{icon.class}} fa-2x"></i>
           </a>
         </div>
+
         <!----------Link szekció --------------->
         <div ng-if="section.section === 'links'">
           <p ng-repeat="link in section.items" class="mb-1">
