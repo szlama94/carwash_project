@@ -685,7 +685,22 @@
                           console.error("Hiba történt a frissítés során:", error);
                       });
               }
-          };
+        };
+
+        $scope.getHours = function () {
+          let hours = [];
+          for (let i = 8; i <= 18; i++) {
+              let formattedHour = i < 10 ? '0' + i + ':00' : i + ':00';
+              hours.push(formattedHour);
+          }
+          return hours;
+        };
+        
+        $scope.selectTime = function (time) {
+            console.log("Kiválasztott időpont: " + time);
+            // További műveletek, például az időpont elmentése
+        };
+      
   }])    
   //----------Footer-controller--------------->
   .controller('footerController', [
@@ -766,7 +781,6 @@
           { label: '40 000 Ft felett', value: [40001, Infinity] }
         ];
 
-
         // Szolgáltatások betöltése az API-ból
         $http.get("./php/services.php").then(function (response) {
             if (response.data && Array.isArray(response.data.data)) {
@@ -805,8 +819,18 @@
             return true;
         };
 
+        // Az árkategóriaváltás figyelése és a frissítés
+        $scope.$watch('selectedPriceCategory', function (newValue) {
+            if (newValue && newValue.length) {
+                $scope.priceFilter = newValue;
+            } else {
+                $scope.priceFilter = '';
+            }
+            $scope.updateGroupedServices();
+        });
+
         // Az árkategóriaváltás vagy keresési szöveg változását figyelni és frissíteni a Carousel-t
-        $scope.$watchGroup(['searchText', 'priceFilter'], function () {
+        $scope.$watchGroup(['searchText'], function () {
             $scope.updateGroupedServices();  // Mindig frissítjük a szűrt eredményeket
         });
 

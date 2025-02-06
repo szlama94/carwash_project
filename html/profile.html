@@ -342,6 +342,60 @@
           </div>
         </div>
       </div>
+
+      <!--------------Időpontfoglalás---------------------->
+      <div ng-if="selectedSection === 'schedule'">
+        <h3 class="text-center mb-4">{{lang.data.appointment_booking}}</h3>
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Csomag neve</th>
+              <th scope="col">Ár</th>
+              <th scope="col">Művelet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Ide kerülnek majd az Angularral dinamikusan generált sorok -->
+            <tr>
+              <td colspan="3" class="text-center">Nincsenek foglalások.</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Jármű rendszáma input -->
+        <div class="mb-3">
+          <label for="vehicle-plate" 
+                 class="form-label">
+                 Jármű rendszáma:
+            </label>
+          <input type="text" 
+                 id="vehicle-plate" 
+                 class="form-control" 
+                 placeholder="ABC-123">
+        </div>
+        <!-- Dátum input -->
+        <div class="mb-3">
+          <label for="appointment-date" 
+                 class="form-label">
+                 Dátum:
+            </label>
+          <input type="date" 
+                 id="appointment-date" 
+                 class="form-control">
+        </div>
+        <!-- Időpont gombok -->
+        <div class="d-flex flex-wrap gap-2">
+          <button type="button" class="btn btn-success" 
+                  ng-repeat="hour in getHours()" 
+                  ng-click="selectTime(hour)">
+            {{ hour }}
+          </button>
+        </div>
+        <!-- Mentés gomb -->
+        <button type="button" 
+                class="btn btn-primary mt-3">
+                Mentés
+          </button>
+      </div>      
     </div>
   </div>
 </div>

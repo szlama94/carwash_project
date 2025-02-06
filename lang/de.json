@@ -238,5 +238,81 @@
   "personal_data":"persönliche daten",
   "appointment_booking":"terminbuchung",
   "my_bookings": "meine buchungen",
-  "postcode_alert":"bitte geben sie eine gültige postleitzahl ein!"
+  "postcode_alert":"bitte geben sie eine gültige postleitzahl ein!",
+
+    "services_card": [
+      {
+        "services_name": "exterior_wash",
+        "translated_name": "Außenwäsche",
+        "description": "Verwandeln Sie das Äußere Ihres Autos mit hochwertigen Reinigungsprodukten und ziehen Sie alle Blicke auf sich!",
+        "price": 11990
+      },
+      {
+        "services_name": "interior_clean",
+        "translated_name": "Innenreinigung",
+        "description": "Bringen Sie die Frische und Sauberkeit in den Innenraum Ihres Fahrzeugs zurück, als ob Sie ein neues Auto hätten!",
+        "price": 11990
+      },
+      {
+        "services_name": "extra_polishing",
+        "translated_name": "Spezielle Politur",
+        "description": "Machen Sie den Glanz Ihres Autos unwiderstehlich mit einer speziellen Politur, die lange anhält.",
+        "price": 14990
+      },
+      {
+        "services_name": "upholstery_cleaning",
+        "translated_name": "Polsterreinigung",
+        "description": "Verabschieden Sie sich von hartnäckigen Flecken! Unsere Tiefenreinigung macht Ihre Polster wieder frisch.",
+        "price": 14990
+      },
+      {
+        "services_name": "ceramic_coating",
+        "translated_name": "Keramikbeschichtung",
+        "description": "Schützen Sie Ihr Auto vor Kratzern und Schmutz mit einer langanhaltenden Keramikbeschichtung.",
+        "price": 49990
+      },
+      {
+        "services_name": "engine_wash",
+        "translated_name": "Motorwäsche",
+        "description": "Ein sauberer Motorraum ist nicht nur eine Frage der Ästhetik – verlängern Sie die Lebensdauer des Motors.",
+        "price": 19990
+      },
+      {
+        "services_name": "quick_wash",
+        "translated_name": "Schnellwäsche",
+        "description": "Frischen Sie Ihr Auto in kürzester Zeit auf – saubere Ergebnisse ohne Kompromisse!",
+        "price": 11990
+      },
+      {
+        "services_name": "wax_coating",
+        "translated_name": "Wachsversiegelung",
+        "description": "Geben Sie Ihrem Auto einen beeindruckenden Schutz mit unserer hochwertigen Wachsversiegelung.",
+        "price": 24990
+      },
+      {
+        "services_name": "rim_cleaning",
+        "translated_name": "Felgenreinigung",
+        "description": "Bringen Sie den ursprünglichen Glanz Ihrer Felgen zurück! Effektive Reinigung gegen hartnäckigen Schmutz.",
+        "price": 19990
+      },
+      {
+        "services_name": "full_cleaning",
+        "translated_name": "Komplette Reinigung",
+        "description": "Machen Sie Ihr Auto innen und außen makellos sauber – so macht das Fahren wieder Spaß!",
+        "price": 64990
+      },
+      {
+        "services_name": "windshield_polishing",
+        "translated_name": "Windschutzscheiben-Politur",
+        "description": "Verabschieden Sie sich von Kratzern und störenden Flecken – für kristallklare Sicht!",
+        "price": 22990
+      },
+      {
+        "services_name": "sticker_removal",
+        "translated_name": "Aufkleberentfernung",
+        "description": "Wir entfernen Aufkleber schonend, ohne den Lack Ihres Autos zu beschädigen.",
+        "price": 9990
+      }
+    ]
+
 }

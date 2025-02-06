@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Feb 03. 21:24
+-- Létrehozás ideje: 2025. Feb 06. 12:56
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -79,18 +79,31 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `services_name`, `description`, `price`) VALUES
-(1, 'kulso_mosas', 'description1', 11990),
-(2, 'belso_takaritas', 'description2', 11990),
-(3, 'extra_fenyezes', 'description3', 14990),
-(4, 'karpittisztitas', 'description4', 14990),
-(5, 'kerámia_bevonat', 'description5', 49990),
-(6, 'motor_mosas', 'description6', 19990),
-(7, 'gyors_mosas', 'description7', 11990),
-(8, 'viaszos_bevonat', 'description8', 24990),
-(9, 'felni_tisztitas', 'description9', 19990),
-(10, 'teljes_kulso_belso_tisztitas', 'description10', 64990),
-(11, 'szelvedo_polirozas', 'description11', 22990),
-(12, 'matrica_eltavolitas', 'description12', 9990);
+(1, 'exterior_wash', 'description1', 11990),
+(2, 'interior_clean', 'description2', 11990),
+(3, 'extra_polishing', 'description3', 14990),
+(4, 'upholstery_cleaning', 'description4', 14990),
+(5, 'ceramic_coating', 'description5', 49990),
+(6, 'engine_wash', 'description6', 19990),
+(7, 'quick_wash', 'description7', 11990),
+(8, 'wax_coating', 'description8', 24990),
+(9, 'rim_cleaning', 'description9', 19990),
+(10, 'full_cleaning', 'description10', 64990),
+(11, 'windshield_polishing', 'description11', 22990),
+(12, 'sticker_removal', 'description12', 9990);
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `temporary_cart`
+--
+
+CREATE TABLE `temporary_cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `package_name` varchar(200) NOT NULL,
+  `price` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -162,7 +175,7 @@ INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `born`, `gender`, 
 (37, 'U', 'Zsolt', 'Nagy', '1970-04-19', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nagy.zsolt-2023@keri.mako.hu', '1234Aa', 1),
 (38, 'U', 'János', 'Sárkány', '1991-12-05', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sarkany.janos-2023@keri.mako.hu', '1234Aa', 1),
 (39, 'U', 'Eszter', 'Szabó-Juhász', '1990-01-20', 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'szabo-juhasz.eszter-2023@keri.mako.hu', '1234Aa', 1),
-(40, 'U', 'Bence', 'Szlama', '1994-02-14', 'M', NULL, NULL, 'Magyarország', NULL, '704319805', 'Makó', '6900', 'Bajcsy-Zsilinszky ltp. B1/C lph. 3/1', 'szlama.bence-2023@keri.mako.hu', '1234Aa', 1),
+(40, 'U', 'Bence', 'Szlama', '1994-02-14', 'M', NULL, NULL, 'Magyarország', NULL, '704319806', 'Makó', '6900', 'Bajcsy-Zsilinszky ltp. B1/C lph. 3/1', 'szlama.bence-2023@keri.mako.hu', '1234Aa', 1),
 (41, 'U', 'Dániel', 'Badó-Gulácsi', NULL, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bado-gulac.daniel-2021@keri.mako.hu\r', '1234Aa', 1),
 (42, 'U', 'Barnabás', 'Berta', '2006-04-05', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'berta.barnabas-2021@keri.mako.hu\r', '1234Aa', 1),
 (43, 'U', 'Richárd', 'Bokor', '2006-07-08', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bokor.richard-2021@keri.mako.hu\r', '1234Aa', 1),
@@ -226,6 +239,12 @@ ALTER TABLE `services`
   ADD KEY `services_name` (`services_name`,`price`);
 
 --
+-- A tábla indexei `temporary_cart`
+--
+ALTER TABLE `temporary_cart`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- A tábla indexei `users`
 --
 ALTER TABLE `users`
@@ -255,6 +274,12 @@ ALTER TABLE `feedback`
 --
 ALTER TABLE `services`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT a táblához `temporary_cart`
+--
+ALTER TABLE `temporary_cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT a táblához `users`
