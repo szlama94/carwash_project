@@ -11,7 +11,10 @@ if (!$userId) {
 
 $db = new Database();
 
-$query = "SELECT `package`, `date`, `time`, `price` 
+$query = "SELECT `package`, 
+                 `date`, 
+                 `time`, 
+                 `price` 
           FROM bookings 
           WHERE user_id = ?";
 

@@ -407,7 +407,7 @@
               <td>{{ package.price | currency:'' :0 }} Ft</td>
               <td>
                 <button class="btn btn-danger" 
-                        ng-click="removePackage(package)">
+                        ng-click="removePackage(pcg)">
                   {{lang.data.delete}}
                 </button>
               </td>
@@ -415,18 +415,17 @@
           </tbody>
         </table>
         
-
         <!--------------Jármű rendszáma input--------->
         <div class="mb-3">
           <label for="vehicle-plate" 
                  class="form-label">
-                 {{ lang.data.vehicle_plate }}:
+                 {{lang.data.vehicle_plate}}
                 </label>
           <input type="text" 
                  id="vehicle-plate" 
                  class="form-control" 
                  ng-model="vehiclePlate" 
-                 placeholder="ABC-123" 
+                 placeholder="ABC-123/AA-AA-000" 
                  required>
         </div>
 
@@ -443,18 +442,21 @@
         </div>
         <div class="d-flex flex-wrap gap-2">
           <button type="button" 
-                  class="btn"
-                  ng-class="{'btn-danger': time.status === 'booked', 'btn-success': time.status === 'available', 'btn-warning': time.status === 'selected'}"
-                  ng-click="selectTime(time)" 
-                  ng-repeat="time in getAvailableTimes()">
-            {{time.time}}
-          </button>
+                    class="btn"
+                    ng-class="{
+                      'btn-success': !selectedDate,     
+                      'btn-danger': time.status === 'booked',  
+                      'btn-warning': time.time === selectedTime}"
+                    ng-click="selectTime(time)" 
+                    ng-repeat="time in getAvailableTimes()">
+                {{time.time}}
+            </button>
         </div>
         
-
         <!----------------Időpont gombok------------->
         <div class="d-flex flex-wrap gap-2">
-          <button type="button" class="btn btn-success" 
+          <button type="button" 
+                  class="btn btn-success" 
                   ng-repeat="hour in getHours()" 
                   ng-click="selectTime(hour)">
             {{hour}}
@@ -462,11 +464,12 @@
         </div>
 
         <!------------------Mentés gomb------------>
-        <button type="button" 
-                class="btn btn-primary mt-3" 
-                ng-click="saveBooking()">
-          {{ lang.data.save }}
-        </button>
+        <button 
+              type="button" 
+              class="btn btn-primary mt-3" 
+              ng-click="saveBooking()">
+              {{ lang.data.save }}
+          </button>
       </div>
 
       <!--------------Foglalásaim---------------------->
@@ -475,7 +478,6 @@
         <h3 class="text-center mb-4">
           {{ lang.data.my_bookings }}
         </h3>
-    
         <table class="table table-bordered" 
                ng-if="bookings.length > 0">
             <thead class="table-dark">
@@ -495,7 +497,6 @@
                 </tr>
             </tbody>
         </table>
-    
         <div ng-if="bookings.length === 0" 
              class="alert alert-warning">
             {{ lang.data.no_bookings }}

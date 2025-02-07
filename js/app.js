@@ -344,9 +344,10 @@
     '$state', 
     '$scope', 
     '$http',
+    '$timeout', // Hozzáadva a $timeout szolgáltatás
     'appointmentFactory',
 
-    function ($rootScope, $state, $scope, $http, appointmentFactory) {
+    function ($rootScope, $state, $scope, $http, $timeout, appointmentFactory) {
         if (!$rootScope.user || !$rootScope.user.id) {
             alert("Nem vagy bejelentkezve. Jelentkezz be újra!");
             $state.go('login');
@@ -371,6 +372,7 @@
         // Felhasználói adatok betöltése
         $http.post('./php/profile.php', { id: $rootScope.user.id })
             .then(response => {
+                console.log("Felhasználói adatok betöltése:", response);  // Debug
                 if (response.data && response.data.data) {
                     $scope.user = response.data.data;
                 } else {
@@ -396,6 +398,7 @@
             'user.postcode',
             'user.address'
         ], function (newValues, oldValues) {
+            console.log("User data changed:", newValues, oldValues);  // Debug
             $scope.isModified = !angular.equals(newValues, oldValues);
         });
 
@@ -410,6 +413,7 @@
 
                 $http.post('./php/update_user.php', requestData)
                     .then(response => {
+                        console.log("Frissítés válasz:", response);  // Debug
                         if (response.data.data) {
                             alert(response.data.data);  // "Sikeres frissítés!"
                             $scope.isModified = false;
@@ -436,9 +440,11 @@
 
         // Foglalt időpontok lekérése
         $scope.loadBookedTimes = function() {
+            console.log("Foglalás lekérése dátum szerint:", $scope.selectedDate);  // Debug
             if ($scope.selectedDate) {
                 $http.post('./php/booked_times.php', { date: $scope.selectedDate })
                     .then(function(response) {
+                        console.log("Foglalások válasz:", response);  // Debug
                         if (response.data && response.data.data) {
                             $scope.bookedTimes = response.data.data;
                             $scope.updateAvailableTimes();
@@ -454,6 +460,7 @@
 
         // Időpont státuszának frissítése
         $scope.updateAvailableTimes = function() {
+            console.log("Frissített időpontok státusza:", $scope.bookedTimes);  // Debug
             $scope.availableTimes = $scope.getAvailableTimes().map(timeObj => {
                 if ($scope.bookedTimes.includes(timeObj.time)) {
                     timeObj.status = 'booked';  // Foglalt időpont
@@ -462,10 +469,11 @@
             });
         };
 
-        // Watch figyelő a dátumváltozáshoz
-        $scope.$watch('selectedDate', function(newValue) {
-            if (newValue) {
-                $scope.loadBookedTimes();
+        // Figyelő, hogy változik-e a dátum, csak egyszer hívódjon meg a loadBookedTimes()
+        $scope.$watch('selectedDate', function(newValue, oldValue) {
+            console.log("selectedDate változása:", newValue, oldValue);  // Debug
+            if (newValue !== oldValue) {
+                $scope.loadBookedTimes();  // Ha változik a dátum, frissítjük a foglalt időpontokat
             }
         });
 
@@ -484,6 +492,7 @@
 
         // Időpont kiválasztása
         $scope.selectTime = function(timeObj) {
+            console.log("Kiválasztott időpont:", timeObj);  // Debug
             if (timeObj.status === 'booked') return;  // Ha foglalt, nem lehet kiválasztani
             $scope.selectedTime = timeObj.time;  // Időpont rögzítése
             timeObj.status = 'selected';  // Kijelölés sárga színnel
@@ -491,6 +500,7 @@
 
         // Új mentési metódus a foglaláshoz
         $scope.saveBooking = function() {
+            console.log("Mentés indítása", $scope.selectedDate, $scope.selectedTime, $scope.vehiclePlate);  // Debug
             if (!$scope.selectedDate || !$scope.selectedTime || $scope.getSelectedPackages().length === 0 || !$scope.vehiclePlate) {
                 alert("Kérlek, válassz csomagot, dátumot, időpontot, és add meg az autó rendszámát!");
                 return;
@@ -506,6 +516,7 @@
 
             $http.post('./php/save_booking.php', bookingData)
                 .then(function(response) {
+                    console.log("Foglalás válasz:", response);  // Debug
                     if (response.data && response.data.data) {
                         alert(response.data.data);  // Sikeres mentés üzenet
                         $scope.loadBookedTimes();  // Frissítjük a foglalt időpontokat
@@ -525,6 +536,7 @@
       
           $http.post('./php/get_booking.php', { user_id: userId })
               .then(function(response) {
+                  console.log("Foglalások betöltése:", response);  // Debug
                   if (response.data && response.data.data) {
                       $scope.bookings = response.data.data;
                   } else {
@@ -536,11 +548,9 @@
                   console.error("Hiba a foglalások betöltésekor: ", error);
               });
       };
-      
-
     }
   ])
-    
+
   //----------Footer-controller--------------->
   .controller('footerController', [
     '$scope', 
@@ -882,14 +892,14 @@
     let selectedPackages = [];
 
     return {
-      add: function(package) {
-        selectedPackages.push(package);
+      add: function(pcg) {
+        selectedPackages.push(pcg);
       },
       get: function() {
         return selectedPackages;
       },
-      remove: function(package) {
-        let index = selectedPackages.indexOf(package);
+      remove: function(pcg) {
+        let index = selectedPackages.indexOf(pcg);
         if (index !== -1) {
           selectedPackages.splice(index, 1);
         }
