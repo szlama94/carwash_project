@@ -179,88 +179,35 @@
   "appointment_booking":"időpontfoglalás",
   "my_bookings": "foglalásaim",
   "postcode_alert":"érvényes irányítószámot adjon meg!",
+  "exterior_wash": "külső mosás",
+  "description1": "varázsolja autója külsejét újjá prémium tisztítószereink erejével, hogy minden tekintetet magára vonzzon!",
+  "interior_clean": "belső takarítás",
+  "description2": "hozza vissza a frissességet és tisztaságot járműve belső terébe, mintha új autót vezetne!",
+  "extra_polishing": "extra fényezés",
+  "description3": "tegye autója fényét ellenállhatatlanná egy különleges polírozással, amely hosszú távon megőrzi a csillogást.",
+  "upholstery_cleaning": "kárpittisztítás",
+  "description4": "mondjon búcsút a makacs foltoknak! mélytisztításunkkal a kárpit újra friss és tiszta lesz.",
+  "ceramic_coating": "kerámia bevonat",
+  "description5": "védje autóját a karcoktól és szennyeződésektől hosszantartó kerámia bevonatunkkal, amely ragyogó fényt kölcsönöz.",
+  "engine_wash": "motormosás",
+  "description6": "a motortér tisztasága nemcsak esztétikai kérdés – növelje élettartamát professzionális motormosással!",
+  "quick_wash": "gyors mosás",
+  "description7": "frissítse fel autóját villámgyorsan – tiszta eredmény kevesebb idő alatt, kompromisszumok nélkül!",
+  "wax_coating": "viaszos bevonat",
+  "description8": "adjon autójának ragyogó védelmet és vízlepergető hatást prémium minőségű viaszunkkal.",
+  "rim_cleaning": "felni tisztítás",
+  "description9": "hozza vissza felnijei eredeti fényét! hatékony tisztítás a makacs szennyeződések ellen.",
+  "full_cleaning": "teljes külső-belső tisztítás",
+  "description10": "tegye autóját kívül-belül kifogástalanul tisztává egy átfogó tisztítással, amitől újra szeretni fog vezetni!",
+  "windshield_polishing": "szélvédő polírozás",
+  "description11": "mondjon búcsút a karcolásoknak és zavaró foltoknak – kristálytiszta kilátás egyetlen polírozással!",
+  "sticker_removal": "matrica eltávolítás",
+  "description12": "fájdalommentesen eltávolítjuk a matricákat anélkül, hogy kárt tennénk a fényezésben.",
+  "package_name":"csomag neve",
+  "operation":"művelet",
+  "no_bookings":"nincsenek foglalások",
+  "vehicle_registration_number":"jármű rendszáma",
+  "date":"dátum"
 
-
-
-
-  "exterior_wash": "Külső mosás",
-  "desctiption1": "Varázsolja autója külsejét újjá prémium tisztítószereink erejével, hogy minden tekintetet magára vonzzon!",
-
-  
-    "services_card": [
-      {
-        "services_name": "exterior_wash",
-        "translated_name": "Külső mosás",
-        "description": "Varázsolja autója külsejét újjá prémium tisztítószereink erejével, hogy minden tekintetet magára vonzzon!",
-        "price": 11990
-      },
-      {
-        "services_name": "interior_clean",
-        "translated_name": "Belső takarítás",
-        "description": "Hozza vissza a frissességet és tisztaságot járműve belső terébe, mintha új autót vezetne!",
-        "price": 11990
-      },
-      {
-        "services_name": "extra_polishing",
-        "translated_name": "Extra fényezés",
-        "description": "Tegye autója fényét ellenállhatatlanná egy különleges polírozással, amely hosszú távon megőrzi a csillogást.",
-        "price": 14990
-      },
-      {
-        "services_name": "upholstery_cleaning",
-        "translated_name": "Kárpittisztítás",
-        "description": "Mondjon búcsút a makacs foltoknak! Mélytisztításunkkal a kárpit újra friss és tiszta lesz.",
-        "price": 14990
-      },
-      {
-        "services_name": "ceramic_coating",
-        "translated_name": "Kerámia bevonat",
-        "description": "Védje autóját a karcoktól és szennyeződésektől hosszantartó kerámia bevonatunkkal, amely ragyogó fényt kölcsönöz.",
-        "price": 49990
-      },
-      {
-        "services_name": "engine_wash",
-        "translated_name": "Motormosás",
-        "description": "A motortér tisztasága nemcsak esztétikai kérdés – növelje élettartamát professzionális motormosással!",
-        "price": 19990
-      },
-      {
-        "services_name": "quick_wash",
-        "translated_name": "Gyors mosás",
-        "description": "Frissítse fel autóját villámgyorsan – tiszta eredmény kevesebb idő alatt, kompromisszumok nélkül!",
-        "price": 11990
-      },
-      {
-        "services_name": "wax_coating",
-        "translated_name": "Viaszos bevonat",
-        "description": "Adjon autójának ragyogó védelmet és vízlepergető hatást prémium minőségű viaszunkkal.",
-        "price": 24990
-      },
-      {
-        "services_name": "rim_cleaning",
-        "translated_name": "Felni tisztítás",
-        "description": "Hozza vissza felnijei eredeti fényét! Hatékony tisztítás a makacs szennyeződések ellen.",
-        "price": 19990
-      },
-      {
-        "services_name": "full_cleaning",
-        "translated_name": "Teljes külső-belső tisztítás",
-        "description": "Tegye autóját kívül-belül kifogástalanul tisztává egy átfogó tisztítással, amitől újra szeretni fog vezetni!",
-        "price": 64990
-      },
-      {
-        "services_name": "windshield_polishing",
-        "translated_name": "Szélvédő polírozás",
-        "description": "Mondjon búcsút a karcolásoknak és zavaró foltoknak – kristálytiszta kilátás egyetlen polírozással!",
-        "price": 22990
-      },
-      {
-        "services_name": "sticker_removal",
-        "translated_name": "Matrica eltávolítás",
-        "description": "Fájdalommentesen eltávolítjuk a matricákat anélkül, hogy kárt tennénk a fényezésben.",
-        "price": 9990
-      }
-    ]
-  
   
 }

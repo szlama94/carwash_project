@@ -396,9 +396,9 @@
         <table class="table table-bordered">
           <thead class="table-dark">
             <tr>
-              <th scope="col">Csomag neve</th>
-              <th scope="col">Ár</th>
-              <th scope="col">Művelet</th>
+              <th scope="col">{{lang.data.package_name}}</th>
+              <th scope="col">{{lang.data.price}}</th>
+              <th scope="col">{{lang.data.operation}}</th>
             </tr>
           </thead>
           <tbody>
@@ -406,7 +406,7 @@
             <tr>
               <td colspan="3" 
                   class="text-center">
-                  Nincsenek foglalások.
+                  {{lang.data.no_bookings}}
                 </td>
             </tr>
           </tbody>
@@ -416,7 +416,7 @@
         <div class="mb-3">
           <label for="vehicle-plate" 
                  class="form-label">
-                 Jármű rendszáma:
+                 {{lang.data.vehicle_registration_number}}:
             </label>
           <input type="text" 
                  id="vehicle-plate" 
@@ -428,7 +428,7 @@
         <div class="mb-3">
           <label for="appointment-date" 
                  class="form-label">
-                 Dátum:
+                 {{lang.data.date}}:
             </label>
           <input type="date" 
                  id="appointment-date" 
@@ -447,7 +447,7 @@
         <!------------------Mentés gomb------------>
         <button type="button" 
                 class="btn btn-primary mt-3">
-                Mentés
+                {{lang.data.save}}
           </button>
       </div>      
     </div>

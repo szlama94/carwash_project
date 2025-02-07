@@ -172,107 +172,39 @@
   "email_label": "E-Mail",
   "monday_to_friday": "Montag bis Freitag",
   "saturday_label": "Samstag",
-
-
-
-  "services_dropdown_menu": [
-    {
-      "label": "Alle Preiskategorien",
-      "value": ""
-    },
-    {
-      "label": "0 Ft - 20.000 Ft",
-      "value": [0, 20000]
-    },
-    {
-      "label": "20.001 Ft - 40.000 Ft",
-      "value": [20001, 40000]
-    },
-    {
-      "label": "Über 40.000 Ft",
-      "value": [40001, 1000000000]
-    }
-  ],
   "login_do_account": "haben sie noch kein konto? klicken sie unten auf die registrieren-taste!",
   "passw_show":"passwort anzeigen",
   "personal_data":"persönliche daten",
   "appointment_booking":"terminbuchung",
   "my_bookings": "meine buchungen",
   "postcode_alert":"bitte geben sie eine gültige postleitzahl ein!",
-
-    "services_card": [
-      {
-        "services_name": "exterior_wash",
-        "translated_name": "Außenwäsche",
-        "description": "Verwandeln Sie das Äußere Ihres Autos mit hochwertigen Reinigungsprodukten und ziehen Sie alle Blicke auf sich!",
-        "price": 11990
-      },
-      {
-        "services_name": "interior_clean",
-        "translated_name": "Innenreinigung",
-        "description": "Bringen Sie die Frische und Sauberkeit in den Innenraum Ihres Fahrzeugs zurück, als ob Sie ein neues Auto hätten!",
-        "price": 11990
-      },
-      {
-        "services_name": "extra_polishing",
-        "translated_name": "Spezielle Politur",
-        "description": "Machen Sie den Glanz Ihres Autos unwiderstehlich mit einer speziellen Politur, die lange anhält.",
-        "price": 14990
-      },
-      {
-        "services_name": "upholstery_cleaning",
-        "translated_name": "Polsterreinigung",
-        "description": "Verabschieden Sie sich von hartnäckigen Flecken! Unsere Tiefenreinigung macht Ihre Polster wieder frisch.",
-        "price": 14990
-      },
-      {
-        "services_name": "ceramic_coating",
-        "translated_name": "Keramikbeschichtung",
-        "description": "Schützen Sie Ihr Auto vor Kratzern und Schmutz mit einer langanhaltenden Keramikbeschichtung.",
-        "price": 49990
-      },
-      {
-        "services_name": "engine_wash",
-        "translated_name": "Motorwäsche",
-        "description": "Ein sauberer Motorraum ist nicht nur eine Frage der Ästhetik – verlängern Sie die Lebensdauer des Motors.",
-        "price": 19990
-      },
-      {
-        "services_name": "quick_wash",
-        "translated_name": "Schnellwäsche",
-        "description": "Frischen Sie Ihr Auto in kürzester Zeit auf – saubere Ergebnisse ohne Kompromisse!",
-        "price": 11990
-      },
-      {
-        "services_name": "wax_coating",
-        "translated_name": "Wachsversiegelung",
-        "description": "Geben Sie Ihrem Auto einen beeindruckenden Schutz mit unserer hochwertigen Wachsversiegelung.",
-        "price": 24990
-      },
-      {
-        "services_name": "rim_cleaning",
-        "translated_name": "Felgenreinigung",
-        "description": "Bringen Sie den ursprünglichen Glanz Ihrer Felgen zurück! Effektive Reinigung gegen hartnäckigen Schmutz.",
-        "price": 19990
-      },
-      {
-        "services_name": "full_cleaning",
-        "translated_name": "Komplette Reinigung",
-        "description": "Machen Sie Ihr Auto innen und außen makellos sauber – so macht das Fahren wieder Spaß!",
-        "price": 64990
-      },
-      {
-        "services_name": "windshield_polishing",
-        "translated_name": "Windschutzscheiben-Politur",
-        "description": "Verabschieden Sie sich von Kratzern und störenden Flecken – für kristallklare Sicht!",
-        "price": 22990
-      },
-      {
-        "services_name": "sticker_removal",
-        "translated_name": "Aufkleberentfernung",
-        "description": "Wir entfernen Aufkleber schonend, ohne den Lack Ihres Autos zu beschädigen.",
-        "price": 9990
-      }
-    ]
-
+  "exterior_wash": "außenreinigung",
+  "description1": "verleihen sie ihrem auto ein frisches aussehen mit hochwertigen reinigungsprodukten, die blicke auf sich ziehen!",
+  "interior_clean": "innenreinigung",
+  "description2": "bringen sie die frische und sauberkeit in den innenraum ihres fahrzeugs zurück, als ob es neu wäre!",
+  "extra_polishing": "extra polieren",
+  "description3": "machen sie den glanz ihres autos unwiderstehlich mit einer spezialpolitur, die den glanz lange erhält.",
+  "upholstery_cleaning": "polsterreinigung",
+  "description4": "verabschieden sie sich von hartnäckigen flecken! unsere tiefenreinigung lässt ihre polster wieder frisch und sauber aussehen.",
+  "ceramic_coating": "keramikbeschichtung",
+  "description5": "schützen sie ihr auto vor kratzern und schmutz mit unserer langanhaltenden keramikbeschichtung, die einen brillanten glanz verleiht.",
+  "engine_wash": "motorwäsche",
+  "description6": "die sauberkeit des motorraums ist nicht nur eine frage der ästhetik – verlängern sie die lebensdauer mit unserer professionellen motorwäsche.",
+  "quick_wash": "schnellwäsche",
+  "description7": "frischen sie ihr auto schnell auf – saubere ergebnisse in kürzerer zeit ohne kompromisse bei der qualität!",
+  "wax_coating": "wachsbeschichtung",
+  "description8": "verleihen sie ihrem auto strahlenden schutz und wasserabweisende eigenschaften mit unserem premium-wachs.",
+  "rim_cleaning": "felgenreinigung",
+  "description9": "bringen sie den ursprünglichen glanz ihrer felgen zurück! effektive reinigung gegen hartnäckigen schmutz.",
+  "full_cleaning": "vollständige innen- und außenreinigung",
+  "description10": "machen sie ihr auto innen und außen makellos mit einer umfassenden reinigung, die sie das fahren wieder lieben lässt!",
+  "windshield_polishing": "windschutzscheibenpolitur",
+  "description11": "verabschieden sie sich von kratzern und störenden flecken – kristallklare sicht mit nur einer politur!",
+  "sticker_removal": "aufkleberentfernung",
+  "description12": "wir entfernen aufkleber schonend, ohne den lack zu beschädigen.",
+  "package_name":"paketname",
+  "operation":"operation",
+  "no_bookings":"keine buchungen",
+  "vehicle_registration_number":"kennzeichen des fahrzeugs",
+  "date":"datum"
 }
