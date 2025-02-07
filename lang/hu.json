@@ -207,5 +207,6 @@
   "operation":"művelet",
   "no_bookings":"nincsenek foglalások",
   "vehicle_registration_number":"jármű rendszáma",
-  "date":"dátum"
+  "date":"dátum",
+  "appointment_button_selected": "Csomag kiválasztva"
 }

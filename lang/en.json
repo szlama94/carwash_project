@@ -206,5 +206,6 @@
   "operation":"operation",
   "no_bookings":"no bookings",
   "vehicle_registration_number":"vehicle registration number",
-  "date":"date"
+  "date":"date",
+  "appointment_button_selected": "Package selected"
 }

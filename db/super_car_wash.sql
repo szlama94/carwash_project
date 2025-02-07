@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Feb 06. 12:56
+-- Létrehozás ideje: 2025. Feb 07. 16:55
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -30,10 +30,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `bookings` (
   `id` int(10) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `service_id` int(10) NOT NULL,
-  `car_plate` varchar(20) NOT NULL,
-  `booking_date` date NOT NULL,
-  `booking_time` time NOT NULL
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `package` varchar(255) NOT NULL,
+  ` vehicle_plate` varchar(20) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -59,7 +60,8 @@ INSERT INTO `feedback` (`id`, `name`, `gender`, `age`, `comment`, `rating`) VALU
 (1, 'Porszívó Pista\r\n', 'M', 37, '\"Olyan tiszta lett az autóm, hogy most a szomszédok napszemüvegben nézik! 😎✨\"\r\n', 5),
 (2, 'Guminyom Gábor\r\n', 'M', 40, '\"Nem mondom, hogy koszos maradt, de még mindig el tudom olvasni a porban írt \'MOSS LE\' feliratot. 📝🚘\"', 3),
 (3, 'Béres Virág\r\n', 'F', 24, '\"Majdnem olyan csillogó, mint a körmöm, de még van hova fejlődni! 💅✨\"', 4),
-(4, 'Szél Zsuzsi\r\n', 'F', 29, '\"Jó lett, de a kávéautomatát jobban tisztították, mint az autómat. 😅\"', 3);
+(4, 'Szél Zsuzsi\r\n', 'F', 29, '\"Jó lett, de a kávéautomatát jobban tisztították, mint az autómat. 😅\"', 3),
+(23, 'Pötyi', 'F', 23, 'jojo', 4);
 
 -- --------------------------------------------------------
 
@@ -91,19 +93,6 @@ INSERT INTO `services` (`id`, `services_name`, `description`, `price`) VALUES
 (10, 'full_cleaning', 'description10', 64990),
 (11, 'windshield_polishing', 'description11', 22990),
 (12, 'sticker_removal', 'description12', 9990);
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `temporary_cart`
---
-
-CREATE TABLE `temporary_cart` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `package_name` varchar(200) NOT NULL,
-  `price` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -222,7 +211,6 @@ INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `born`, `gender`, 
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `services` (`service_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
@@ -237,12 +225,6 @@ ALTER TABLE `feedback`
 ALTER TABLE `services`
   ADD PRIMARY KEY (`id`),
   ADD KEY `services_name` (`services_name`,`price`);
-
---
--- A tábla indexei `temporary_cart`
---
-ALTER TABLE `temporary_cart`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- A tábla indexei `users`
@@ -267,19 +249,13 @@ ALTER TABLE `bookings`
 -- AUTO_INCREMENT a táblához `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT a táblához `services`
 --
 ALTER TABLE `services`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT a táblához `temporary_cart`
---
-ALTER TABLE `temporary_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT a táblához `users`

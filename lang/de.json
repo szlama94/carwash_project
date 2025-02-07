@@ -206,5 +206,6 @@
   "operation":"operation",
   "no_bookings":"keine buchungen",
   "vehicle_registration_number":"kennzeichen des fahrzeugs",
-  "date":"datum"
+  "date":"datum",
+  "appointment_button_selected": "Paket ausgewählt"
 }

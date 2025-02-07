@@ -340,106 +340,207 @@
 
   //----------Profile-controller-------------->
   .controller('profileController', [
-      '$rootScope', 
-      '$state', 
-      '$scope', 
-      '$http',
-  
-      function ($rootScope, $state, $scope, $http) {
-          if (!$rootScope.user || !$rootScope.user.id) {
-              alert("Nem vagy bejelentkezve. Jelentkezz be újra!");
-              $state.go('login');
-              return;
-          }
-  
-          $scope.user = {
-              id: '',
-              email: '',
-              first_name: '',
-              last_name: '',
-              born: '',
-              gender: '',
-              country: '',
-              country_code: '',
-              phone: '',
-              city: '',
-              postcode: '',
-              address: ''
-          };
-          
-  
-          // Felhasználói adatok betöltése
-          $http.post('./php/profile.php', { id: $rootScope.user.id })
-              .then(response => {
+    '$rootScope', 
+    '$state', 
+    '$scope', 
+    '$http',
+    'appointmentFactory',
+
+    function ($rootScope, $state, $scope, $http, appointmentFactory) {
+        if (!$rootScope.user || !$rootScope.user.id) {
+            alert("Nem vagy bejelentkezve. Jelentkezz be újra!");
+            $state.go('login');
+            return;
+        }
+
+        $scope.user = {
+            id: '',
+            email: '',
+            first_name: '',
+            last_name: '',
+            born: '',
+            gender: '',
+            country: '',
+            country_code: '',
+            phone: '',
+            city: '',
+            postcode: '',
+            address: ''
+        };
+
+        // Felhasználói adatok betöltése
+        $http.post('./php/profile.php', { id: $rootScope.user.id })
+            .then(response => {
+                if (response.data && response.data.data) {
+                    $scope.user = response.data.data;
+                } else {
+                    alert(response.data.error || "Ismeretlen hiba történt az adatok betöltésekor.");
+                }
+            })
+            .catch(error => {
+                alert("Nem sikerült betölteni az adatokat!");
+                console.error("Hiba történt:", error);
+            });
+
+        $scope.isModified = false;
+
+        $scope.$watchGroup([
+            'user.first_name',
+            'user.last_name',
+            'user.born',
+            'user.gender',
+            'user.country',
+            'user.countryCode',
+            'user.phone',
+            'user.city',
+            'user.postcode',
+            'user.address'
+        ], function (newValues, oldValues) {
+            $scope.isModified = !angular.equals(newValues, oldValues);
+        });
+
+        $scope.methods = {
+            httpRequest: function () {
+                if (!$scope.isModified) {
+                    alert("Nincs módosított adat, nincs mit menteni.");
+                    return;
+                }
+
+                let requestData = angular.copy($scope.user);
+
+                $http.post('./php/update_user.php', requestData)
+                    .then(response => {
+                        if (response.data.data) {
+                            alert(response.data.data);  // "Sikeres frissítés!"
+                            $scope.isModified = false;
+                        } else {
+                            alert("Hiba: " + response.data.error);
+                        }
+                    })
+                    .catch(error => {
+                        alert("Nem sikerült frissíteni az adatokat!");
+                        console.error("Hiba történt a frissítés során:", error);
+                    });
+            }
+        };
+
+        // Csomagok lekérdezése
+        $scope.getSelectedPackages = function() {
+            return appointmentFactory.get();
+        };
+
+        $scope.selectedDate = null;  // Kiválasztott dátum
+        $scope.selectedTime = null;  // Kiválasztott időpont
+
+        $scope.bookedTimes = [];  // Foglalt időpontok tárolása
+
+        // Foglalt időpontok lekérése
+        $scope.loadBookedTimes = function() {
+            if ($scope.selectedDate) {
+                $http.post('./php/booked_times.php', { date: $scope.selectedDate })
+                    .then(function(response) {
+                        if (response.data && response.data.data) {
+                            $scope.bookedTimes = response.data.data;
+                            $scope.updateAvailableTimes();
+                        } else {
+                            $scope.bookedTimes = [];
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error("Hiba a foglalt időpontok lekérésekor: ", error);
+                    });
+            }
+        };
+
+        // Időpont státuszának frissítése
+        $scope.updateAvailableTimes = function() {
+            $scope.availableTimes = $scope.getAvailableTimes().map(timeObj => {
+                if ($scope.bookedTimes.includes(timeObj.time)) {
+                    timeObj.status = 'booked';  // Foglalt időpont
+                }
+                return timeObj;
+            });
+        };
+
+        // Watch figyelő a dátumváltozáshoz
+        $scope.$watch('selectedDate', function(newValue) {
+            if (newValue) {
+                $scope.loadBookedTimes();
+            }
+        });
+
+        // Az elérhető időpontok 8:00 és 18:00 között
+        $scope.getAvailableTimes = function() {
+            let times = [];
+            for (let i = 8; i <= 18; i++) {
+                let time = i < 10 ? '0' + i + ':00' : i + ':00';
+                times.push({
+                    time: time,
+                    status: 'available'  // Kezdetben minden szabad
+                });
+            }
+            return times;
+        };
+
+        // Időpont kiválasztása
+        $scope.selectTime = function(timeObj) {
+            if (timeObj.status === 'booked') return;  // Ha foglalt, nem lehet kiválasztani
+            $scope.selectedTime = timeObj.time;  // Időpont rögzítése
+            timeObj.status = 'selected';  // Kijelölés sárga színnel
+        };
+
+        // Új mentési metódus a foglaláshoz
+        $scope.saveBooking = function() {
+            if (!$scope.selectedDate || !$scope.selectedTime || $scope.getSelectedPackages().length === 0 || !$scope.vehiclePlate) {
+                alert("Kérlek, válassz csomagot, dátumot, időpontot, és add meg az autó rendszámát!");
+                return;
+            }
+
+            let bookingData = {
+                date: $scope.selectedDate,
+                time: $scope.selectedTime,
+                vehicle_plate: $scope.vehiclePlate,
+                package: $scope.getSelectedPackages().map(pkg => pkg.services_name).join(', '),
+                user_id: $rootScope.user.id
+            };
+
+            $http.post('./php/save_booking.php', bookingData)
+                .then(function(response) {
+                    if (response.data && response.data.data) {
+                        alert(response.data.data);  // Sikeres mentés üzenet
+                        $scope.loadBookedTimes();  // Frissítjük a foglalt időpontokat
+                        $scope.selectedTime = null;  // Visszaállítjuk az időpontot
+                        $scope.vehiclePlate = '';  // Rendszámot töröljük
+                    } else {
+                        alert(response.data.error || "Hiba történt a foglalás mentésekor.");
+                    }
+                })
+                .catch(function(error) {
+                    console.error("Hiba a foglalás mentésekor: ", error);
+                });
+        };
+
+        $scope.loadBookings = function() {
+          let userId = $rootScope.user.id;
+      
+          $http.post('./php/get_booking.php', { user_id: userId })
+              .then(function(response) {
                   if (response.data && response.data.data) {
-                      $scope.user = response.data.data;
+                      $scope.bookings = response.data.data;
                   } else {
-                      alert(response.data.error || "Ismeretlen hiba történt az adatok betöltésekor.");
+                      $scope.bookings = [];
+                      alert(response.data.error || "Nem találhatóak foglalások.");
                   }
               })
-              .catch(error => {
-                  alert("Nem sikerült betölteni az adatokat!");
-                  console.error("Hiba történt:", error);
+              .catch(function(error) {
+                  console.error("Hiba a foglalások betöltésekor: ", error);
               });
-  
-          $scope.isModified = false;
-  
-          $scope.$watchGroup([
-              'user.first_name',
-              'user.last_name',
-              'user.born',
-              'user.gender',
-              'user.country',
-              'user.countryCode',
-              'user.phone',
-              'user.city',
-              'user.postcode',
-              'user.address'
-          ], function (newValues, oldValues) {
-              $scope.isModified = !angular.equals(newValues, oldValues);
-          });
-  
-          $scope.methods = {
-              httpRequest: function () {
-                  if (!$scope.isModified) {
-                      alert("Nincs módosított adat, nincs mit menteni.");
-                      return;
-                  }
-  
-                  let requestData = angular.copy($scope.user);
-  
-                  $http.post('./php/update_user.php', requestData)
-                      .then(response => {
-                          if (response.data.data) {
-                              alert(response.data.data);  // "Sikeres frissítés!"
-                              $scope.isModified = false;
-                          } else {
-                              alert("Hiba: " + response.data.error);
-                          }
-                      })
-                      .catch(error => {
-                          alert("Nem sikerült frissíteni az adatokat!");
-                          console.error("Hiba történt a frissítés során:", error);
-                      });
-              }
-        };
-
-        $scope.getHours = function () {
-          let hours = [];
-          for (let i = 8; i <= 18; i++) {
-              let formattedHour = i < 10 ? '0' + i + ':00' : i + ':00';
-              hours.push(formattedHour);
-          }
-          return hours;
-        };
-        
-        $scope.selectTime = function (time) {
-            console.log("Kiválasztott időpont: " + time);
-            // További műveletek, például az időpont elmentése
-        };
+      };
       
-  }])    
 
+    }
+  ])
+    
   //----------Footer-controller--------------->
   .controller('footerController', [
     '$scope', 
@@ -571,7 +672,8 @@
     '$scope',
     '$http',
     '$state',
-    function ($rootScope, $scope, $http, $state) {
+    'appointmentFactory',
+    function ($rootScope, $scope, $http, $state, appointmentFactory) {
 
         // Alapértelmezett változók
         $scope.videoUrl = "./media/video/services_video.mp4";
@@ -652,6 +754,14 @@
         $scope.$watchGroup(['searchText'], function () {
             $scope.updateGroupedServices();  // Mindig frissítjük a szűrt eredményeket
         });
+
+
+        // Új metódus a csomag kiválasztásához
+        $scope.addPackage = function(service) {
+          appointmentFactory.add(service);  // Hozzáadjuk az ideiglenes csomaglistához
+          service.isSelected = true;  // Vizuális visszajelzés
+        };
+
 
         // Kezdeti frissítés a betöltéskor
         $scope.updateGroupedServices();
@@ -766,21 +876,24 @@
       };
   }])
 
-  // Custom factory
-  // .factory('customFactoryName', [
-  //   function() {
-  //     let a = [];
-  //     return {
-  //       get: () => {
-  //         return a;
-  //       },
-  //       remove: (index) => {
-  //         a.splice(index);
-  //       },
-  //       add: (v) => {
-  //         a.push(v);
-  //       }
-  //     }
-  //   }
-  // ]);
+  //--------Csomag választó kezelő------------>
+  .factory('appointmentFactory', [
+    function() {
+    let selectedPackages = [];
+
+    return {
+      add: function(package) {
+        selectedPackages.push(package);
+      },
+      get: function() {
+        return selectedPackages;
+      },
+      remove: function(package) {
+        let index = selectedPackages.indexOf(package);
+        if (index !== -1) {
+          selectedPackages.splice(index, 1);
+        }
+      }
+    }
+  }]);
 })(window, angular);
