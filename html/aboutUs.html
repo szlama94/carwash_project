@@ -8,13 +8,22 @@
             <!-------------------Bal oldali szöveg-------------->
             <div class="col-lg-6">
               <h2
-                class="text-warning fw-bold display-5 text-center text-lg-start mb-4">
+                class="text-warning fw-bold display-5 
+                        text-center text-lg-start mb-4">
                 {{lang.data.who_are_we}}
               </h2>
-              <p class="text-white text-justify">{{lang.data.about_us_1p}}</p>
-              <p class="text-white text-justify">{{lang.data.about_us_2p}}</p>
-              <p class="text-white text-justify">{{lang.data.about_us_3p}}</p>
-              <p class="text-white text-justify">{{lang.data.about_us_4p}}</p>
+              <p class="text-white text-justify">
+                {{lang.data.about_us_1p}}
+              </p>
+              <p class="text-white text-justify">
+                {{lang.data.about_us_2p}}
+              </p>
+              <p class="text-white text-justify">
+                {{lang.data.about_us_3p}}
+              </p>
+              <p class="text-white text-justify">
+                {{lang.data.about_us_4p}}
+              </p>
             </div>
 
             <!-----------------Csapat kép-------------------->
@@ -38,7 +47,8 @@
           <div class="row align-items-stretch">
 
             <!--------------Bal oldali űrlap----------------->
-            <div class="col-lg-6 d-flex flex-column justify-content-between">
+            <div class="col-lg-6 d-flex flex-column 
+                          justify-content-between">
               <h2 class="text-warning fw-bold mb-4">
                 {{lang.data.opinion_title}}
               </h2>
@@ -63,7 +73,9 @@
 
                 <!---------------Nem választó-------------------->
                 <div class="mb-3">
-                  <label class="form-label"> {{lang.data.gender}} </label>
+                  <label class="form-label"> 
+                    {{lang.data.gender}} 
+                  </label>
                   <br/>
                   <div class="form-check form-check-inline">
                     <label class="form-check-label">
@@ -89,7 +101,8 @@
 
                 <!----------------Kor-------------------------->
                 <div class="mb-3">
-                  <label for="age" class="form-label">
+                  <label for="age" 
+                         class="form-label">
                     {{lang.data.age}}
                   </label>
                   <input
@@ -103,7 +116,9 @@
 
                 <!----------------Értékelés-------------------->
                 <div class="mb-3">
-                  <label> {{lang.data.rating}} </label>
+                  <label>
+                    {{lang.data.rating}}
+                  </label>
                   <br/>
                   <span
                     ng-repeat="star in [1,2,3,4,5]"
@@ -111,13 +126,15 @@
                     ng-mouseleave="clearHover()"
                     ng-click="setRating(star)"
                     class="fa fa-star star-rating"
-                    ng-class="{'hovered': star <= hoverRating, 'checked': star <= feedback.rating}">
+                    ng-class="{'hovered': star <= hoverRating, 
+                              'checked': star <= feedback.rating}">
                   </span>
                 </div>
 
                 <!---------------Vélemény------------------------>
                 <div class="mb-3">
-                  <label for="comment" class="form-label">
+                  <label for="comment" 
+                         class="form-label">
                     {{lang.data.opinion}}
                   </label>
                   <textarea
@@ -137,7 +154,8 @@
 
             <!-----------------Elégedett kép--------------->
             <div
-              class="col-lg-6 d-flex flex-column justify-content-between text-center">
+              class="col-lg-6 d-flex flex-column 
+                     justify-content-between text-center">
 
               <!-- Kép -->
               <img
@@ -183,7 +201,9 @@
                         <div
                           class="flex-grow-1 bg-secondary text-white 
                                   p-3 rounded overflow-auto">
-                          <p class="card-text m-0">{{fb.comment}}</p>
+                          <p class="card-text m-0">
+                            {{fb.comment}}
+                          </p>
                         </div>
                       </div>
                     </div>

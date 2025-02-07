@@ -190,19 +190,19 @@
                             d-flex align-items-center">
                     <div
                       class="form-check form-check-inline me-4"
-                      ng-repeat="x in ['Female','Male'] track by $index">
+                      ng-repeat="gender in ['female','male'] track by $index">
                       <input
-                        id="profile-{{x}}"
+                        id="profile-{{gender}}"
                         name="gender"
                         type="radio"
-                        ng-value="x === 'Female' ? 'F' : 'M'"
+                        ng-value="x === 'female' ? 'F' : 'M'"
                         class="form-check-input"
                         ng-model="user.gender"
                         required>
                       <label
-                        for="profile-{{x}}"
+                        for="profile-{{gender}}"
                         class="form-check-label opacity-100">
-                        {{x}}
+                        {{lang.data[gender]}}
                       </label>
                     </div>
                   </div>

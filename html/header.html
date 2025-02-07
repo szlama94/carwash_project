@@ -3,6 +3,7 @@
          text-white fs-5 border-primary rounded-3"
   data-bs-theme="dark">
   <div class="container-fluid">
+
     <!---------Hamburger icon---------------->
     <button
       class="navbar-toggler ms-auto"
@@ -62,7 +63,6 @@
              ui-sref-active="active"
              data-bs-toggle="collapse" 
              data-bs-target=".navbar-collapse.show">
-            <!-- <i class="bi bi-info-circle-fill"></i> -->
             <i class="fa-solid fa-circle-info"></i>
             <span class="text-capitalize">
               {{lang.data.about_us}}
@@ -162,12 +162,12 @@
               </a>
             </li>
 
-            <!---------------------Legördülő menü megosztása-------------------------------->
+            <!---------------------Legördülő menü megosztása------------------>
             <li ng-if="$root.user.id">
               <hr class="dropdown-divider">
             </li>
 
-            <!--------------------------Kijelentkezés------------------------------------->
+            <!--------------------------Kijelentkezés---------------------->
             <li class="nav-item" 
                 ng-if="$root.user.id">
               <a class="dropdown-item cursor-pointer" 
@@ -198,7 +198,7 @@
               </span>
             </a>
 
-            <!----------Nyelvek--------------->
+            <!--------------------Nyelvek------------------------>
             <ul class="dropdown-menu dropdown-menu-end">
               <li ng-repeat="x in lang.available"
                   ng-if="x.id !== lang.available[lang.index].id"
@@ -209,7 +209,9 @@
                       height="32" 
                       alt="flag"
                       ng-src="./media/image/lang_pic/{{x.img}}">
-                  <span class="text-capitalize">{{x.name}}</span>
+                  <span class="text-capitalize">
+                    {{x.name}}
+                  </span>
                   <span ng-if="x.name !== x.local">
                     ({{x.local}})
                   </span> 

@@ -5,7 +5,9 @@
       
       <!-- Keress minket szekció -->
       <div class="col-lg-2 col-md-4 mb-4">
-        <h5 class="fw-bold">{{lang.find_us}}</h5>
+        <h5 class="fw-bold">
+          {{lang.find_us}}
+        </h5>
         <div class="d-flex gap-2">
           <a ng-repeat="icon in footerSections[0].icons" 
              ng-href="{{icon.url}}" 
@@ -18,8 +20,11 @@
 
       <!-- Linkek szekció -->
       <div class="col-lg-2 col-md-4 mb-4">
-        <h5 class="fw-bold">{{lang.links}}</h5>
-        <p ng-repeat="link in footerSections[1].items" class="mb-1">
+        <h5 class="fw-bold">
+          {{lang.links}}
+        </h5>
+        <p ng-repeat="link in footerSections[1].items" 
+           class="mb-1">
           <i class="{{link.icon}} me-1"></i>
           <a ui-sref="{{link.state}}" 
              class="text-decoration-none text-white">
@@ -30,7 +35,9 @@
 
       <!-- Kapcsolat szekció -->
       <div class="col-lg-2 col-md-4 mb-4">
-        <h5 class="fw-bold">{{lang.contact}}</h5>
+        <h5 class="fw-bold">
+          {{lang.contact}}
+        </h5>
         <p><i class="fa-solid fa-location-dot me-2"></i> 
           {{footerSections[2].details.address}}
         </p>
@@ -54,7 +61,9 @@
 
       <!-- Térkép szekció -->
       <div class="col-lg-2 col-md-4 mb-4">
-        <h5 class="fw-bold">{{lang.map}}</h5>
+        <h5 class="fw-bold">
+          {{lang.map}}
+        </h5>
         <iframe
           ng-src="{{mapUrl}}"
           width="200"
