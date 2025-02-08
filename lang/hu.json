@@ -208,5 +208,8 @@
   "no_bookings":"nincsenek foglalások",
   "vehicle_registration_number":"jármű rendszáma",
   "date":"dátum",
-  "appointment_button_selected": "Csomag kiválasztva"
+  "appointment_button_selected": "csomag kiválasztva",
+  "make_an_appointment":"időpontfoglalás",
+  "welcome_message_booking":"Üdvözöljük a Super Car Wash időpontfoglaló rendszerében!",
+  "booking_instructions":"kérjük, válassza ki a kívánt mosási csomagokat a 'Szolgáltatások' oldalon, majd töltse ki a többi adatot, és mentse el a foglalását. foglalása bekerül az Ön személyes profiljába."
 }

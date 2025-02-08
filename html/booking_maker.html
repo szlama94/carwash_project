@@ -1,0 +1,104 @@
+<div class="container mt-5">
+    <div class="card bg-dark text-white shadow-lg p-4">
+        <div class="row">
+
+            <!-- Bal oldali rész -->
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <h4 class="fw-bold text-warning">
+                        {{ lang.data.welcome_message_booking }}
+                    </h4>
+                    <p class="text-justify">
+                        {{ lang.data.booking_instructions }}
+                    </p>
+                </div>
+
+                <!-- Kép a bal alsó sarokban -->
+                <div class="text-center">
+                    <a ng-href="{{ lang.data.image_link }}">
+                        <img ng-src="{{booking_pic}}" 
+                             alt="Car Wash" 
+                             class="img-fluid border-primary rounded-3 shadow">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Jobb oldali rész (űrlap) -->
+            <div class="col-md-8">
+                <h3 class="fw-bold text-warning text-center mb-4">
+                    {{ lang.data.appointment_booking }}
+                </h3>
+
+                <!-- Kiválasztott csomagok -->
+               <!-- Kiválasztott szolgáltatások megjelenítése -->
+               <table class="table table-bordered text-white">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">{{ lang.data.package_name }}</th>
+                            <th scope="col">{{ lang.data.price }}</th>
+                            <th scope="col">{{ lang.data.operation }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="service in getSelectedServices()">
+                            <td>{{ lang.data[service.services_name]}}</td>
+                            <td>{{ service.price | currency:'' :0 }} Ft</td>
+                            <td>
+                                <button class="btn btn-danger" 
+                                        ng-click="removeService(service)">
+                                    {{ lang.data.delete }}
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Jármű rendszáma input -->
+                <div class="mb-3">
+                    <label for="vehicle-plate" 
+                           class="form-label">
+                           {{ lang.data.vehicle_plate }}
+                        </label>
+                    <input type="text" 
+                           id="vehicle-plate" 
+                           class="form-control" 
+                           ng-model="vehiclePlate" 
+                           placeholder="ABC-123/AA-AA-000" 
+                           required>
+                </div>
+
+                <!-- Dátum input -->
+                <div class="mb-3">
+                    <label for="appointment-date" 
+                           class="form-label">
+                           {{ lang.data.date }}:
+                        </label>
+                    <input type="date" 
+                           id="appointment-date" 
+                           class="form-control" 
+                           ng-model="selectedDate"
+                           ng-change="onDateSelect()" 
+                           required>
+                </div>
+                
+                <!-- Példa gombok az időpontokhoz -->
+                <div class="d-flex flex-wrap gap-2">
+                    <div ng-repeat="timeObj in availableTimes">
+                        <button id="btn-{{timeObj.time}}" 
+                                class="btn" 
+                                ng-class="{'bg-success': timeObj.status === 'available', 'bg-danger': timeObj.status === 'booked'}">
+                        {{ timeObj.time }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mentés gomb -->
+                <button type="button" 
+                        class="btn btn-primary mt-3" 
+                        ng-click="saveBooking()">
+                    {{ lang.data.save }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

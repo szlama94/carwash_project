@@ -24,14 +24,6 @@
         </li>
         <li
           class="mb-3 pointer py-2 px-3"
-          ng-click="selectedSection = 'schedule'"
-          ng-class="{'bg-warning text-dark rounded-3': 
-                        selectedSection === 'schedule'}">
-          <i class="fa-solid fa-clock me-2"></i>
-          {{lang.data.appointment_booking}}
-        </li>
-        <li
-          class="mb-3 pointer py-2 px-3"
           ng-click="selectedSection = 'myBookings'"
           ng-class="{'bg-warning text-dark rounded-3': 
                         selectedSection === 'myBookings'}">
@@ -386,90 +378,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!--------------Időpontfoglalás---------------------->
-      <div ng-if="selectedSection === 'schedule'">
-        <h3 class="text-center mb-4">
-          {{lang.data.appointment_booking}}
-        </h3>
-        <table class="table table-bordered">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">{{lang.data.package_name}}</th>
-              <th scope="col">{{lang.data.price}}</th>
-              <th scope="col">{{lang.data.operation}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="package in getSelectedPackages()">
-              <td>{{ package.services_name }}</td>
-              <td>{{ package.price | currency:'' :0 }} Ft</td>
-              <td>
-                <button class="btn btn-danger" 
-                        ng-click="removePackage(pcg)">
-                  {{lang.data.delete}}
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <!--------------Jármű rendszáma input--------->
-        <div class="mb-3">
-          <label for="vehicle-plate" 
-                 class="form-label">
-                 {{lang.data.vehicle_plate}}
-                </label>
-          <input type="text" 
-                 id="vehicle-plate" 
-                 class="form-control" 
-                 ng-model="vehiclePlate" 
-                 placeholder="ABC-123/AA-AA-000" 
-                 required>
-        </div>
-
-        <!-----------------Dátum input--------------->
-        <div class="mb-3">
-          <label for="appointment-date" 
-                 class="form-label">
-            {{lang.data.date}}:
-          </label>
-          <input type="date" 
-                 id="appointment-date" 
-                 class="form-control" 
-                 ng-model="selectedDate">
-        </div>
-        <div class="d-flex flex-wrap gap-2">
-          <button type="button" 
-                    class="btn"
-                    ng-class="{
-                      'btn-success': !selectedDate,     
-                      'btn-danger': time.status === 'booked',  
-                      'btn-warning': time.time === selectedTime}"
-                    ng-click="selectTime(time)" 
-                    ng-repeat="time in getAvailableTimes()">
-                {{time.time}}
-            </button>
-        </div>
-        
-        <!----------------Időpont gombok------------->
-        <div class="d-flex flex-wrap gap-2">
-          <button type="button" 
-                  class="btn btn-success" 
-                  ng-repeat="hour in getHours()" 
-                  ng-click="selectTime(hour)">
-            {{hour}}
-          </button>
-        </div>
-
-        <!------------------Mentés gomb------------>
-        <button 
-              type="button" 
-              class="btn btn-primary mt-3" 
-              ng-click="saveBooking()">
-              {{ lang.data.save }}
-          </button>
       </div>
 
       <!--------------Foglalásaim---------------------->

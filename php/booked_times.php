@@ -1,30 +1,15 @@
 <?php
-
 require_once("../../common/php/environment.php");
-// require_once("Database.php");
-// require_once("Util.php");
 
-$data = Util::getArgs();
+// Lekérdezzük az összes dátumot és időpontot
+$query = "SELECT `date`, `time` 
+            FROM `bookings`";
 
-$date = $data['date'] ?? '';
+$db = new Database();
 
-if ($date) {
-    $db = new Database();
+$result = $db->execute($query);
 
-    $query = "SELECT time 
-              FROM bookings 
-              WHERE date = ?";
+$db = null;
 
-    $bookedTimes = $db->execute($query, [$date], "SELECT");
-
-    if ($bookedTimes) {
-        Util::setResponse(array_column($bookedTimes, 'time'));
-    } else {
-        Util::setResponse([]);
-    }
-} 
-else
-{
-    Util::setError("Nincs megadva dátum");
-}
+Util::setResponse($result);
 ?>

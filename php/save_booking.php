@@ -3,8 +3,7 @@
 declare(strict_types=1);
 
 require_once("../../common/php/environment.php");
-// require_once("Database.php");
-// require_once("Util.php");
+
 
 // Lekérjük az összes adatot JSON formátumban
 $data = Util::getArgs();

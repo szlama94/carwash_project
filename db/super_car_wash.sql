@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Feb 07. 16:55
+-- Létrehozás ideje: 2025. Feb 08. 16:39
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -37,6 +37,13 @@ CREATE TABLE `bookings` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- A tábla adatainak kiíratása `bookings`
+--
+
+INSERT INTO `bookings` (`id`, `user_id`, `date`, `time`, `package`, ` vehicle_plate`, `created_at`) VALUES
+(1, 40, '2025-02-14', '09:00:00', 'belső takarítás', 'JVG-124', '2025-02-08 15:36:47');
+
 -- --------------------------------------------------------
 
 --
@@ -61,7 +68,8 @@ INSERT INTO `feedback` (`id`, `name`, `gender`, `age`, `comment`, `rating`) VALU
 (2, 'Guminyom Gábor\r\n', 'M', 40, '\"Nem mondom, hogy koszos maradt, de még mindig el tudom olvasni a porban írt \'MOSS LE\' feliratot. 📝🚘\"', 3),
 (3, 'Béres Virág\r\n', 'F', 24, '\"Majdnem olyan csillogó, mint a körmöm, de még van hova fejlődni! 💅✨\"', 4),
 (4, 'Szél Zsuzsi\r\n', 'F', 29, '\"Jó lett, de a kávéautomatát jobban tisztították, mint az autómat. 😅\"', 3),
-(23, 'Pötyi', 'F', 23, 'jojo', 4);
+(23, 'Pötyi', 'F', 23, 'jojo', 4),
+(24, 'Kiss József', 'M', 43, 'Naggyon ügyesek!', 3);
 
 -- --------------------------------------------------------
 
@@ -243,13 +251,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT a táblához `services`
