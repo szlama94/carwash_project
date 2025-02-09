@@ -45,7 +45,6 @@
 						id: null,
 						type: null,
 						first_name: null,
-						middle_name: null,
 						last_name: null,
 						gender: null,
 						email: null
@@ -111,7 +110,7 @@
 			// Logout confirmed
 			$rootScope.logoutConfirmed = () => {
 				service.reset('email');
-				if (['profile', 'cart', 'users'].includes($state.current.name) ||
+				if (['profile', 'booking', 'services','about_us'].includes($state.current.name) ||
 					($state.current.name === 'users' && $rootScope.user.type !== 'A')) {
 					$state.go('home');
 				}

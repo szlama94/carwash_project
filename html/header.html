@@ -1,6 +1,6 @@
 <nav
   class="header-custom navbar navbar-expand-md 
-         text-white fs-5 border-primary rounded-3"
+         text-white fs-5 border-primary"
   data-bs-theme="dark">
   <div class="container-fluid">
 
@@ -75,15 +75,20 @@
       <ul class="navbar-nav ms-auto">
 
         <!-------------------Foglalásaim--------------------------->
-        <li class="nav-item mx-1 bg-warning rounded-3" 
-            ng-if="$root.user && $root.user.id">
-          <a class="nav-link" 
-             ui-sref="booking">
+        <li class="nav-item mx-1 bg-warning rounded-3" ng-if="$root.user && $root.user.id">
+          <a class="nav-link" ui-sref="booking">
             <i class="fa-regular fa-calendar"></i>
-            {{lang.data.make_an_appointment}}
+            {{ lang.data.make_an_appointment }}
+        
+            <!-- Kosárban lévő kiválasztott szolgáltatások számának megjelenítése a szöveg mellett -->
+            <span class="badge-count" ng-if="getSelectedServicesCount() > 0">
+              {{ getSelectedServicesCount() }} <!-- Kosárban lévő szolgáltatások száma -->
+            </span>            
           </a>
         </li>
-
+        
+           
+        
         <!---------------------Felhasználó----------------------------->
         <li class="nav-item dropdown" 
             data-bs-auto-close="true">

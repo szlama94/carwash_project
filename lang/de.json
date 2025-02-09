@@ -207,6 +207,7 @@
   "no_bookings":"keine buchungen",
   "vehicle_registration_number":"kennzeichen des fahrzeugs",
   "date":"datum",
+  "age":"alter",
   "appointment_button_selected": "Paket ausgewählt",
   "make_an_appointment":"terminbuchung",
   "welcome_message_booking":"Willkommen im Super Car Wash Terminbuchungssystem!",

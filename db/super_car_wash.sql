@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Feb 08. 16:39
+-- Létrehozás ideje: 2025. Feb 09. 13:57
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `bookings` (
   `id` int(10) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `time` time NOT NULL,
+  `booking_date` date NOT NULL,
+  `booking_time` time NOT NULL,
   `package` varchar(255) NOT NULL,
   ` vehicle_plate` varchar(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -41,8 +41,9 @@ CREATE TABLE `bookings` (
 -- A tábla adatainak kiíratása `bookings`
 --
 
-INSERT INTO `bookings` (`id`, `user_id`, `date`, `time`, `package`, ` vehicle_plate`, `created_at`) VALUES
-(1, 40, '2025-02-14', '09:00:00', 'belső takarítás', 'JVG-124', '2025-02-08 15:36:47');
+INSERT INTO `bookings` (`id`, `user_id`, `booking_date`, `booking_time`, `package`, ` vehicle_plate`, `created_at`) VALUES
+(1, 40, '2025-02-14', '09:00:00', 'belső takarítás', 'JVG-124', '2025-02-08 15:36:47'),
+(2, 41, '2025-02-15', '10:00:00', 'külső takarítás', 'LPC-522', '2025-02-09 11:09:52');
 
 -- --------------------------------------------------------
 
@@ -251,7 +252,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `feedback`

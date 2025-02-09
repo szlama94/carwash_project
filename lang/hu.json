@@ -208,6 +208,7 @@
   "no_bookings":"nincsenek foglalások",
   "vehicle_registration_number":"jármű rendszáma",
   "date":"dátum",
+  "age":"kor",
   "appointment_button_selected": "csomag kiválasztva",
   "make_an_appointment":"időpontfoglalás",
   "welcome_message_booking":"Üdvözöljük a Super Car Wash időpontfoglaló rendszerében!",

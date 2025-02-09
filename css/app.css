@@ -47,3 +47,14 @@ p {
   .star-rating.checked {
 	color: #ffc107; /* Sárga */
   }
+
+  .custom-badge {
+    z-index: 9999; /* Magasabb z-index a badge számára */
+    background-color: #007bff; /* Kék háttérszín */
+    color: white !important;  /* Fehér szám */
+    font-weight: bold;  /* Erősebb betűtípus */
+    font-size: 1.2rem;  /* A szám megfelelő mérete */
+    padding: 0.3rem 0.6rem;  /* Kisebb belső tér */
+    border-radius: 50%;  /* Kerek forma */
+    margin-left: 10px; /* Távolság a szövegtől */
+}

@@ -207,6 +207,7 @@
   "no_bookings":"no bookings",
   "vehicle_registration_number":"vehicle registration number",
   "date":"date",
+  "age":"age",
   "appointment_button_selected": "Package selected",
   "make_an_appointment":"appointment booking",
   "welcome_message_booking":"Welcome to the Super Car Wash appointment booking system!",

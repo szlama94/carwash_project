@@ -79,23 +79,24 @@
         <div class="row">
           <div class="col-md-4" 
                ng-repeat="service in group">
-            <div class="card bg-dark text-white mb-3">
+            <div class="card bg-dark text-white mb-3 h-100">
               <div class="ratio ratio-4x3 rounded">
                 <img ng-src="{{service.image}}" 
                      class="img-fluid object-fit-cover" 
                      alt="{{service.services_name}}">
               </div>
-              <div class="card-body rounded">
+              <div class="card-body d-flex flex-column">
                 <h5 class="card-title text-warning">
                   {{lang.data[service.services_name]}}
                 </h5>
                 <p class="card-text">
                   {{lang.data[service.description]}}
                 </p>
-                <p class="fw-bold text-warning text-center">
+                 <!-- Ár szöveg fix távolságra a gombtól -->
+                 <div class="fw-bold text-warning text-center mb-2" style="flex-grow: 1;">
                   {{service.price | currency:'' :0}} Ft
-                </p>
-                <button class="btn w-100"
+                </div>
+                <button class="btn w-100 mt-auto"
                         ng-click="addPackage(service)"
                         ng-class="{'btn-primary': service.isSelected, 'btn-warning': !service.isSelected}">
                   {{ service.isSelected ? lang.data.appointment_button_selected : lang.data.appointment_button }}

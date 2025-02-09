@@ -10,29 +10,29 @@
       border-radius: 15px;">
 
     <!--------------------Odalmenü sáv------------------->
-    <div
-      class="p-4 bg-dark border-end"
-      style="width: 250px; border-radius: 15px 0 0 15px">
-      <ul class="list-unstyled">
-        <li
-          class="mb-3 pointer py-2 px-3"
-          ng-click="selectedSection = 'personal'"
-          ng-class="{'bg-warning text-dark rounded-3':
-                        selectedSection === 'personal'}">
-          <i class="fa-solid fa-user me-2"></i>
-          {{lang.data.personal_data}}
-        </li>
-        <li
-          class="mb-3 pointer py-2 px-3"
-          ng-click="selectedSection = 'myBookings'"
-          ng-class="{'bg-warning text-dark rounded-3': 
-                        selectedSection === 'myBookings'}">
-          <i class="fa-solid fa-calendar-check me-2"></i>
-          {{lang.data.my_bookings}}
-        </li>
-      </ul>
-    </div>
-
+      <div
+        class="p-4 bg-dark border-end"
+        ng-init="selectedSection = 'personal'"
+        style="width: 250px; border-radius: 15px 0 0 15px">
+        <ul class="list-unstyled">
+          <li
+            class="mb-3 pointer py-2 px-3"
+            ng-click="selectedSection = 'personal'"
+            ng-class="{'bg-warning text-dark rounded-3':
+                          selectedSection === 'personal'}">
+            <i class="fa-solid fa-user me-2"></i>
+            {{lang.data.personal_data}}
+          </li>
+          <li
+            class="mb-3 pointer py-2 px-3"
+            ng-click="selectedSection = 'myBookings'"
+            ng-class="{'bg-warning text-dark rounded-3': 
+                          selectedSection === 'myBookings'}">
+            <i class="fa-solid fa-calendar-check me-2"></i>
+            {{lang.data.my_bookings}}
+          </li>
+        </ul>
+      </div>
     <!---------------Fő tartalom-------------------------->
     <div class="p-4 flex-grow-1 overflow-auto">
 
