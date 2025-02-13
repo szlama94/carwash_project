@@ -857,48 +857,56 @@
 
         // Dátum kiválasztása (küldjük a dátumot a backend-nek és frissítjük a gombokat)
         $scope.onDateSelect = function() {
-            console.log("Kiválasztott dátum:", $scope.selectedDate);
-
-            // POST kérés a backendhez
-            $http.post('./php/booked_times.php')
-                .then(function(response) {
-                    if (response.data && response.data.data) {
-                        console.log("Foglalt időpontok:", response.data.data);  // Kiírjuk a válasz adatokat
-                        $scope.updateAvailableTimes(response);
-                    }
-                }, function(error) {
-                    console.error("Hiba történt:", error);
-                });
-        };
+          if (!$scope.selectedDate) {
+              console.error("Nincs kiválasztott dátum!");
+              return;
+          }
+      
+          // Helyes időzóna kezelés
+          let selectedDateObj = new Date($scope.selectedDate);
+          selectedDateObj.setMinutes(selectedDateObj.getMinutes() - selectedDateObj.getTimezoneOffset());
+      
+          let formattedDate = selectedDateObj.toISOString().split('T')[0];
+      
+          console.log("Átalakított dátum:", formattedDate);
+      
+          // Küldjük el a kiválasztott dátumot a backendnek
+          $http.post('./php/booked_times.php', { selectedDate: formattedDate })
+              .then(function(response) {
+                  if (response.data && response.data.data) {
+                      console.log("Foglalt időpontok:", response.data.data);
+                      $scope.updateAvailableTimes(response);
+                  } else {
+                      console.error("Hiba: Üres válasz érkezett a szervertől!", response.data);
+                  }
+              }, function(error) {
+                  console.error("Hiba történt:", error);
+              });
+      };
+      
+      
+      
 
         // Frissítjük az időpontok státuszát
         $scope.updateAvailableTimes = function(response) {
-            if (!response.data || !response.data.data) {
-                console.error("Nincs foglalt időpont a választott dátumhoz.");
-                alert("Nincs foglalt időpont a választott dátumhoz.");
-                return;
-            }
-
-            // Foglalt időpontok
-            let bookedTimes = response.data.data.map(item => item.booking_time.split(':')[0] + ':' + item.booking_time.split(':')[1]);  // Csak az óra:perc részt vesszük
-            console.log("Foglalt időpontok:", bookedTimes);
-
-            // Frissítjük az időpontok státuszát
-            $scope.availableTimes.forEach(function(timeObj) {
-                let isBooked = bookedTimes.includes(timeObj.time);  // Ellenőrizzük, hogy a foglalt időpontok között van-e
-                if (isBooked) {
-                    timeObj.status = 'booked';  // Foglalt státusz
-                } else {
-                    timeObj.status = 'available';  // Elérhető státusz
-                }
-            });
-
-            console.log("Frissített időpontok státusza:", $scope.availableTimes);
-
-            // Frissítjük a gombok színét a státusznak megfelelően
-            $scope.updateButtonColors();
-        };
-
+          // Ha nincs adat vagy üres a válasz, akkor minden időpont szabad
+          if (!response.data || !response.data.data || !Array.isArray(response.data.data) || response.data.data.length === 0) {
+              console.warn("Nincsenek foglalt időpontok ehhez a dátumhoz, minden időpont szabad!");
+              $scope.availableTimes.forEach(timeObj => timeObj.status = 'available');
+              return;
+          }
+      
+          // Ha van foglalt időpont, dolgozzuk fel őket
+          let bookedTimes = response.data.data.map(item => item.booking_time.split(':')[0] + ':' + item.booking_time.split(':')[1]);
+          console.log("Foglalt időpontok:", bookedTimes);
+      
+          // Frissítsük a státuszt
+          $scope.availableTimes.forEach(function(timeObj) {
+              timeObj.status = bookedTimes.includes(timeObj.time) ? 'booked' : 'available';
+          });
+      
+          console.log("Frissített időpontok státusza:", $scope.availableTimes);
+      };
         // Frissítjük a gombok színét a státusz alapján
         $scope.updateButtonColors = function() {
             $scope.availableTimes.forEach(function(timeObj) {
