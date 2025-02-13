@@ -13,7 +13,7 @@
       <div
         class="p-4 bg-dark border-end"
         ng-init="selectedSection = 'personal'"
-        style="width: 250px; border-radius: 15px 0 0 15px">
+        style="width: 250px; border-radius: 15px 0 0 15px rounded-pill">
         <ul class="list-unstyled">
           <li
             class="mb-3 pointer py-2 px-3"
@@ -24,7 +24,7 @@
             {{lang.data.personal_data}}
           </li>
           <li
-            class="mb-3 pointer py-2 px-3"
+            class="mb-3 pointer py-2 px-3 rounded-pill"
             ng-click="selectedSection = 'myBookings'"
             ng-class="{'bg-warning text-dark rounded-3': 
                           selectedSection === 'myBookings'}">

@@ -28,12 +28,12 @@
       <!-----------Navbar tartalom bal oldal.....-->
       <ul class="navbar-nav me-auto">
 
-        <!-------------------Home--------------------->
+        <!-------------------Kezdőlap--------------------->
         <li class="nav-item mx-1">
-          <a class="nav-link" 
-             ui-sref="home" 
-             ui-sref-active="active" 
-             data-bs-toggle="collapse" 
+          <a class="nav-link rounded-pill px-3 py-2 text-decoration-none"
+             ui-sref="home"
+             ui-sref-active="active bg-dark text-white"
+             data-bs-toggle="collapse"
              data-bs-target=".navbar-collapse.show">
             <i class="fa-solid fa-house me-1"></i>
             <span class="text-capitalize">
@@ -44,10 +44,10 @@
 
         <!--------------Szolgáltatások oldal--------->
         <li class="nav-item mx-1">
-          <a class="nav-link" 
-             ui-sref="services" 
-             ui-sref-active="active" 
-             data-bs-toggle="collapse" 
+          <a class="nav-link rounded-pill px-3 py-2 text-decoration-none"
+             ui-sref="services"
+             ui-sref-active="active bg-dark text-white"
+             data-bs-toggle="collapse"
              data-bs-target=".navbar-collapse.show">
             <i class="fa-solid fa-car"></i>
             <span class="text-capitalize">
@@ -58,10 +58,10 @@
 
         <!-------------Rólunk oldal------------------->
         <li class="nav-item mx-1">
-          <a class="nav-link" 
-             ui-sref="about_us" 
-             ui-sref-active="active"
-             data-bs-toggle="collapse" 
+          <a class="nav-link rounded-pill px-3 py-2 text-decoration-none"
+             ui-sref="about_us"
+             ui-sref-active="active bg-dark text-white"
+             data-bs-toggle="collapse"
              data-bs-target=".navbar-collapse.show">
             <i class="fa-solid fa-circle-info"></i>
             <span class="text-capitalize">
@@ -75,19 +75,18 @@
       <ul class="navbar-nav ms-auto">
 
         <!-------------------Foglalásaim--------------------------->
-        <li class="nav-item mx-1 bg-warning rounded-3" ng-if="$root.user && $root.user.id">
-          <a class="nav-link" ui-sref="booking">
+        <li class="nav-item mx-1 bg-warning rounded-pill" 
+            ng-if="$root.user && $root.user.id">
+          <a class="nav-link text-white px-3 py-2" 
+             ui-sref="booking">
             <i class="fa-regular fa-calendar"></i>
             {{ lang.data.make_an_appointment }}
-        
-            <!-- Kosárban lévő kiválasztott szolgáltatások számának megjelenítése a szöveg mellett -->
-            <span class="badge-count" ng-if="getSelectedServicesCount() > 0">
-              {{ getSelectedServicesCount() }} <!-- Kosárban lévő szolgáltatások száma -->
-            </span>            
+            <span class="badge bg-danger ms-2 px-2 py-1 rounded-pill text-white" 
+                  ng-if="$root.cartItemCount > 0">
+              {{ $root.cartItemCount }}
+            </span>
           </a>
         </li>
-        
-           
         
         <!---------------------Felhasználó----------------------------->
         <li class="nav-item dropdown" 

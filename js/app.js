@@ -608,35 +608,34 @@
 
         // Ellenőrizzük, hogy a szolgáltatás már szerepel-e a foglalásban
         $scope.checkSelectedServices = function () {
-            const selectedServices = appointmentFactory.get();
+            let selectedServices = appointmentFactory.get();
             selectedServices.forEach(service => {
-                const serviceInList = $scope.services.find(s => s.id === service.id);
+                let serviceInList = $scope.services.find(s => s.id === service.id);
                 if (serviceInList) {
                     serviceInList.isSelected = true; // Ha már hozzá van adva, akkor kékké tesszük
                 }
             });
         };
 
-        // Új metódus a csomag kiválasztásához
         $scope.addPackage = function(service) {
-            if (!$rootScope.user || !$rootScope.user.id) {
-                alert("Kérlek, jelentkezz be, hogy csomagot választhass!");
-                $state.go('login');  // Bejelentkezéshez irányítja a felhasználót
-                return;
-            }
-
-            // Ha már kiválasztottuk a csomagot, akkor visszaváltoztatjuk sárgára
-            if (service.isSelected) {
-                appointmentFactory.remove(service);  // Eltávolítjuk a csomagot
-                service.isSelected = false;  // Visszaállítjuk sárgára
-            } else {
-                appointmentFactory.add(service);  // Hozzáadjuk az ideiglenes csomaglistához
-                service.isSelected = true;  // Kékre változtatjuk
-            }
-
-            // Frissítjük a kosár számát
-            $scope.cartItems = appointmentFactory.get();
+          if (!$rootScope.user || !$rootScope.user.id) {
+              alert("Kérlek, jelentkezz be, hogy csomagot választhass!");
+              $state.go('login');  // Bejelentkezéshez irányítja a felhasználót
+              return;
+          }
+      
+          if (service.isSelected) {
+              appointmentFactory.remove(service);  // Eltávolítás a kosárból
+              service.isSelected = false;  // Visszaállítjuk az állapotot
+          } else {
+              appointmentFactory.add(service);  // Hozzáadás a kosárhoz
+              service.isSelected = true;  // Kékre változtatjuk
+          }
+      
+          // 🔥 Navbar frissítése azonnal
+          $rootScope.cartItemCount = appointmentFactory.get().length;
         };
+      
 
         // Szolgáltatásokat csoportosítjuk, hogy 3 elem legyen egyszerre
         $scope.updateGroupedServices = function () {
@@ -828,25 +827,14 @@
         };
 
         // Kosár tartalmának frissítése
-        $scope.cartItems = appointmentFactory.get();
-        console.log("Kosár tartalma:", $scope.cartItems);  // Ellenőrizd, hogy tényleg frissítjük-e  // Kosár tartalmának lekérése
+        $rootScope.cartItemCount = 0;  // Alapértelmezett érték mindenhol elérhetően
 
-        // Kosár tartalmának frissítése minden változtatás után
-        $scope.getSelectedServicesCount = function() {
-          count= $scope.cartItems.filter(service => service.isSelected).length; 
-          console.log("Kiválasztott szolgáltatások száma:", count); 
-          return count; // Ellenőrizd a számot // Kiválasztott szolgáltatások számolása
-        };
-
-        // Kosár tartalmának frissítése minden változtatás után
         $scope.$watch(function() {
-          return appointmentFactory.get().length;  // Kosár elemek száma
-          }, function(newValue) {
-              $scope.cartItems = appointmentFactory.get();  // Frissítjük a kosár tartalmát
-              console.log("Kosár frissítése:", $scope.cartItems);  // Ellenőrizd, hogy valóban frissítjük-e
-          });
-
-
+            return appointmentFactory.get();
+        }, function(newCartItems) {
+            $scope.cartItems = newCartItems;
+            $rootScope.cartItemCount = newCartItems.length;  // Globálisan elérhető változó
+        }, true);
 
         // Hozzáadjuk a szolgáltatást a foglaláshoz
         $scope.addService = function(service) {
@@ -934,25 +922,27 @@
 
   //--------Csomag választó kezelő------------>
   .factory('appointmentFactory', [
-    function() {
+    '$rootScope', 
+    function($rootScope) {
     let selectedServices = [];
 
     return {
-      add: function(service) {
-        console.log("Hozzáadott szolgáltatás:", service);  // Ellenőrizd, hogy mi kerül hozzáadásra
-        selectedServices.push(service);
-      },
-      get: function() {
-        console.log("Kosár tartalma:", selectedServices);  // Ellenőrizd a kosár tartalmát
-        return selectedServices;
-      },
-      remove: function(service) {
-        console.log("Eltávolított szolgáltatás:", service);  // Ellenőrizd, hogy mi kerül eltávolításra
-        let index = selectedServices.indexOf(service);
-        if (index !== -1) { 
-            selectedServices.splice(index, 1);
+        add: function(service) {
+
+            selectedServices.push(service);
+            $rootScope.cartItemCount = selectedServices.length; //Frissítés
+        },
+        get: function() {
+            return selectedServices;
+        },
+        remove: function(service) {
+
+            let index = selectedServices.findIndex(item => item.id === service.id);
+            if (index !== -1) {
+                selectedServices.splice(index, 1);
+            }
+            $rootScope.cartItemCount = selectedServices.length; // Frissítés
         }
-      }
-    }
+    };
   }]);
 })(window, angular);
