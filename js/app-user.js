@@ -13,8 +13,8 @@
 		'$state',
 		'$timeout',
 		'util',
-
-		($rootScope, $state, $timeout, util) => {
+		'appointmentFactory',
+		($rootScope, $state, $timeout, util, appointmentFactory) => {
 			
 			// Set local methods
 			const methods = {
@@ -110,6 +110,7 @@
 			// Logout confirmed
 			$rootScope.logoutConfirmed = () => {
 				service.reset('email');
+				appointmentFactory.clear();
 				if (['profile', 'booking', 'services','about_us'].includes($state.current.name) ||
 					($state.current.name === 'users' && $rootScope.user.type !== 'A')) {
 					$state.go('home');

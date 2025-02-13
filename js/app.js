@@ -792,7 +792,8 @@
     '$rootScope',
     '$state',
     'appointmentFactory',
-    function ($scope, $http, $rootScope, $state, appointmentFactory) {
+    'util',
+    function ($scope, $http, $rootScope, $state, appointmentFactory, util) {
 
         // Ellenőrzés, hogy be vagyunk-e jelentkezve
         if (!$rootScope.user || !$rootScope.user.id) {
@@ -873,40 +874,21 @@
           // Küldjük el a kiválasztott dátumot a backendnek
           $http.post('./php/booked_times.php', { selectedDate: formattedDate })
               .then(function(response) {
-                  if (response.data && response.data.data) {
-                      console.log("Foglalt időpontok:", response.data.data);
-                      $scope.updateAvailableTimes(response);
-                  } else {
-                      console.error("Hiba: Üres válasz érkezett a szervertől!", response.data);
-                  }
+                  $scope.updateAvailableTimes(response.data.data);
               }, function(error) {
                   console.error("Hiba történt:", error);
               });
-      };
+        };
       
-      
-      
-
         // Frissítjük az időpontok státuszát
         $scope.updateAvailableTimes = function(response) {
-          // Ha nincs adat vagy üres a válasz, akkor minden időpont szabad
-          if (!response.data || !response.data.data || !Array.isArray(response.data.data) || response.data.data.length === 0) {
-              console.warn("Nincsenek foglalt időpontok ehhez a dátumhoz, minden időpont szabad!");
-              $scope.availableTimes.forEach(timeObj => timeObj.status = 'available');
-              return;
-          }
-      
-          // Ha van foglalt időpont, dolgozzuk fel őket
-          let bookedTimes = response.data.data.map(item => item.booking_time.split(':')[0] + ':' + item.booking_time.split(':')[1]);
-          console.log("Foglalt időpontok:", bookedTimes);
-      
-          // Frissítsük a státuszt
+
+          let bookedTimes = response ? response.map(item => item.booking_time.substr(0, 5)) : [];
           $scope.availableTimes.forEach(function(timeObj) {
-              timeObj.status = bookedTimes.includes(timeObj.time) ? 'booked' : 'available';
+            timeObj.status = bookedTimes.includes(timeObj.time) ? 'booked' : 'available';
           });
-      
-          console.log("Frissített időpontok státusza:", $scope.availableTimes);
-      };
+        };
+
         // Frissítjük a gombok színét a státusz alapján
         $scope.updateButtonColors = function() {
             $scope.availableTimes.forEach(function(timeObj) {
@@ -923,6 +905,16 @@
             });
         };
 
+        $scope.bookingTimeToggleSelect = (time) => {
+          let index = util.indexByKeyValue($scope.availableTimes, 'time', time);
+          $scope.availableTimes[index].status = 
+            $scope.availableTimes[index].status === 'available' ? 
+                                       'selected' : 'available';
+          index = util.indexByKeyValue($scope.availableTimes, 'status', 'selected');
+          $scope.isSelected = index !== -1;
+          $scope.$applyAsync();
+        };
+
         // Betöltéskor meghívjuk a getAvailableTimes-t
         $scope.getAvailableTimes();
     }
@@ -932,25 +924,32 @@
   .factory('appointmentFactory', [
     '$rootScope', 
     function($rootScope) {
-    let selectedServices = [];
 
-    return {
+      let selectedServices = [];
+
+      return {
         add: function(service) {
-
             selectedServices.push(service);
             $rootScope.cartItemCount = selectedServices.length;
         },
+
         get: function() {
             return selectedServices;
         },
-        remove: function(service) {
 
+        remove: function(service) {
             let index = selectedServices.findIndex(item => item.id === service.id);
             if (index !== -1) {
                 selectedServices.splice(index, 1);
             }
             $rootScope.cartItemCount = selectedServices.length;
+        },
+
+        clear: function() {
+          selectedServices = [];
+          $rootScope.cartItemCount = 0;
         }
-    };
-  }]);
+      };
+    }
+  ]);
 })(window, angular);

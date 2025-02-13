@@ -53,52 +53,60 @@
                     </tbody>
                 </table>
 
-                <!-- Jármű rendszáma input -->
-                <div class="mb-3">
-                    <label for="vehicle-plate" 
-                           class="form-label">
-                           {{ lang.data.vehicle_plate }}
-                        </label>
-                    <input type="text" 
-                           id="vehicle-plate" 
-                           class="form-control" 
-                           ng-model="vehiclePlate" 
-                           placeholder="ABC-123/AA-AA-000" 
-                           required>
-                </div>
-
-                <!-- Dátum input -->
-                <div class="mb-3">
-                    <label for="appointment-date" 
-                           class="form-label">
-                           {{ lang.data.date }}:
-                        </label>
-                    <input type="date" 
-                           id="appointment-date" 
-                           class="form-control" 
-                           ng-model="selectedDate"
-                           ng-change="onDateSelect()" 
-                           required>
-                </div>
-                
-                <!-- Példa gombok az időpontokhoz -->
-                <div class="d-flex flex-wrap gap-2">
-                    <div ng-repeat="timeObj in availableTimes">
-                        <button id="btn-{{timeObj.time}}" 
-                                class="btn" 
-                                ng-class="{'bg-success': timeObj.status === 'available', 'bg-danger': timeObj.status === 'booked'}">
-                            {{ timeObj.time }}
-                        </button>
+                <form name="bookingForm">
+                    <!-- Jármű rendszáma input -->
+                    <div class="mb-3">
+                        <label for="vehicle-plate" 
+                               class="form-label">
+                               {{ lang.data.vehicle_plate }}
+                            </label>
+                        <input type="text" 
+                               id="vehicle-plate" 
+                               class="form-control" 
+                               ng-model="vehiclePlate" 
+                               placeholder="ABC-123/AA-AA-000" 
+                               required>
                     </div>
-                </div>
+
+                    <!-- Dátum input -->
+                    <div class="mb-3">
+                        <label for="appointment-date" 
+                               class="form-label">
+                               {{ lang.data.date }}:
+                            </label>
+                        <input type="date" 
+                               id="appointment-date" 
+                               class="form-control" 
+                               ng-model="selectedDate"
+                               ng-change="onDateSelect()" 
+                               required>
+                    </div>
+
+                    <!-- Példa gombok az időpontokhoz -->
+                    <div class="d-flex flex-wrap gap-2">
+                        <div ng-repeat="timeObj in availableTimes">
+                            <button id="btn-{{timeObj.time}}"
+                                    type="button"
+                                    class="btn" 
+                                    ng-class="{'bg-success': timeObj.status === 'available','bg-warning': timeObj.status === 'selected','bg-danger': timeObj.status === 'booked'}"
+                                    ng-click="bookingTimeToggleSelect(timeObj.time)"
+                                    ng-disabled="timeObj.status === 'booked'">
+                                {{ timeObj.time }}
+                            </button>
+                        </div>
+                    </div>
 
 
-                <!-- Mentés gomb -->
-                <button type="button" 
-                        class="btn btn-primary mt-3" 
-                        ng-click="saveBooking()">
-                    {{ lang.data.save }}
-                </button>
+                    <!-- Mentés gomb -->
+                    <button type="button" 
+                            class="btn btn-primary mt-3" 
+                            ng-click="saveBooking()"
+                            ng-disabled="!$root.cartItemCount || 
+                                         bookingForm.$invalid ||
+                                         !isSelected">
+                        {{ lang.data.save }}
+                    </button>
+                </form>
             </div>
         </div>
     </div>
