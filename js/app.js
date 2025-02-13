@@ -930,7 +930,7 @@
         add: function(service) {
 
             selectedServices.push(service);
-            $rootScope.cartItemCount = selectedServices.length; //Frissítés
+            $rootScope.cartItemCount = selectedServices.length;
         },
         get: function() {
             return selectedServices;
@@ -941,7 +941,7 @@
             if (index !== -1) {
                 selectedServices.splice(index, 1);
             }
-            $rootScope.cartItemCount = selectedServices.length; // Frissítés
+            $rootScope.cartItemCount = selectedServices.length;
         }
     };
   }]);
