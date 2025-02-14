@@ -69,8 +69,8 @@
 
 <!------------Carousel: Szűrt szolgáltatások----------------->
   <div id="serviceCarousel" 
-       class="carousel slide" 
-       data-bs-ride="carousel" 
+       class="carousel slide"
+       data-bs-interval="false"
        ng-if="groupedServices.length > 0">
     <div class="carousel-inner">
       <div class="carousel-item" 
@@ -93,7 +93,8 @@
                   {{lang.data[service.description]}}
                 </p>
                  <!-- Ár szöveg fix távolságra a gombtól -->
-                 <div class="fw-bold text-warning text-center mb-2" style="flex-grow: 1;">
+                 <div class="fw-bold text-warning text-center mb-2" 
+                      style="flex-grow: 1;">
                   {{service.price | currency:'' :0}} Ft
                 </div>
                 <button class="btn w-100 mt-auto"

@@ -78,7 +78,9 @@
         <li class="nav-item mx-1 bg-warning rounded-pill" 
             ng-if="$root.user && $root.user.id">
           <a class="nav-link text-white px-3 py-2" 
-             ui-sref="booking">
+             ui-sref="booking"
+             data-bs-toggle="collapse"
+             data-bs-target=".navbar-collapse.show">
             <i class="fa-regular fa-calendar"></i>
             {{ lang.data.make_an_appointment }}
             <span class="badge bg-danger ms-2 px-2 py-1 rounded-pill text-white" 
@@ -95,7 +97,9 @@
              href="#" 
              role="button" 
              data-bs-toggle="dropdown" 
-             aria-expanded="false">
+             aria-expanded="false"
+             data-bs-toggle="collapse"
+             data-bs-target=".navbar-collapse.show">
             <i class="fa-solid fa-user me-1"></i>
             <span class="text-capitalize text-small-caps">
               {{lang.data.user}}
@@ -119,7 +123,9 @@
                 ng-if="!$root.user.id">
               <a class="dropdown-item" 
                  ui-sref="login" 
-                 ui-sref-active="active">
+                 ui-sref-active="active"
+                 data-bs-toggle="collapse"
+                 data-bs-target=".navbar-collapse.show">
                 <i class="fa-solid fa-right-to-bracket me-1"></i>
                 <span class="text-capitalize text-small-caps">
                   {{lang.data.login}}
@@ -132,7 +138,9 @@
                 ng-if="!$root.user.id">
               <a class="dropdown-item" 
                  ui-sref="register" 
-                 ui-sref-active="active">
+                 ui-sref-active="active"
+                 data-bs-toggle="collapse"
+                 data-bs-target=".navbar-collapse.show">
                 <i class="fa-solid fa-id-card me-1"></i>
                 <span class="text-capitalize text-small-caps">
                   {{lang.data.register}}
@@ -145,7 +153,9 @@
                 ng-if="$root.user.id">
               <a class="dropdown-item" 
                  ui-sref="profile" 
-                 ui-sref-active="active">
+                 ui-sref-active="active"
+                 data-bs-toggle="collapse"
+                 data-bs-target=".navbar-collapse.show">
                 <i class="fa-regular fa-address-card me-1"></i>
                 <span class="text-capitalize text-small-caps">
                   {{lang.data.profile}}
@@ -175,7 +185,9 @@
             <li class="nav-item" 
                 ng-if="$root.user.id">
               <a class="dropdown-item cursor-pointer" 
-                 ng-click="$root.logout()">
+                 ng-click="$root.logout()"
+                 data-bs-toggle="collapse"
+                 data-bs-target=".navbar-collapse.show">
                 <i class="fa-solid fa-right-from-bracket me-1"></i>
                 <span class="text-capitalize text-small-caps">
                   {{lang.data.logout}}
@@ -192,7 +204,9 @@
               href="#" 
               role="button"
               data-bs-toggle="dropdown" 
-              aria-expanded="false">
+              aria-expanded="false"
+              data-bs-toggle="collapse"
+              data-bs-target=".navbar-collapse.show">
               <img class="me-1" 
                   height="32" 
                   alt="flag"
@@ -206,7 +220,9 @@
             <ul class="dropdown-menu dropdown-menu-end">
               <li ng-repeat="x in lang.available"
                   ng-if="x.id !== lang.available[lang.index].id"
-                  ng-click="methods.languageChanged(x.id)">
+                  ng-click="methods.languageChanged(x.id)"
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show">
                 <a class="dropdown-item" 
                   href="#">
                   <img class="me-1" 

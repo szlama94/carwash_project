@@ -823,8 +823,6 @@
 
         // Időpont kiválasztása
         $scope.selectTime = function(timeObj) {
-            console.log("Kiválasztott időpont:", timeObj.time);
-            // Itt tárolhatod a kiválasztott időpontot vagy egyéb műveleteket végezhetsz
         };
 
         // Kosár tartalmának frissítése
@@ -869,8 +867,7 @@
       
           let formattedDate = selectedDateObj.toISOString().split('T')[0];
       
-          console.log("Átalakított dátum:", formattedDate);
-      
+          
           // Küldjük el a kiválasztott dátumot a backendnek
           $http.post('./php/booked_times.php', { selectedDate: formattedDate })
               .then(function(response) {
