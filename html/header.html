@@ -152,7 +152,7 @@
             <li class="nav-item" 
                 ng-if="$root.user.id">
               <a class="dropdown-item" 
-                 ui-sref="profile" 
+                 ui-sref="profile({ section: 'personal' })" 
                  ui-sref-active="active"
                  data-bs-toggle="collapse"
                  data-bs-target=".navbar-collapse.show">
@@ -162,6 +162,7 @@
                 </span>
               </a>
             </li>
+            
 
             <!---------------------Felhasználók------------------------->
             <li class="nav-item" 

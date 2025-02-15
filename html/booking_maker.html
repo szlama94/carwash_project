@@ -29,10 +29,15 @@
                     {{ lang.data.appointment_booking }}
                 </h3>
 
-                <!-- Kiválasztott csomagok -->
+                <!-- Ha nincs kiválasztott szolgáltatás -->
+                <div ng-if="getSelectedServices().length === 0" 
+                     class="alert alert-warning text-center">
+                        {{ lang.data.please_select_service }}
+                </div>
+
                <!-- Kiválasztott szolgáltatások megjelenítése -->
                <table class="table table-bordered text-white">
-                    <thead class="table-dark">
+                    <thead class="table-dark text-capitalize">
                         <tr>
                             <th scope="col">{{ lang.data.package_name }}</th>
                             <th scope="col">{{ lang.data.price }}</th>
@@ -40,15 +45,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="service in getSelectedServices()">
+                        <tr class="table-active" 
+                            ng-repeat="service in getSelectedServices()">
                             <td>{{ lang.data[service.services_name]}}</td>
                             <td>{{ service.price | currency:'' :0 }} Ft</td>
                             <td>
                                 <button class="btn btn-danger" 
                                         ng-click="removeService(service)">
-                                    {{ lang.data.delete }}
+                                        <i class="fa-solid fa-trash"></i>
+                                         {{ lang.data.delete }}
                                 </button>
                             </td>
+                        </tr>
+                        <tr>
+                            <tr>
+                                <td colspan="1" 
+                                    class="text-start text-capitalize">
+                                    <strong>{{lang.data.total}}:
+                                    </strong>
+                                </td>
+                                <td colspan="2">
+                                    <strong>
+                                    {{ allServicePrice() | currency:'' :0 }} Ft
+                                    </strong>
+                                </td>
+                            </tr>
                         </tr>
                     </tbody>
                 </table>
@@ -62,7 +83,7 @@
                             </label>
                         <input type="text" 
                                id="vehicle-plate" 
-                               class="form-control" 
+                               class="form-control text-uppercase" 
                                ng-model="vehiclePlate" 
                                placeholder="ABC-123/AA-AA-000" 
                                required>
@@ -78,7 +99,8 @@
                                id="appointment-date" 
                                class="form-control" 
                                ng-model="selectedDate"
-                               ng-change="onDateSelect()" 
+                               ng-change="onDateSelect()"
+                               min="{{ today }}" 
                                required>
                     </div>
 
@@ -90,7 +112,7 @@
                                     class="btn" 
                                     ng-class="{'bg-success': timeObj.status === 'available','bg-warning': timeObj.status === 'selected','bg-danger': timeObj.status === 'booked'}"
                                     ng-click="bookingTimeToggleSelect(timeObj.time)"
-                                    ng-disabled="timeObj.status === 'booked'">
+                                    ng-disabled="timeObj.status === 'booked' || isPastTime(timeObj.time)">
                                 {{ timeObj.time }}
                             </button>
                         </div>
@@ -99,12 +121,21 @@
 
                     <!-- Mentés gomb -->
                     <button type="button" 
-                            class="btn btn-primary mt-3" 
+                            class="btn btn-primary mt-3"
+                            style="min-width: 100px;" 
                             ng-click="saveBooking()"
                             ng-disabled="!$root.cartItemCount || 
                                          bookingForm.$invalid ||
                                          !isSelected">
                         {{ lang.data.save }}
+                    </button>
+
+                    <!-- Foglalásaim gomb -->
+                    <button type="button" 
+                            class="btn btn-warning mt-3"
+                            style="min-width: 100px;"
+                            ng-click="redirectToMyAppointments()">
+                        {{lang.data.my_bookings}}
                     </button>
                 </form>
             </div>

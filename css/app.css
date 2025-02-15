@@ -32,15 +32,14 @@ p {
 	font-size: 24px;
 	transition: color 0.2s ease-in-out;
 	cursor: pointer;
-  }
+}
   
-  /* Hover esetén besárgul */
-  .star-rating.hovered {
+* Hover esetén besárgul */
+.star-rating.hovered {
 	color: #ffc107; /* Sárga */
-  }
+}
   
   /* Kiválasztott csillag */
-  .star-rating.checked {
+.star-rating.checked {
 	color: #ffc107; /* Sárga */
-  }
-
+}
