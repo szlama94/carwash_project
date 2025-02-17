@@ -454,11 +454,11 @@
                       $scope.bookings = response.data.data;
                   } else {
                       $scope.bookings = [];
-                      console.warn("⚠️ Nincsenek foglalások.");
+                      console.warn("Nincsenek foglalások.");
                   }
               })
               .catch(error => {
-                  console.error("🚨 Hiba történt a foglalások lekérésekor:", error);
+                  console.error("Hiba történt a foglalások lekérésekor:", error);
               });
         };
       
@@ -733,111 +733,132 @@
 
   //--------About_us-controller--------------->
   .controller('aboutUsController', [
-      '$scope', 
-      '$http', 
+    '$scope', 
+    '$http',
+    '$rootScope',
+    '$state',
 
-      function ($scope, $http) {
+    function ($scope, $http, $rootScope, $state) {
 
-      //oldal képei
-      $scope.ourTeam_img = './media/image/spwash_crew.jpg';
-      $scope.satisfied_img='./media/image/satisfied_man.jpg';
+        // Oldal képei
+        $scope.ourTeam_img = './media/image/spwash_crew.jpg';
+        $scope.satisfied_img = './media/image/satisfied_man.jpg';
 
-      $scope.feedbacks = [];
-  
-      // Vélemények betöltése
-      $scope.loadFeedbacks = function () {
-          $http.get('./php/load_feedback.php')
-              .then(response => {
-                  if (response.data.success || response.data.data) {
-                      $scope.feedbacks = response.data.data;
-                  } else {
-                      console.error("Hiba:", response.data.message);
-                  }
-              })
-              .catch(e => console.error("Adatbetöltési hiba:", e));
-      };
+        // Vélemények tárolása
+        $scope.feedbacks = [];
 
-      // 3-as csoportokra bontó függvény
-      $scope.chunkArray = function (array, size) {
-          let results = [];
-          for (let i = 0; i < array.length; i += size) {
-              results.push(array.slice(i, i + size));
+        //Életkor számítása születési dátumból
+        function calculateAge(birthDate) {
+            if (!birthDate) return null;
+            let today = new Date();
+            let birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            let monthDiff = today.getMonth() - birth.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        //Felhasználói adatok frissítése
+        $scope.setUserData = function () {
+          if (!$rootScope.user || !$rootScope.user.id) {
+              return; // Ha nincs bejelentkezve, kilépünk
           }
-          return results;
-      };
-  
-      // Csillagok generálása értékelés alapján
-      $scope.getStars = function (rating) {
-        return Array.from({ length: rating }, (_, i) => i + 1);
-    };
-  
-      // Vélemények betöltése az oldal betöltésekor
-      $scope.loadFeedbacks();
+      
+          if ($rootScope.user.born) {
+              $rootScope.user.age = calculateAge($rootScope.user.born);
+          }
+        };
+      
 
-
-      // Vélemény beküldése
-      $scope.submitFeedback = function () {
-        // Ellenőrizzük, hogy az űrlap validált-e
-        if ($scope.feedbackForm.$valid) {
-            
-            // Feedback adatok összegyűjtése
-            let feedbackData = {
-                name: $scope.feedback.name,  // Név
-                gender: $scope.feedback.gender,  // Nem
-                age: $scope.feedback.age,  // Kor
-                rating: $scope.feedback.rating,  // Értékelés
-                comment: $scope.feedback.comment  // Vélemény szövege
-            };
-    
-            // POST kérés küldése
-            $http.post('./php/submit_feedback.php', feedbackData)
+        //Vélemények betöltése az adatbázisból
+        $scope.loadFeedbacks = function () {
+            $http.post('./php/load_feedback.php')
                 .then(response => {
                     if (response.data && response.data.data) {
-                        alert(response.data.data);  // Sikeres mentés
-                        // Mezők alaphelyzetbe állítása
-                        $scope.feedback.name = '';
-                        $scope.feedback.gender = '';
-                        $scope.feedback.age = '';
-                        $scope.feedback.rating = 0;
-                        $scope.feedback.comment = '';
-                        $scope.loadFeedbacks();  // Új vélemények betöltése
-                    } else if (response.data && response.data.error) {
-                        alert("Hiba: " + response.data.error);  // Hibás mentés
+                        $scope.feedbacks = response.data.data;
                     } else {
-                        alert("Ismeretlen hiba történt!");
+                        console.error("Hiba:", response.data.message);
                     }
                 })
-                .catch(error => {
-                    console.error("Hiba történt:", error);
-                    alert("Hiba történt a mentés során!");
-                });
-    
-        } else {
-            alert("Kérjük, töltsön ki minden mezőt!");
-        }
-      };
-    
-      $scope.feedback = {
-        rating: 0
-      };
-    
-      $scope.hoverRating = 0;
-      
-      // Hover esemény - ha az egér a csillagon van
-      $scope.setHover = function(star) {
-          $scope.hoverRating = star;
-      };
-      
-      // Hover elhagyása - visszaáll az érték
-      $scope.clearHover = function() {
-          $scope.hoverRating = 0;
-      };
-      
-      // Kattintás - értékelés rögzítése
-      $scope.setRating = function(star) {
-          $scope.feedback.rating = star;
-      };
-  }])
+                .catch(e => console.error("Adatbetöltési hiba:", e));
+        };
+
+        //Átirányítás login oldalra
+        $scope.redirectToLogin = function () {
+            $state.go('login');
+        };
+
+        //Vélemény beküldése
+        $scope.submitFeedback = function () {
+            if (!$rootScope.user || !$rootScope.user.id) {
+                alert("Be kell jelentkezned, hogy véleményt írhass!");
+                $state.go('login');
+                return;
+            }
+
+            if ($scope.feedbackForm.$valid) {
+                let feedbackData = {
+                    user_id: $rootScope.user.id,  
+                    first_name: $rootScope.user.first_name,
+                    last_name: $rootScope.user.last_name,
+                    gender: $rootScope.user.gender,
+                    age: $rootScope.user.age, 
+                    rating: $scope.feedback.rating,
+                    comment: $scope.feedback.comment
+                };
+
+                $http.post('./php/submit_feedback.php', feedbackData)
+                    .then(response => {
+                        if (response.data.data) {
+                            alert("Vélemény sikeresen elküldve!");
+                            $scope.feedback.rating = 0;
+                            $scope.feedback.comment = '';
+                            $scope.loadFeedbacks();
+                        } else {
+                            alert("Hiba: " + response.data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Vélemény mentési hiba:", error);
+                        alert("Hiba történt a mentés során!");
+                    });
+            }
+        };
+
+        // Csillagok generálása értékelés alapján
+        $scope.getStars = function (rating) {
+          return Array.from({ length: rating }, (_, i) => i + 1);
+        };
+
+
+        //Csillagok kezelése
+        $scope.feedback = { rating: 0 };
+        $scope.hoverRating = 0;
+
+        $scope.setHover = function (star) {
+            $scope.hoverRating = star;
+        };
+
+        $scope.clearHover = function () {
+            $scope.hoverRating = 0;
+        };
+
+        $scope.setRating = function (star) {
+            $scope.feedback.rating = star;
+        };
+
+        //Az oldal betöltésekor
+        $scope.init = function () {
+            $scope.setUserData();  // Először az adatok frissítése
+            $scope.loadFeedbacks(); // Utána a vélemények betöltése
+        };
+
+        $scope.init(); //Azonnal futtatjuk az inicializálást
+    }
+  ])
+
 
   //---------BookingController---------------->
   .controller('bookingController', [
@@ -1015,7 +1036,7 @@
       
 
     }
-])
+  ])
 
   //--------Csomag választó kezelő------------>
   .factory('appointmentFactory', [

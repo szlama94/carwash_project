@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Feb 15. 15:28
+-- Létrehozás ideje: 2025. Feb 17. 12:01
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -41,9 +41,9 @@ CREATE TABLE `bookings` (
 -- A tábla adatainak kiíratása `bookings`
 --
 
-INSERT INTO `bookings` (`id`, `user_id`, `booking_date`, `booking_time`, `service_id`, ` vehicle_plate`, `created_at`) VALUES
-(1, 40, '2025-02-14', '09:00:00', 1, 'JVG-124', '2025-02-14 11:07:04'),
-(2, 41, '2025-02-15', '10:00:00', 2, 'LPC-522', '2025-02-14 11:07:12');
+INSERT INTO `bookings` (`id`, `user_id`, `booking_date`, `booking_time`, `service_id`, `vehicle_plate`, `created_at`) VALUES
+(2, 41, '2025-02-15', '10:00:00', 2, 'LPC-522', '2025-02-14 11:07:12'),
+(29, 40, '2025-02-16', '12:00:00', 2, 'FCT-965', '2025-02-15 20:08:31');
 
 -- --------------------------------------------------------
 
@@ -53,7 +53,9 @@ INSERT INTO `bookings` (`id`, `user_id`, `booking_date`, `booking_time`, `servic
 
 CREATE TABLE `feedback` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `first_name` varchar(100) NOT NULL,
   `gender` char(1) NOT NULL,
   `age` int(3) NOT NULL,
   `comment` text NOT NULL,
@@ -64,14 +66,8 @@ CREATE TABLE `feedback` (
 -- A tábla adatainak kiíratása `feedback`
 --
 
-INSERT INTO `feedback` (`id`, `name`, `gender`, `age`, `comment`, `rating`) VALUES
-(1, 'Porszívó Pista\r\n', 'M', 37, '\"Olyan tiszta lett az autóm, hogy most a szomszédok napszemüvegben nézik! 😎✨\"\r\n', 5),
-(2, 'Guminyom Gábor\r\n', 'M', 40, '\"Nem mondom, hogy koszos maradt, de még mindig el tudom olvasni a porban írt \'MOSS LE\' feliratot. 📝🚘\"', 3),
-(3, 'Béres Virág\r\n', 'F', 24, '\"Majdnem olyan csillogó, mint a körmöm, de még van hova fejlődni! 💅✨\"', 4),
-(4, 'Szél Zsuzsi\r\n', 'F', 29, '\"Jó lett, de a kávéautomatát jobban tisztították, mint az autómat. 😅\"', 3),
-(23, 'Pötyi', 'F', 23, 'jojo', 4),
-(24, 'Kiss József', 'M', 43, 'Naggyon ügyesek!', 3),
-(25, 'Liza', 'F', 25, 'the best', 5);
+INSERT INTO `feedback` (`id`, `user_id`, `last_name`, `first_name`, `gender`, `age`, `comment`, `rating`) VALUES
+(1, 40, 'Szlama', 'Bence', 'M', 31, '\"Olyan tiszta lett az autóm, hogy most a szomszédok napszemüvegben nézik! 😎✨\"', 5);
 
 -- --------------------------------------------------------
 
@@ -253,13 +249,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT a táblához `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `services`

@@ -1,4 +1,4 @@
-<div class="container px-4 px-lg-5 my-5 text-capitalize">
+<div class="container px-4 px-lg-5 my-5">
   <div class="row gx-4 gx-lg-5 align-items-center">
     <div class="col-lg-12">
       <div class="card bg-dark border-0 rounded-3 shadow-lg">
@@ -52,104 +52,118 @@
               <h2 class="text-warning fw-bold mb-4">
                 {{lang.data.opinion_title}}
               </h2>
-              <form
-                name="feedbackForm"
-                ng-submit="submitFeedback()"
-                novalidate
-                class="h-100 d-flex flex-column justify-content-between">
+                <!--Az egész form inaktív marad, amíg nincs bejelentkezve a user -->
+                <form form name="feedbackForm" 
+                      ng-submit="submitFeedback()" 
+                      novalidate>
+                  <fieldset ng-disabled="!$root.user.id">
 
-                <!---------------Név----------------------------->
-                <div class="mb-3">
-                  <label for="name" class="form-label">
-                    {{lang.data.name}}
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    class="form-control"
-                    ng-model="feedback.name"
-                    required>
-                </div>
+                    <!-- Vezetéknév és Keresztnév -->
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label for="last_name" 
+                              class="form-label">
+                              {{lang.data.last_name}}
+                          </label>
+                        <input type="text" 
+                              id="last_name" 
+                              class="form-control" 
+                              ng-model="$root.user.last_name"
+                              disabled 
+                              required>
+                      </div>
+                      <div class="col">
+                        <label for="first_name" 
+                              class="form-label">
+                              {{lang.data.first_name}}
+                          </label>
+                        <input type="text" 
+                              id="first_name" 
+                              class="form-control" 
+                              ng-model="$root.user.first_name"
+                              disabled 
+                              required>
+                      </div>
+                    </div>
 
-                <!---------------Nem választó-------------------->
-                <div class="mb-3">
-                  <label class="form-label"> 
-                    {{lang.data.gender}} 
-                  </label>
-                  <br/>
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        ng-model="feedback.gender"
-                        value="M">
-                      {{lang.data.male}}
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        ng-model="feedback.gender"
-                        value="F">
-                      {{lang.data.female}}
-                    </label>
-                  </div>
-                </div>
+                    <!-- Nem választó -->
+                    <div class="mb-3">
+                      <label class="form-label">
+                        {{lang.data.gender}}
+                      </label>
+                      <br/>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" 
+                                type="radio" 
+                                ng-model="$root.user.gender"
+                                disabled 
+                                value="M">
+                          {{lang.data.male}}
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" 
+                                type="radio" 
+                                ng-model="$root.user.gender"
+                                disabled
+                                value="F">
+                          {{lang.data.female}}
+                        </label>
+                      </div>
+                    </div>
 
-                <!----------------Kor-------------------------->
-                <div class="mb-3">
-                  <label for="age" 
-                         class="form-label">
-                    {{lang.data.age}}
-                  </label>
-                  <input
-                    type="number"
-                    id="age"
-                    class="form-control"
-                    ng-model="feedback.age"
-                    min="1"
-                    required>
-                </div>
+                    <!-- Kor -->
+                    <div class="mb-3">
+                      <label for="age" 
+                            class="form-label">
+                            {{lang.data.age}}
+                        </label>
+                      <input type="number" 
+                            id="age" 
+                            class="form-control" 
+                            ng-model="$root.user.age"
+                            disabled
+                            required>
+                    </div>
 
-                <!----------------Értékelés-------------------->
-                <div class="mb-3">
-                  <label>
-                    {{lang.data.rating}}
-                  </label>
-                  <br/>
-                  <span
-                    ng-repeat="star in [1,2,3,4,5]"
-                    ng-mouseover="setHover(star)"
-                    ng-mouseleave="clearHover()"
-                    ng-click="setRating(star)"
-                    class="fa fa-star star-rating"
-                    ng-class="{'hovered': star <= hoverRating, 
-                              'checked': star <= feedback.rating}">
-                  </span>
-                </div>
+                    <!-- Értékelés -->
+                    <div class="mb-3">
+                      <label>{{lang.data.rating}}</label>
+                      <br/>
+                      <span ng-repeat="star in [1,2,3,4,5]" 
+                            ng-mouseover="setHover(star)"
+                            ng-mouseleave="clearHover()" 
+                            ng-click="setRating(star)" 
+                            class="fa fa-star star-rating"
+                            ng-class="{'hovered': star <= hoverRating, 'checked': star <= feedback.rating}">
+                      </span>
+                    </div>
 
-                <!---------------Vélemény------------------------>
-                <div class="mb-3">
-                  <label for="comment" 
-                         class="form-label">
-                    {{lang.data.opinion}}
-                  </label>
-                  <textarea
-                    id="comment"
-                    class="form-control"
-                    ng-model="feedback.comment"
-                    rows="4"
-                    required>
-                  </textarea>
-                </div>
-                <button type="submit" 
-                        class="btn btn-warning w-100">
-                  {{lang.data.opinion_send}}
-                </button>
-              </form>
+                      <!-- Vélemény -->
+                      <div class="mb-3">
+                        <label for="comment" 
+                              class="form-label">
+                              {{lang.data.opinion}}
+                          </label>
+                        <textarea id="comment" 
+                                  class="form-control" 
+                                  ng-model="feedback.comment" 
+                                  rows="4" 
+                                  required>
+                          </textarea>
+                      </div>
+
+                  </fieldset>
+
+                  <!-- Bejelentkezés gomb vagy vélemény küldése -->
+                  <button type="button" 
+                          class="btn w-100 mt-auto btn-warning"
+                          ng-click="$root.user.id ? submitFeedback() : redirectToLogin()">
+                    {{ $root.user.id ? lang.data.opinion_send : "A vélemény elküldéséhez kérjük, jelentkezzen be!" }}
+                  </button>
+                </form>
             </div>
 
             <!-----------------Elégedett kép--------------->
@@ -188,7 +202,7 @@
                             height="50"
                             class="rounded-circle me-3 border border-light">
                           <h5 class="card-title m-0">
-                            {{fb.name}} ({{fb.age}} év)
+                            {{fb.last_name}} {{fb.first_name}} ({{fb.age}} év)
                             <span
                               ng-repeat="n in getStars(fb.rating)"
                               class="text-warning">

@@ -4,12 +4,7 @@ require_once('../../common/php/environment.php');
 
 $db = new Database();
 
-$query = "SELECT `id`, 
-                 `name`, 
-                 `gender`, 
-                 `age`, 
-                 `comment`, 
-                 `rating` 
+$query = "SELECT *
           FROM   `feedback`";
 
 $result = $db->execute($query);

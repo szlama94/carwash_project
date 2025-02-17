@@ -9,7 +9,8 @@ $query = "SELECT 	`id`,
 					`first_name`,
 					`last_name`,
 					`gender`,
-					`password` 
+					`password`,
+					`born`
 		  FROM 		`users` 
 		  WHERE 	`email` = ? 
 		  AND   	`valid` = 1

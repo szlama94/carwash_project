@@ -2,7 +2,9 @@
 
 require_once('../../common/php/environment.php');
 
+
 $data = Util::getArgs();
+
 if (empty($data['id'])) {
     Util::setError("Hiányzó felhasználói azonosító!");
 }

@@ -47,7 +47,8 @@
 						first_name: null,
 						last_name: null,
 						gender: null,
-						email: null
+						email: null,
+						born: null
 					};
 				},
 	
