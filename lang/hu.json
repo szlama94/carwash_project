@@ -215,5 +215,9 @@
   "welcome_message_booking":"Üdvözöljük a Super Car Wash időpontfoglaló rendszerében!",
   "booking_instructions":"kérjük, válassza ki a kívánt mosási csomagokat a 'Szolgáltatások' oldalon, majd töltse ki a többi adatot, és mentse el a foglalását. foglalása bekerül az Ön személyes profiljába.",
   "please_select_service": "kérem válasszon csomagjaink közül a szolgáltatások oldalon!",
-  "time":"idő"
+  "time":"idő",
+  "email_notmacht":"a megadott e-mail címek nem egyeznek!",
+  "password_conditional":"a jelszónak legalább 5 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, valamint számot.",
+  "password_notmacht":"a megadott jelszavak nem egyeznek!",
+  "back_to_login":"vissza a bejelentkezésre"
 }

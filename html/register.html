@@ -1,7 +1,6 @@
-<div class="container vh-100 d-flex justify-content-center
-            align-items-center">
-  <div class="card shadow-lg text-white w-75" 
-       style="border-radius: 15px; overflow: hidden;">
+<div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center">
+  <div class="card shadow-lg text-white w-75 my-5" 
+       style="border-radius: 15px; overflow: hidden; min-width: 350px;">
     <div class="row g-0">
 
 <!-----------------Regisztrációs Form--------------------------->
@@ -25,7 +24,7 @@
 <!------------------------Vezetéknév-------------------->
               <div class="mb-3">
                 <label for="register-last_name" 
-                       class="form-label text-white">
+                       class="form-label text-warning">
                   <i class="fa-solid fa-user me-1"></i> 
                   {{lang.data.last_name}}:
                 </label>
@@ -38,13 +37,14 @@
                   placeholder="{{lang.data.last_name}}"
                   required
                   maxlength="100"
+                  autocomplete="off"
                   ng-model="model.register.last_name">
               </div>
 
 <!-------------------------Keresztnév---------------------->
               <div class="mb-3">
                 <label for="register-first_name" 
-                       class="form-label text-white">
+                       class="form-label text-warning">
                   <i class="fa-solid fa-user me-1"></i> 
                   {{lang.data.first_name}}:
                 </label>
@@ -56,6 +56,7 @@
                   type="text"
                   placeholder="{{lang.data.first_name}}"
                   required
+                  autocomplete="off"
                   maxlength="100"
                   ng-model="model.register.first_name">
               </div>
@@ -63,7 +64,7 @@
 <!--------------------------Születési idő---------------------->
               <div class="mb-3">
                 <label for="register-born" 
-                       class="form-label text-white">
+                       class="form-label text-warning">
                   <i class="fa-solid fa-calendar-days me-1"></i> 
                   {{lang.data.born}}:
                 </label>
@@ -78,14 +79,14 @@
                   maxlength="300"
                   required
                   ng-disable-space
-                  ng-clear-icon
+                  autocomplete="off"
                   ng-model="model.register.born">
               </div>
 
 <!--------------------------Telefonszám------------------------->
               <div class="mb-3">
                 <label for="register-phone" 
-                       class="form-label text-white">
+                       class="form-label text-warning">
                   <i class="fa-solid fa-mobile-screen me-1"></i> 
                   {{lang.data.phone}}:
                 </label>
@@ -104,6 +105,7 @@
                   <input
                     id="register-phone"
                     name="phone"
+                    autocomplete="off"
                     type="tel"
                     placeholder="{{lang.data.phone}}"
                     class="form-control bg-dark text-white 
@@ -117,7 +119,7 @@
 
 <!-------------------------Neme-------------------------->
               <div class="mb-3">
-                <label class="form-label text-white">
+                <label class="form-label text-warning">
                   <i class="fa-solid fa-venus-mars me-1"></i> 
                   {{lang.data.gender}}:
                 </label>
@@ -154,27 +156,41 @@
             <div class="col-md-6">
 
 <!-----------------------------Email---------------------------------->
-              <div class="mb-3">
-                <label for="register-email" 
-                       class="form-label text-white">
-                  <i class="fa-solid fa-envelope me-1"></i> 
-                  E-mail:
+              <div class="mb-3 position-relative">
+                <label for="register-email" class="form-label text-warning">
+                    <i class="fa-solid fa-envelope me-1"></i> 
+                    {{lang.data.email}}:
                 </label>
-                <input 
-                  id="register-email"
-                  class="form-control bg-dark text-white 
-                         border-secondary rounded"
-                  name="email" 
-                  type="email"
-                  placeholder="E-mail"
-                  required
-                  ng-model="model.register.email">
+
+                <div class="position-relative">
+                    <input 
+                        id="register-email"
+                        class="form-control bg-dark text-white 
+                              border-secondary rounded pe-5"
+                        name="email" 
+                        type="email"
+                        placeholder="{{lang.data.email}}"
+                        required
+                        maxlength="50"
+                        ng-model="model.register.email"
+                        ng-class="{
+                            'is-invalid': model.register.email && 
+                            !isValidEmail(model.register.email)}">
+
+                    <!-- Email ellenőrző ikon (pipa vagy X) -->
+                    <i class="fa-solid position-absolute top-50 end-0 translate-middle-y me-2"
+                       ng-class="{'fa-check-circle text-success': model.register.email && 
+                                  isValidEmail(model.register.email),
+                                'fa-times-circle text-danger': model.register.email &&
+                                 !isValidEmail(model.register.email)}">
+                    </i>
+                </div>
               </div>
 
 <!-----------------------------Email megerősítés------------------------->
               <div class="mb-3">
                 <label for="register-emailConfirm" 
-                       class="form-label text-white">
+                       class="form-label text-warning">
                   E-mail {{lang.data.confirmation}}:
                 </label>
                 <input 
@@ -184,48 +200,92 @@
                   name="emailConfirm" 
                   type="email"
                   placeholder="E-mail {{lang.data.confirmation}}"
+                  autocomplete="off"
                   required
-                  ng-model="model.register.emailConfirm">
+                  ng-model="model.register.emailConfirm"
+                  ng-class="{'is-invalid': model.register.emailConfirm && 
+                  model.register.emailConfirm !== model.register.email}">
+
+                <!-- Hibaüzenet, ha a két email nem egyezik -->
+                <div class="invalid-feedback text-warning fw-bold text-capitalize">
+                    <p>{{ lang.data.email_notmacht }}</p>
+                </div>
               </div>
 
 <!-----------------------------Jelszó---------------------------------->
-              <div class="mb-3">
+              <div class="mb-3 position-relative">
                 <label for="register-password" 
-                       class="form-label text-white">
-                  <i class="fa-solid fa-key me-1"></i> 
-                  {{lang.data.password}}:
+                       class="form-label text-warning">
+                    <i class="fa-solid fa-key me-1"></i> 
+                    {{lang.data.password}}:
                 </label>
-                <input 
-                  id="register-password"
-                  class="form-control bg-dark text-white 
-                         border-secondary rounded"
-                  name="password" 
-                  type="{{model.register.showPassword ? 
-                         'text' : 'password'}}"
-                  placeholder="{{lang.data.password}}"
-                  required
-                  minlength="6"
-                  maxlength="20"
-                  ng-model="model.register.password">
+
+                <div class="position-relative">
+                    <input 
+                        id="register-password"
+                        class="form-control bg-dark text-white 
+                              border-secondary rounded pe-5"
+                        name="password" 
+                        type="{{model.register.showPassword ? 'text' : 'password'}}"
+                        placeholder="{{lang.data.password}}"
+                        required
+                        minlength="5"
+                        maxlength="20"
+                        ng-model="model.register.password"
+                        ng-class="{
+                            'is-invalid': model.register.password &&
+                             !isPasswordValid(model.register.password)
+                        }">
+                    
+                    <!-- Pipa vagy X az input mező végében -->
+                    <i class="fa-solid position-absolute top-50 end-0 translate-middle-y me-5"
+                      ng-class="{
+                          'fa-check-circle text-success': model.register.password && 
+                          isPasswordValid(model.register.password),
+                          'fa-times-circle text-danger': model.register.password && 
+                          !isPasswordValid(model.register.password)
+                      }">
+                    </i>
+
+                    <!-- Jelszó Tooltip ikon -->
+                    <i class="fa-solid fa-circle-info position-absolute top-50 
+                              end-0 translate-middle-y text-capitalize me-2"
+                      data-bs-toggle="tooltip" 
+                      data-bs-placement="left"
+                      ng-attr-title="{{ lang.data.password_conditional }}"
+                      style="cursor: pointer; color: white;">
+                    </i>
+                </div>
               </div>
 
+
 <!-------------------------Jelszó megerősítés--------------------------->
-              <div class="mb-3">
+              <div class="mb-3 position-relative">
                 <label for="register-passwordConfirm" 
-                       class="form-label text-white">
-                  {{lang.data.password}} {{lang.data.confirmation}}:
+                       class="form-label text-warning">
+                    {{lang.data.password}} {{lang.data.confirmation}}:
                 </label>
-                <input 
-                  id="register-passwordConfirm"
-                  class="form-control bg-dark text-white
-                         border-secondary rounded"
-                  name="passwordConfirm" 
-                  type="{{model.register.showPassword ? 'text' : 'password'}}"
-                  placeholder="{{lang.data.password}} {{lang.data.confirmation}}"
-                  required
-                  minlength="6"
-                  maxlength="20"
-                  ng-model="model.register.passwordConfirm">
+
+                <div class="position-relative">
+                    <input 
+                        id="register-passwordConfirm"
+                        class="form-control bg-dark text-white border-secondary rounded pe-5"
+                        name="passwordConfirm" 
+                        type="{{model.register.showPassword ? 'text' : 'password'}}"
+                        placeholder="{{lang.data.password}} {{lang.data.confirmation}}"
+                        required
+                        minlength="5"
+                        maxlength="20"
+                        autocomplete="off"
+                        ng-model="model.register.passwordConfirm"
+                        ng-class="{'is-invalid': model.register.passwordConfirm && 
+                                    model.register.passwordConfirm !== model.register.password}">
+
+                    <!-- Hibaüzenet, ha a két jelszó nem egyezik -->
+                    <div class="invalid-feedback text-warning fw-bold">
+                        <p>{{ lang.data.password_notmacht }}</p>
+                    </div>
+                </div>
               </div>
 
 <!------------------------Jelszó mutat elrejt check-------------------->
@@ -245,13 +305,23 @@
           </div>
           
 <!-----------------------Regisztráció Gomb------------------------->
-          <div class="text-center">
+          <div class="text-center d-flex justify-content-center gap-3">
+            <!-- Vissza a bejelentkezéshez gomb -->
             <button 
-              type="button"
-              class="btn btn-warning px-5"
-              ng-disabled="registerForm.$invalid"
-              ng-click="methods.registerUser()">
-              {{lang.data.register}}
+                type="button"
+                class="btn btn-primary px-4"
+                ng-click="methods.goToLogin()">
+                <i class="fa-solid fa-arrow-left me-1"></i> 
+                {{lang.data.back_to_login}}
+            </button>
+
+            <!-- Regisztráció gomb -->
+            <button 
+                type="button"
+                class="btn btn-warning px-5"
+                ng-disabled="registerForm.$invalid"
+                ng-click="methods.registerUser()">
+                {{lang.data.register}}
             </button>
           </div>
         </form>

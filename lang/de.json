@@ -214,5 +214,12 @@
   "welcome_message_booking":"Willkommen im Super Car Wash Terminbuchungssystem!",
   "booking_instructions":"bitte wählen Sie die gewünschten Waschpakete auf der Seite 'Dienstleistungen' aus, füllen Sie dann die weiteren Details aus und speichern Sie Ihre Buchung. ihre Buchung wird in Ihr persönliches Profil aufgenommen.",
   "please_select_service": "bitte wählen Sie ein Paket auf unserer Dienstleistungsseite aus!",
-  "time":"zeit"
+  "time":"zeit",
+  "email_notmacht":"die e-mail-adressen stimmen nicht überein!",
+  "password_conditional":"das passwort muss mindestens 5 zeichen lang sein und sowohl klein- als auch großbuchstaben sowie eine zahl enthalten.",
+  "password_notmacht":"die angegebenen passwörter stimmen nicht überein!",
+  "back_to_login":"zurück zur anmeldung"
+
+
+
 }

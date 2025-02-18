@@ -100,8 +100,21 @@
                 if (tooltips.length) {
                     [...tooltips].forEach(e => new bootstrap.Tooltip(e));
                 }
-            }, 100);
+          }, 100);
         };
+
+         // Ellenőrzés: Megfelel-e a jelszó a mintának?
+        $rootScope.isPasswordValid = function(password) {
+          let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{5,}$/;
+          return regex.test(password);
+        };
+
+
+         // Ellenőrzés: Megfelel-e az email a mintának?
+        $rootScope.isValidEmail = function(email) {
+          return email && email.includes("@") && email.includes(".") && email.length > 5;
+        };
+      
     }
   ])
 
@@ -294,7 +307,7 @@
       '$http',
       '$state',
       
-      function ($scope, $http) {
+      function ($scope, $http, $state) {
           $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
   
           $scope.toggleShowPassword = function () {
@@ -347,6 +360,15 @@
                     });
               }
           };
+
+          // Átirányítás a bejelentkezési oldalra
+          $scope.methods = {
+            goToLogin: function() {
+                $state.go('login'); 
+            }
+          }
+
+          
       }
   ])
 
@@ -858,7 +880,6 @@
         $scope.init(); //Azonnal futtatjuk az inicializálást
     }
   ])
-
 
   //---------BookingController---------------->
   .controller('bookingController', [
