@@ -110,27 +110,22 @@
     </div>
 
     <!---------------------Carousel gombok------------------->
-    <button class="carousel-control-prev" 
-            type="button" 
-            data-bs-target="#serviceCarousel" 
-            data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" 
-            aria-hidden="true">
-          </span>
-      <span class="visually-hidden">
-        Előző
-      </span>
-    </button>
-    <button class="carousel-control-next" 
-            type="button" 
-            data-bs-target="#serviceCarousel" 
-            data-bs-slide="next">
-      <span class="carousel-control-next-icon" 
-            aria-hidden="true">
-          </span>
-      <span class="visually-hidden">
-        Következő
-      </span>
-    </button>
+    <div class="carousel-nav">
+      <button class="carousel-control-prev" 
+              type="button" 
+              data-bs-target="#serviceCarousel" 
+              data-bs-slide="prev">
+        <img ng-src="{{ arrowLeft }}" 
+             class="custom-carousel-arrow" 
+             alt="Előző">
+      </button>
+      <button class="carousel-control-next" 
+              type="button" data-bs-target="#serviceCarousel" 
+              data-bs-slide="next">
+          <img ng-src="{{ arrowRight }}" 
+              class="custom-carousel-arrow" 
+              alt="Következő">
+      </button>
+    </div>
   </div>
 </div>

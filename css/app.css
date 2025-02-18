@@ -43,3 +43,62 @@ p {
 .star-rating.checked {
 	color: #ffc107; /* Sárga */
 }
+
+/* Alapértelmezett beállítás: Nagyobb kijelzők */
+.carousel-control-prev {
+    left: -60px;
+}
+
+.carousel-control-next {
+    right: -60px;
+}
+
+/* Közepes kijelzők (tablet méret) */
+@media (max-width: 992px) {
+    .carousel-control-prev {
+        left: -40px; /* Kicsit közelebb kerül, hogy ne lógjon ki túlságosan */
+    }
+    .carousel-control-next {
+        right: -40px;
+    }
+}
+
+/* Kis kijelzők (mobiltelefonok) */
+@media (max-width: 768px) {
+    .carousel-control-prev {
+        left: -20px; /* Még közelebb, hogy ne lógjon ki */
+    }
+    .carousel-control-next {
+        right: -20px;
+    }
+}
+
+/* Extra kis kijelzők (nagyon kis telefonok) */
+@media (max-width: 480px) {
+    .carousel-control-prev {
+        left: -10px; /* Minimális eltolás */
+    }
+    .carousel-control-next {
+        right: -10px;
+    }
+
+    /* Az ikonok méretének csökkentése kis kijelzőn */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        padding: 10px;
+    }
+}
+
+.custom-carousel-arrow {
+    width: 60px;  /* Nagyobb méret (eredetileg 40px volt) */
+    height: auto;  /* Arányosan méretezi */
+    opacity: 1;  /* Teljesen átlátszatlan */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Hover effekt (amikor fölé viszed az egeret) */
+.carousel-control-prev:hover .custom-carousel-arrow,
+.carousel-control-next:hover .custom-carousel-arrow {
+    transform: scale(1.2); /* Kicsit nagyobb hover effect */
+}
+

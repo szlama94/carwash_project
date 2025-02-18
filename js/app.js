@@ -655,6 +655,9 @@
         $scope.priceFilter = '';
         $scope.groupedServices = [];
 
+        $scope.arrowLeft = 'media/image/next-icon-left.png';  // Bal nyíl PNG
+        $scope.arrowRight = 'media/image/next-icon-right.png';  // Jobb nyíl PNG
+
         // Ár kategóriák definiálása
         $scope.priceCategories = [
             { label: 'Összes árkategória', value: '' },
