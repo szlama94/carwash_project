@@ -36,7 +36,7 @@
                   type="text"
                   placeholder="{{lang.data.last_name}}"
                   required
-                  maxlength="100"
+                  maxlength="40"
                   autocomplete="off"
                   ng-model="model.register.last_name">
               </div>
@@ -57,7 +57,7 @@
                   placeholder="{{lang.data.first_name}}"
                   required
                   autocomplete="off"
-                  maxlength="100"
+                  maxlength="40"
                   ng-model="model.register.first_name">
               </div>
 
@@ -78,6 +78,7 @@
                   min="{{helper.minBorn}}"
                   maxlength="300"
                   required
+                  placeholder="{{lang.data.born}}"
                   ng-disable-space
                   autocomplete="off"
                   ng-model="model.register.born">
@@ -171,7 +172,7 @@
                         type="email"
                         placeholder="{{lang.data.email}}"
                         required
-                        maxlength="50"
+                        maxlength="40"
                         ng-model="model.register.email"
                         ng-class="{
                             'is-invalid': model.register.email && 

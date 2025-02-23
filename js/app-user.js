@@ -102,7 +102,7 @@
 			$rootScope.logout = () => {
 				methods.showMessage({
 					icon: "text-primary fa-solid fa-circle-question",
-					content: "Biztosan kijelentkezik?",
+					content: $rootScope.lang.data.message_logout,
 					isAudio: true,
 					event: "logoutConfirmed"
 				});

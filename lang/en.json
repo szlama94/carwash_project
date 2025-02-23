@@ -218,5 +218,7 @@
   "email_notmacht":"the email addresses do not match!",
   "password_conditional":"the password must be at least 5 characters long, and must contain lowercase and uppercase letters, as well as a number.",
   "password_notmacht":"the given passwords do not match!",
-  "back_to_login":"back to login"
+  "back_to_login":"back to login",
+  "message_logout":"Are you sure you want to log out?",
+  "wash_address": "6 Habfürdő Street, Makó"
 }

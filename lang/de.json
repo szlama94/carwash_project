@@ -218,7 +218,8 @@
   "email_notmacht":"die e-mail-adressen stimmen nicht überein!",
   "password_conditional":"das passwort muss mindestens 5 zeichen lang sein und sowohl klein- als auch großbuchstaben sowie eine zahl enthalten.",
   "password_notmacht":"die angegebenen passwörter stimmen nicht überein!",
-  "back_to_login":"zurück zur anmeldung"
+  "back_to_login":"zurück zur anmeldung",
+  "message_logout":"Sind Sie sicher, dass Sie sich abmelden möchten?"
 
 
 

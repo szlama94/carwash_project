@@ -120,7 +120,9 @@
 
   //----------Language controller------------->
   .controller('languageController', [
-    '$scope', '$rootScope',
+    '$scope', 
+    '$rootScope',
+    
     function($scope, $rootScope) {
   
       // Set local methods
@@ -488,7 +490,7 @@
           $scope.loadBookings();
 
           $scope.deleteBooking = function (bookingId) {
-            if (!confirm("Biztosan törölni szeretnéd ezt a foglalást?")) return;
+            if (!modal("Biztosan törölni szeretnéd ezt a foglalást?")) return;
         
             $http.post('./php/delete_booking.php', { booking_id: bookingId })
                 .then(response => {
@@ -646,7 +648,12 @@
     '$state',
     'appointmentFactory',
 
-    function ($rootScope, $scope, $http, $state, appointmentFactory) {
+    function (
+      $rootScope, 
+      $scope, 
+      $http, 
+      $state, 
+      appointmentFactory) {
 
         // Alapértelmezett változók
         $scope.videoUrl = "./media/video/services_video.mp4";
@@ -711,7 +718,7 @@
               service.isSelected = true;  // Kékre változtatjuk
           }
       
-          // 🔥 Navbar frissítése azonnal
+          //Navbar frissítése azonnal
           $rootScope.cartItemCount = appointmentFactory.get().length;
         };
       
