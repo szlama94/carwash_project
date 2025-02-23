@@ -490,7 +490,7 @@
           $scope.loadBookings();
 
           $scope.deleteBooking = function (bookingId) {
-            if (!modal("Biztosan törölni szeretnéd ezt a foglalást?")) return;
+            if (!confirm("Biztosan törölni szeretnéd ezt a foglalást?")) return;
         
             $http.post('./php/delete_booking.php', { booking_id: bookingId })
                 .then(response => {
@@ -902,7 +902,7 @@
     
     function ($scope, $http, $rootScope, $state, appointmentFactory, util) {
 
-        //  Ellenőrzés, hogy be vagyunk-e jelentkezve
+        // Ellenőrzés, hogy be vagyunk-e jelentkezve
         if (!$rootScope.user || !$rootScope.user.id) {
             alert("Nem vagy bejelentkezve. Jelentkezz be újra!");
             $state.go('login');
@@ -914,6 +914,8 @@
         $scope.availableTimes = [];
         $scope.vehiclePlate = "";
         $scope.today = new Date().toISOString().split('T')[0];
+        $scope.isServiceSelected = false; // Kezdetben nincs kiválasztott szolgáltatás
+        $scope.selectedTimes = []; // Tömb a kiválasztott időpontok tárolására
 
         // Az elérhető időpontok generálása (08:00 - 18:00)
         $scope.getAvailableTimes = function() {
@@ -937,7 +939,7 @@
             return false;
         };
 
-        //  Dátum kiválasztása → Elküldjük a backendnek, hogy a foglalt időpontokat frissítsük
+        // Dátum kiválasztása → Elküldjük a backendnek, hogy a foglalt időpontokat frissítsük
         $scope.onDateSelect = function() {
             if (!$scope.selectedDate) {
                 console.error("Nincs kiválasztott dátum!");
@@ -967,20 +969,27 @@
                 let button = document.getElementById('btn-' + timeObj.time);
                 if (button) {
                     button.classList.toggle('bg-danger', timeObj.status === 'booked');
-                    button.classList.toggle('bg-success', timeObj.status !== 'booked');
+                    button.classList.toggle('bg-success', timeObj.status === 'available' && !$scope.isPastTime(timeObj.time));
+                    button.classList.toggle('bg-warning', timeObj.status === 'selected');
+                    button.disabled = !$scope.isServiceSelected || timeObj.status === 'booked' || $scope.isPastTime(timeObj.time);
                 }
             });
         };
 
         // Időpont kiválasztása (toggle)
         $scope.bookingTimeToggleSelect = function(time) {
-            let index = util.indexByKeyValue($scope.availableTimes, 'time', time);
-            $scope.availableTimes[index].status = ($scope.availableTimes[index].status === 'available') ? 'selected' : 'available';
-            
-            index = util.indexByKeyValue($scope.availableTimes, 'status', 'selected');
-            $scope.isSelected = index !== -1;
+            if (!$scope.isServiceSelected) return; // Ha nincs kiválasztott szolgáltatás, ne lehessen időpontot választani
 
-            $scope.selectedTime = $scope.isSelected ? time + ":00" : null;
+            let index = util.indexByKeyValue($scope.availableTimes, 'time', time);
+            if ($scope.availableTimes[index].status === 'available' && $scope.selectedTimes.length < $scope.cartItems.length) {
+                $scope.availableTimes[index].status = 'selected';
+                $scope.selectedTimes.push(time + ":00"); // Hozzáadjuk a kiválasztott időpontot a tömbhöz
+            } else if ($scope.availableTimes[index].status === 'selected') {
+                $scope.availableTimes[index].status = 'available';
+                $scope.selectedTimes = $scope.selectedTimes.filter(t => t !== time + ":00"); // Eltávolítjuk a kiválasztott időpontot a tömbből
+            }
+
+            $scope.isSelected = $scope.selectedTimes.length > 0;
             $scope.$applyAsync();
         };
 
@@ -988,6 +997,8 @@
         $scope.$watch(() => appointmentFactory.get(), newCartItems => {
             $scope.cartItems = newCartItems;
             $rootScope.cartItemCount = newCartItems.length;
+            $scope.isServiceSelected = newCartItems.length > 0; // Frissítjük, hogy van-e kiválasztott szolgáltatás
+            $scope.updateButtonColors(); // Frissítjük a gombok állapotát
         }, true);
 
         $scope.addService = function(service) {
@@ -1017,46 +1028,52 @@
                                 String(selectedDateObj.getMonth() + 1).padStart(2, '0') + "-" +
                                 String(selectedDateObj.getDate()).padStart(2, '0');
 
-            if (!$scope.vehiclePlate || !formattedDate || !$scope.selectedTime) {
-                alert("Kérlek, töltsd ki az összes mezőt!");
+            if (!$scope.vehiclePlate || !formattedDate || $scope.selectedTimes.length !== $scope.cartItems.length) {
+                alert("Kérlek, töltsd ki az összes mezőt, és válassz időpontot minden szolgáltatáshoz!");
                 return;
             }
 
-            let requestData = {
-                user_id: $rootScope.user.id,
-                service_ids: $scope.getSelectedServices().map(s => s.id), // Több szolgáltatás ID tömbként
-                booking_date: formattedDate,
-                booking_time: $scope.selectedTime,
-                vehicle_plate: $scope.vehiclePlate
-            };
+            // Szolgáltatások és időpontok összerendelése
+            $scope.cartItems.forEach((service, index) => {
+                let selectedTime = $scope.selectedTimes[index]; // Az index alapján hozzárendeljük az időpontot
+                let requestData = {
+                    user_id: $rootScope.user.id,
+                    service_ids: [service.id], // Egy szolgáltatás ID tömbként
+                    booking_date: formattedDate,
+                    booking_time: selectedTime,
+                    vehicle_plate: $scope.vehiclePlate
+                };
 
-            //POST kérés foglalás mentésére
-            $http.post('./php/save_booking.php', requestData)
-                .then(response => {
-                    if (response.data && response.data.data) { 
-                        alert(response.data.data);
-                        appointmentFactory.clear();
-                        $scope.vehiclePlate = "";
-                        $scope.selectedDate = "";  
-                        $scope.isSelected = false;
-                        $scope.getAvailableTimes();
-                    } 
-                    else if (response.data && response.data.error) {
-                        alert("Hiba: " + response.data.error);
-                    } 
-                    else {
-                        alert("Ismeretlen hiba történt!");
-                    }
-                })
-                .catch(error => {
-                    console.error("Hiba történt:", error);
-                    alert("Hiba történt a mentés során!");
-                });
+                // POST kérés foglalás mentésére
+                $http.post('./php/save_booking.php', requestData)
+                    .then(response => {
+                        if (response.data && response.data.data) { 
+                            alert(response.data.data);
+                        } 
+                        else if (response.data && response.data.error) {
+                            alert("Hiba: " + response.data.error);
+                        } 
+                        else {
+                            alert("Ismeretlen hiba történt!");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Hiba történt:", error);
+                        alert("Hiba történt a mentés során!");
+                    });
+              });
+
+            // Kosár és időpontok törlése mentés után
+            appointmentFactory.clear();
+            $scope.vehiclePlate = "";
+            $scope.selectedDate = "";  
+            $scope.selectedTimes = [];
+            $scope.isSelected = false;
+            $scope.getAvailableTimes();
         };
         
-        //  Betöltéskor inicializáljuk az időpontokat
+        // Betöltéskor inicializáljuk az időpontokat
         $scope.getAvailableTimes();     
-        
         
         // Átirányítás függvény
         $scope.redirectToMyAppointments = function () {
@@ -1064,8 +1081,6 @@
               $state.go('profile', { section: 'myBookings' });
           }
         };
-      
-
     }
   ])
 
