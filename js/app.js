@@ -310,6 +310,7 @@
       '$state',
       
       function ($scope, $http, $state) {
+
           $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
   
           $scope.toggleShowPassword = function () {
@@ -317,37 +318,41 @@
           };
   
           $scope.model = {
-              register: {
-                  showPassword: false,
-                  password: '',
-                  passwordConfirm: '',
-                  countryCode: '',
-                  phone: ''
-              }
+            register: {
+                showPassword: false,
+                first_name: '',
+                last_name: '',
+                born: '',
+                countryCode: '',
+                phone: '',
+                gender: '',
+                email: '',
+                emailConfirm: '',
+                password: '',
+                passwordConfirm: ''
+            }
           };
-
-          // E-mail mező törlése
-          $scope.clearEmail = function() {
-            $scope.model.email = '';
-          };
+        
   
           $scope.methods = {
-              registerUser: function () {
-                  let requestData = {
-                      first_name: $scope.model.register.first_name,
-                      last_name: $scope.model.register.last_name,
-                      born: $scope.model.register.born,
-                      country_code: $scope.model.register.countryCode,
-                      phone: $scope.model.register.phone,
-                      gender: $scope.model.register.gender,
-                      email: $scope.model.register.email,
-                      emailConfirm: $scope.model.register.emailConfirm,
-                      password: $scope.model.register.password,
-                      passwordConfirm: $scope.model.register.passwordConfirm
-                  };
+            registerUser: function () {
+                console.log('meg lett nyombva')
+                let requestData = {
+                    first_name: $scope.model.register.first_name,
+                    last_name: $scope.model.register.last_name,
+                    born: $scope.model.register.born,
+                    country_code: $scope.model.register.countryCode,
+                    phone: $scope.model.register.phone,
+                    gender: $scope.model.register.gender,
+                    email: $scope.model.register.email,
+                    emailConfirm: $scope.model.register.emailConfirm,
+                    password: $scope.model.register.password,
+                    passwordConfirm: $scope.model.register.passwordConfirm
+                };
   
                   $http.post('./php/register.php', requestData)
                       .then(response => {
+                          console.log("Szerver válasza:", response);
                           if (response.data && response.data.data) {
                               alert(response.data.data);  // Sikeres regisztráció esetén
                           } else if (response.data && response.data.error) {
