@@ -776,6 +776,11 @@
         $scope.ourTeam_img = './media/image/spwash_crew.jpg';
         $scope.satisfied_img = './media/image/satisfied_man.jpg';
 
+        //Carousel nyilak képei
+        $scope.feedbackArrowLeft = 'media/image/next-icon-left.png';
+        $scope.feedbackArrowRight = 'media/image/next-icon-right.png';
+
+
         // Vélemények tárolása
         $scope.feedbacks = [];
 

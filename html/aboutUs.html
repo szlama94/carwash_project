@@ -225,32 +225,24 @@
                 </div>
 
                 <!----------------Navigáció----------------------------->
-                <button
-                  class="carousel-control-prev"
-                  type="button"
-                  data-bs-target="#feedbackCarousel"
-                  data-bs-slide="prev">
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true">
-                  </span>
-                  <span class="visually-hidden"> 
-                    Előző 
-                  </span>
-                </button>
-                <button
-                  class="carousel-control-next"
-                  type="button"
-                  data-bs-target="#feedbackCarousel"
-                  data-bs-slide="next">
-                  <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true">
-                  </span>
-                  <span class="visually-hidden"> 
-                    Következő 
-                  </span>
-                </button>
+                <div class="carousel-nav feedback-carousel-nav">
+                  <button class="carousel-control-prev" 
+                        type="button" 
+                        data-bs-target="#feedbackCarousel" 
+                        data-bs-slide="prev">
+                    <img ng-src="{{ feedbackArrowLeft }}" 
+                        class="custom-carousel-arrow" 
+                        alt="Előző">
+                  </button>
+                  <button class="carousel-control-next" 
+                          type="button" 
+                          data-bs-target="#feedbackCarousel" 
+                          data-bs-slide="next">
+                      <img ng-src="{{ feedbackArrowRight }}" 
+                          class="custom-carousel-arrow" 
+                          alt="Következő">
+                  </button>
+                </div>  
               </div>
             </div>
           </div>

@@ -220,5 +220,6 @@
   "password_notmacht":"a megadott jelszavak nem egyeznek!",
   "back_to_login":"vissza a bejelentkezésre",
   "message_logout":"Biztosan kijelentkezik?",
-  "wash_address":"Makó, Habfürdő utca 6."
+  "wash_address":"Makó, Habfürdő utca 6.",
+  "profile_updated": "Profil sikeresen frissítve!"
 }

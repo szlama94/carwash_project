@@ -97,8 +97,49 @@ p {
 }
 
 /* Hover effekt (amikor fölé viszed az egeret) */
-.carousel-control-prev:hover .custom-carousel-arrow,
-.carousel-control-next:hover .custom-carousel-arrow {
+.carousel-control-prev:hover 
+.custom-carousel-arrow,
+.carousel-control-next:hover 
+.custom-carousel-arrow {
     transform: scale(1.2); /* Kicsit nagyobb hover effect */
 }
 
+
+/* --------Kisebb nyilak a Feedback Carouselhez ------------*/
+.feedback-carousel-nav .custom-carousel-arrow {
+    width: 40px;  /* Kisebb méret, pl. 40px */
+    height: auto;  /* Megőrzi az arányokat */
+    opacity: 1;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Hover effekt (amikor fölé viszed az egeret) */
+.feedback-carousel-nav 
+.carousel-control-prev:hover 
+.custom-carousel-arrow,
+.feedback-carousel-nav 
+.carousel-control-next:hover 
+.custom-carousel-arrow {
+    transform: scale(1.1); /* Csak kicsit nagyobb hover effect */
+}
+
+/* A nyilak pozíciója (hogy jól nézzen ki a feedback carouselnél) */
+.feedback-carousel-nav .carousel-control-prev {
+    left: -30px;
+}
+
+.feedback-carousel-nav .carousel-control-next {
+    right: -30px;
+}
+
+/* Kis kijelzők esetén még közelebb hozzuk őket */
+@media (max-width: 768px) {
+    .feedback-carousel-nav 
+    .carousel-control-prev {
+        left: -20px;
+    }
+    .feedback-carousel-nav 
+    .carousel-control-next {
+        right: -20px;
+    }
+}

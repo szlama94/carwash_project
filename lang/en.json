@@ -220,5 +220,7 @@
   "password_notmacht":"the given passwords do not match!",
   "back_to_login":"back to login",
   "message_logout":"Are you sure you want to log out?",
-  "wash_address": "6 Habfürdő Street, Makó"
+  "wash_address": "6 Habfürdő Street, Makó",
+  "profile_updated": "Profile successfully updated!"
+
 }
