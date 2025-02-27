@@ -319,55 +319,44 @@
   
           $scope.model = {
             register: {
-                showPassword: false,
-                first_name: '',
-                last_name: '',
-                born: '',
-                countryCode: '',
-                phone: '',
-                gender: '',
-                email: '',
-                emailConfirm: '',
-                password: '',
-                passwordConfirm: ''
+                first_name: "",
+                last_name: "",
+                born: "",
+                countryCode: "",
+                phone: "",
+                gender: "",
+                email: "",
+                emailConfirm: "",
+                password: "",
+                passwordConfirm: ""
             }
+        };
+        
+          $scope.registerUser = function () {
+              
+              let requestData = angular.copy($scope.model.register);
+          
+              $scope.sendRegistrationData(requestData);
+          };
+          
+          $scope.sendRegistrationData = function (requestData) {
+              $http.post('./php/register.php', requestData)
+                  .then(response => {
+                      if (response.data && response.data.data) {
+                          alert(response.data.data);  // Sikeres regisztráció
+                          $state.go('login');
+                      } else if (response.data && response.data.error) {
+                          alert("Hiba: " + response.data.error);  // Hibás regisztráció
+                      } else {
+                          alert("Ismeretlen hiba történt!");
+                      }
+                  })
+                  .catch(error => {
+                      console.error("Hiba történt:", error);
+                      alert("Hiba történt a mentés során!");
+                  });
           };
         
-  
-          $scope.methods = {
-            registerUser: function () {
-                console.log('meg lett nyombva')
-                let requestData = {
-                    first_name: $scope.model.register.first_name,
-                    last_name: $scope.model.register.last_name,
-                    born: $scope.model.register.born,
-                    country_code: $scope.model.register.countryCode,
-                    phone: $scope.model.register.phone,
-                    gender: $scope.model.register.gender,
-                    email: $scope.model.register.email,
-                    emailConfirm: $scope.model.register.emailConfirm,
-                    password: $scope.model.register.password,
-                    passwordConfirm: $scope.model.register.passwordConfirm
-                };
-  
-                  $http.post('./php/register.php', requestData)
-                      .then(response => {
-                          console.log("Szerver válasza:", response);
-                          if (response.data && response.data.data) {
-                              alert(response.data.data);  // Sikeres regisztráció esetén
-                          } else if (response.data && response.data.error) {
-                              alert("Hiba: " + response.data.error);  // Hibás regisztráció
-                          } else {
-                              alert("Ismeretlen hiba történt!");
-                          }
-                      })
-                      .catch(error => {
-                          console.error("Hiba történt:", error);
-                          alert("Hiba történt a mentés során!");
-                    });
-              }
-          };
-
           // Átirányítás a bejelentkezési oldalra
           $scope.methods = {
             goToLogin: function() {
@@ -436,7 +425,7 @@
             'user.born',
             'user.gender',
             'user.country',
-            'user.countryCode',
+            'user.country_code',
             'user.phone',
             'user.city',
             'user.postcode',

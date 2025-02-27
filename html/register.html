@@ -101,7 +101,7 @@
                            border-secondary rounded"
                     autocomplete="off"
                     maxlength="10"
-                    ng-model="model.register.countryCode"
+                    ng-model="model.register.country_code"
                     style="max-width: 100px;">
                   <input
                     id="register-phone"
@@ -320,7 +320,7 @@
                 type="button"
                 class="btn btn-warning px-5"
                 ng-disabled="registerForm.$invalid"
-                ng-click="methods.registerUser()">
+                ng-click="registerUser()">
                 {{lang.data.register}}
             </button>
           </div>
