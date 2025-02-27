@@ -27,5 +27,27 @@
 	<script src="../common/js/app-form.js"></script>
 	<script src="./js/app-user.js"></script>
 	<script src="./js/app.js"></script>
+
+	<script>
+		let today = moment(),
+				todayFormated = moment(today).format("YYYY-MM-DD");
+		console.log(todayFormated);
+
+		let data = {
+			bookingDate: "2025-03-02",
+			vehicle_plate: "aaqq123",
+			user_id: 73,
+			services: [
+				{
+					time: "09:00",
+					service_id: 2,
+				},
+				{
+					time: "11:00",
+					service_id: 14,
+				}
+			]
+		};
+	</script>
 </body>
 </html>

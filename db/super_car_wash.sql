@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Feb 17. 12:01
--- Kiszolgáló verziója: 10.4.32-MariaDB
--- PHP verzió: 8.0.30
+-- Létrehozás ideje: 2025. Feb 27. 18:07
+-- Kiszolgáló verziója: 10.4.28-MariaDB
+-- PHP verzió: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,8 +42,32 @@ CREATE TABLE `bookings` (
 --
 
 INSERT INTO `bookings` (`id`, `user_id`, `booking_date`, `booking_time`, `service_id`, `vehicle_plate`, `created_at`) VALUES
-(2, 41, '2025-02-15', '10:00:00', 2, 'LPC-522', '2025-02-14 11:07:12'),
-(29, 40, '2025-02-16', '12:00:00', 2, 'FCT-965', '2025-02-15 20:08:31');
+(2, 41, '2025-02-28', '10:00:00', 2, 'LPC-522', '2025-02-27 17:00:09'),
+(29, 40, '2025-02-28', '12:00:00', 2, 'FCT-965', '2025-02-27 17:00:20');
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `bookings_row`
+--
+
+CREATE TABLE `bookings_row` (
+  `id` int(11) NOT NULL,
+  `booking_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `booking_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `bookings_row`
+--
+
+INSERT INTO `bookings_row` (`id`, `booking_id`, `service_id`, `booking_time`) VALUES
+(1, 2, 2, '10:00:00'),
+(2, 2, 5, '11:00:00'),
+(3, 29, 3, '13:00:00'),
+(4, 29, 2, '12:00:00'),
+(5, 29, 4, '15:00:00');
 
 -- --------------------------------------------------------
 
@@ -99,6 +123,28 @@ INSERT INTO `services` (`id`, `services_name`, `description`, `price`) VALUES
 (10, 'full_cleaning', 'description10', 64990),
 (11, 'windshield_polishing', 'description11', 22990),
 (12, 'sticker_removal', 'description12', 9990);
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `types`
+--
+
+CREATE TABLE `types` (
+  `id` char(1) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `types`
+--
+
+INSERT INTO `types` (`id`, `type`, `name`) VALUES
+('F', 'GENDER', 'female'),
+('M', 'GENDER', 'male'),
+('A', 'USER', 'administrator'),
+('U', 'USER', 'user');
 
 -- --------------------------------------------------------
 
@@ -220,6 +266,12 @@ ALTER TABLE `bookings`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- A tábla indexei `bookings_row`
+--
+ALTER TABLE `bookings_row`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- A tábla indexei `feedback`
 --
 ALTER TABLE `feedback`
@@ -231,6 +283,12 @@ ALTER TABLE `feedback`
 ALTER TABLE `services`
   ADD PRIMARY KEY (`id`),
   ADD KEY `services_name` (`services_name`,`price`);
+
+--
+-- A tábla indexei `types`
+--
+ALTER TABLE `types`
+  ADD PRIMARY KEY (`type`,`id`) USING BTREE;
 
 --
 -- A tábla indexei `users`
@@ -250,6 +308,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `bookings`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT a táblához `bookings_row`
+--
+ALTER TABLE `bookings_row`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `feedback`
