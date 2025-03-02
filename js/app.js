@@ -687,10 +687,10 @@
       // Carousel újrainicializálása
       $scope.initCarousel = function() {
         $timeout(function() {
-          var carouselElement = document.getElementById('serviceCarousel');
+          let carouselElement = document.getElementById('serviceCarousel');
           if (carouselElement) {
             // Meglévő carousel megszüntetése
-            var existingCarousel = bootstrap.Carousel.getInstance(carouselElement);
+            let existingCarousel = bootstrap.Carousel.getInstance(carouselElement);
             if (existingCarousel) {
               existingCarousel.dispose();
             }
@@ -701,9 +701,6 @@
               wrap: true,      // Végtelen ciklus
               ride: false      // Ne induljon automatikusan
             });
-  
-            // Debug: Ellenőrizzük, hány slide van
-            console.log("Carousel slide-ok száma:", document.querySelectorAll('.carousel-item').length);
           } else {
             console.warn("A 'serviceCarousel' elem nem található.");
           }
