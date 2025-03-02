@@ -42,12 +42,13 @@
 <!----------------Ár kategória legördülő menü---------------->
               <div class="mb-4">
                 <label for="priceSelect" 
-                       class="form-label fw-bold text-warning">
-                       {{lang.data.price_category}}
+                      class="form-label fw-bold text-warning">
+                      {{lang.data.price_category}}
                 </label>
                 <select id="priceSelect" 
                         class="form-control" 
-                        ng-model="selectedPriceCategory">
+                        ng-model="selectedPriceCategory"
+                        ng-change="updateGroupedServices()">
                   <option ng-repeat="category in priceCategories" 
                           ng-value="category.value">
                     {{category.label}}
@@ -73,9 +74,9 @@
        data-bs-interval="false"
        ng-if="groupedServices.length > 0">
     <div class="carousel-inner">
-      <div class="carousel-item" 
-           ng-class="{ active: $index === 0 }" 
-           ng-repeat="group in groupedServices track by $index">
+      <div class="carousel-item"  
+           ng-repeat="group in groupedServices track by $index"
+           ng-class="{ 'active': $first }">
         <div class="row">
           <div class="col-md-4" 
                ng-repeat="service in group">

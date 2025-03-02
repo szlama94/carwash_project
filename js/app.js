@@ -641,119 +641,150 @@
     '$http',
     '$state',
     'appointmentFactory',
-
+    '$timeout',
     function (
       $rootScope, 
       $scope, 
       $http, 
       $state, 
-      appointmentFactory) {
-
-        // Alapértelmezett változók
-        $scope.videoUrl = "./media/video/services_video.mp4";
-        $scope.services = [];
-        $scope.searchText = '';
-        $scope.priceFilter = '';
-        $scope.groupedServices = [];
-
-        $scope.arrowLeft = 'media/image/next-icon-left.png';  // Bal nyíl PNG
-        $scope.arrowRight = 'media/image/next-icon-right.png';  // Jobb nyíl PNG
-
-        // Ár kategóriák definiálása
-        $scope.priceCategories = [
-            { label: 'Összes árkategória', value: '' },
-            { label: '0 Ft - 20 000 Ft', value: [0, 20000] },
-            { label: '20 000 Ft - 40 000 Ft', value: [20001, 40000] },
-            { label: '40 000 Ft felett', value: [40001, Infinity] }
-        ];
-
-        // Szolgáltatások betöltése az API-ból
-        $http.get("./php/services.php").then(function (response) {
-            if (response.data && Array.isArray(response.data.data)) {
-                $scope.services = response.data.data.map(function (service) {
-                    service.image = service.image || "./media/image/services/" + service.services_name.toLowerCase().replace(/\s+/g, "_") + ".jpg";
-                    service.isSelected = false; // Minden szolgáltatás alapból nincs kiválasztva
-                    return service;
-                });
-                $scope.updateGroupedServices();  // Első frissítés betöltéskor
-                // Ellenőrizzük, hogy mely csomagok szerepelnek már a foglalásban
-                $scope.checkSelectedServices();
-            } else {
-                alert("Nem sikerült betölteni a szolgáltatásokat.");
+      appointmentFactory, 
+      $timeout) {
+  
+      // Alapértelmezett változók
+      $scope.videoUrl = "./media/video/services_video.mp4";
+      $scope.services = [];
+      $scope.searchText = '';
+      $scope.selectedPriceCategory = '';
+      $scope.groupedServices = [];
+      $scope.arrowLeft = 'media/image/next-icon-left.png';
+      $scope.arrowRight = 'media/image/next-icon-right.png';
+  
+      $scope.priceCategories = [
+        { label: 'Összes árkategória', value: '' },
+        { label: '0 Ft - 20 000 Ft', value: [0, 20000] },
+        { label: '20 000 Ft - 40 000 Ft', value: [20001, 40000] },
+        { label: '40 000 Ft felett', value: [40001, Infinity] }
+      ];
+  
+      // Szolgáltatások betöltése
+      $http.get("./php/services.php").then(function (response) {
+        if (response.data && Array.isArray(response.data.data)) {
+          $scope.services = response.data.data.map(function (service) {
+            service.image = service.image || "./media/image/services/" + service.services_name.toLowerCase().replace(/\s+/g, "_") + ".jpg";
+            service.isSelected = false;
+            return service;
+          });
+          $scope.updateGroupedServices();
+          $scope.checkSelectedServices();
+        } else {
+          alert("Nem sikerült betölteni a szolgáltatásokat.");
+        }
+      }, function (error) {
+        console.error("Hiba történt:", error);
+        alert("Hiba történt a szolgáltatások betöltésekor.");
+      });
+  
+      // Carousel újrainicializálása
+      $scope.initCarousel = function() {
+        $timeout(function() {
+          var carouselElement = document.getElementById('serviceCarousel');
+          if (carouselElement) {
+            // Meglévő carousel megszüntetése
+            var existingCarousel = bootstrap.Carousel.getInstance(carouselElement);
+            if (existingCarousel) {
+              existingCarousel.dispose();
             }
-        }, function (error) {
-            console.error("Hiba történt a szolgáltatások betöltésekor:", error);
-            alert("Hiba történt a szolgáltatások betöltésekor.");
-        });
-
-        // Ellenőrizzük, hogy a szolgáltatás már szerepel-e a foglalásban
-        $scope.checkSelectedServices = function () {
-            let selectedServices = appointmentFactory.get();
-            selectedServices.forEach(service => {
-                let serviceInList = $scope.services.find(s => s.id === service.id);
-                if (serviceInList) {
-                    serviceInList.isSelected = true; // Ha már hozzá van adva, akkor kékké tesszük
-                }
+  
+            // Új carousel inicializálása
+            new bootstrap.Carousel(carouselElement, {
+              interval: false, // Kézi lapozás
+              wrap: true,      // Végtelen ciklus
+              ride: false      // Ne induljon automatikusan
             });
-        };
-
-        $scope.addPackage = function(service) {
-          if (!$rootScope.user || !$rootScope.user.id) {
-              alert("Kérlek, jelentkezz be, hogy csomagot választhass!");
-              $state.go('login');  // Bejelentkezéshez irányítja a felhasználót
-              return;
-          }
-      
-          if (service.isSelected) {
-              appointmentFactory.remove(service);  // Eltávolítás a kosárból
-              service.isSelected = false;  // Visszaállítjuk az állapotot
+  
+            // Debug: Ellenőrizzük, hány slide van
+            console.log("Carousel slide-ok száma:", document.querySelectorAll('.carousel-item').length);
           } else {
-              appointmentFactory.add(service);  // Hozzáadás a kosárhoz
-              service.isSelected = true;  // Kékre változtatjuk
+            console.warn("A 'serviceCarousel' elem nem található.");
           }
-      
-          //Navbar frissítése azonnal
-          $rootScope.cartItemCount = appointmentFactory.get().length;
-        };
-      
-
-        // Szolgáltatásokat csoportosítjuk, hogy 3 elem legyen egyszerre
-        $scope.updateGroupedServices = function () {
-            let filteredServices = $scope.services.filter(service => {
-                if ($scope.searchText && 
-                    !service.services_name.toLowerCase()
-                        .includes($scope.searchText.toLowerCase())) {
+        }, 100); // Várakozás a DOM frissülésére
+      };
+  
+      // Szolgáltatások csoportosítása
+      $scope.updateGroupedServices = function () {
+        let filteredServices = $scope.services.filter(service => {
+            if ($scope.searchText) {
+                let searchLower = $scope.searchText.toLowerCase();
+                let translatedName = $scope.lang.data[service.services_name] || '';
+                if (!translatedName.toLowerCase().includes(searchLower)) {
                     return false;
                 }
-                if ($scope.priceFilter && $scope.priceFilter.length) {
-                    let [min, max] = $scope.priceFilter;
-                    return service.price >= min && service.price <= max;
-                }
-                return true;
-            });
-
-            $scope.groupedServices = [];
-
-            for (let i = 0; i < filteredServices.length; i += 3) {
-                $scope.groupedServices.push(filteredServices.slice(i, i + 3));
             }
-        };
-
-        // Figyeljük a keresési szöveget és frissítjük a szolgáltatásokat
-        $scope.$watchGroup(['searchText'], function () {
-            $scope.updateGroupedServices();  // Mindig frissítjük a szűrt eredményeket
-        });
-
-        // Árkategória váltás figyelése
-        $scope.$watch('selectedPriceCategory', function (newValue) {
-            if (newValue && newValue.length) {
-                $scope.priceFilter = newValue;
-            } else {
-                $scope.priceFilter = '';
+    
+            if ($scope.selectedPriceCategory && Array.isArray($scope.selectedPriceCategory)) {
+                let [min, max] = $scope.selectedPriceCategory;
+                return service.price >= min && service.price <= max;
             }
-            $scope.updateGroupedServices();
+    
+            return true;
         });
-
+    
+        $scope.groupedServices = [];
+        for (let i = 0; i < filteredServices.length; i += 3) {
+            $scope.groupedServices.push(filteredServices.slice(i, i + 3));
+        }
+    
+        // **Győződjünk meg róla, hogy az első slide mindig aktív!**
+        $timeout(function () {
+            let carouselItems = document.querySelectorAll('.carousel-item');
+            if (carouselItems.length > 0) {
+                carouselItems.forEach((item, index) => {
+                    if (index === 0) {
+                        item.classList.add('active'); // Csak az első legyen aktív
+                    } else {
+                        item.classList.remove('active'); // Az összes többi NE legyen aktív
+                    }
+                });
+            }
+        }, 50); // Várunk egy picit a DOM frissülésére
+    
+        // Carousel újrainicializálása
+        $scope.initCarousel();
+      };
+    
+  
+      // Keresés és árkategória figyelése
+      $scope.$watchGroup(['searchText', 'selectedPriceCategory'], function () {
+        $scope.updateGroupedServices();
+      });
+  
+      // Egyéb függvények
+      $scope.checkSelectedServices = function () {
+        let selectedServices = appointmentFactory.get();
+        selectedServices.forEach(service => {
+          let serviceInList = $scope.services.find(s => s.id === service.id);
+          if (serviceInList) {
+            serviceInList.isSelected = true;
+          }
+        });
+      };
+  
+      $scope.addPackage = function(service) {
+        if (!$rootScope.user || !$rootScope.user.id) {
+          alert("Kérlek, jelentkezz be!");
+          $state.go('login');
+          return;
+        }
+  
+        if (service.isSelected) {
+          appointmentFactory.remove(service);
+          service.isSelected = false;
+        } else {
+          appointmentFactory.add(service);
+          service.isSelected = true;
+        }
+        $rootScope.cartItemCount = appointmentFactory.get().length;
+      };
     }
   ])
 
@@ -912,46 +943,99 @@
         $scope.booking_pic = './media/image/booking_pic1.png';
         $scope.availableTimes = [];
         $scope.vehiclePlate = "";
-        $scope.today = new Date().toISOString().split('T')[0];
-        $scope.isServiceSelected = false; // Kezdetben nincs kiválasztott szolgáltatás
-        $scope.selectedTimes = []; // Tömb a kiválasztott időpontok tárolására
+        $scope.today = moment().format("YYYY-MM-DD"); // Moment.js használata
+        $scope.isServiceSelected = false;
+        $scope.selectedTimes = [];
+        $scope.bookingForm = {}; // Inicializáljuk a bookingForm-ot
 
         // Az elérhető időpontok generálása (08:00 - 18:00)
         $scope.getAvailableTimes = function() {
-            let times = [];
-            for (let i = 8; i <= 18; i++) {
-                let time = (i < 10 ? '0' + i : i) + ':00';
-                times.push({ time: time, status: 'available' });
-            }
-            $scope.availableTimes = times;
+          let times = [];
+          let startHour = 8; // Alapértelmezett kezdő óra
+          let endHour = 18;  // Alapértelmezett záró óra
+      
+          // Ellenőrizzük, hogy a kiválasztott dátum szombat-e
+          let selectedDay = moment($scope.selectedDate).day(); // 6 = szombat
+          if (selectedDay === 6) { // Ha szombat
+              endHour = 11; // Szombatonként csak 11-ig
+          }
+      
+          // Időpontok generálása
+          for (let i = startHour; i <= endHour; i++) {
+              let time = (i < 10 ? '0' + i : i) + ':00';
+              times.push({ time: time, status: 'available' });
+          }
+      
+          $scope.availableTimes = times;
         };
 
         // Ellenőrzés: múltbeli időpontok letiltása
         $scope.isPastTime = function(time) {
-            let now = new Date();
-            let selectedDate = new Date($scope.selectedDate);
+            let now = moment();
+            let selectedDate = moment($scope.selectedDate);
 
-            if (selectedDate.toDateString() === now.toDateString()) {
+            if (selectedDate.isSame(now, 'day')) {
                 let [hours, minutes] = time.split(':').map(Number);
-                return hours < now.getHours() || (hours === now.getHours() && minutes <= now.getMinutes());
+                return hours < now.hour() || (hours === now.hour() && minutes <= now.minute());
             }
             return false;
         };
 
-        // Dátum kiválasztása → Elküldjük a backendnek, hogy a foglalt időpontokat frissítsük
-        $scope.onDateSelect = function() {
-            if (!$scope.selectedDate) {
-                console.error("Nincs kiválasztott dátum!");
-                return;
+
+        // Ellenőrizzük, hogy minden mező ki van-e töltve a mentéshez
+        $scope.isFormValid = function() {
+            if (!$scope.bookingForm || !$scope.bookingForm.vehiclePlate) {
+                return false; // Ha a form vagy a mező nem létezik, akkor a form nem érvényes
             }
+            return $scope.vehiclePlate && 
+                   $scope.selectedDate &&
+                   $scope.isSelected && 
+                   !$scope.bookingForm.vehiclePlate.$invalid;
+        };
 
-            let selectedDateObj = new Date($scope.selectedDate);
-            selectedDateObj.setMinutes(selectedDateObj.getMinutes() - selectedDateObj.getTimezoneOffset());
-            let formattedDate = selectedDateObj.toISOString().split('T')[0];
+        // Figyeljük, hogy van-e kiválasztott szolgáltatás
+        $scope.$watch(() => $scope.getSelectedServices().length, function(newVal) {
+            $scope.isServiceSelected = newVal > 0; // Ha van csomag, aktiváljuk a rendszám mezőt
+        });
 
-            $http.post('./php/booked_times.php', { selectedDate: formattedDate })
-                .then(response => { $scope.updateAvailableTimes(response.data.data); })
-                .catch(error => { console.error("Hiba történt:", error); });
+        // Figyeljük, hogy a rendszám kitöltött-e és helyes-e
+        $scope.$watch('vehiclePlate', function(newVal) {
+            if ($scope.bookingForm && $scope.bookingForm.vehiclePlate) {
+                $scope.isVehiclePlateValid = !!newVal && !$scope.bookingForm.vehiclePlate.$invalid;
+            }
+        });
+
+        // Figyeljük, hogy a dátumot kiválasztották-e
+        $scope.$watch('selectedDate', function(newVal) {
+            $scope.isDateSelected = !!newVal;
+        });
+
+        // Dátum kiválasztása → Frissítjük a foglalt időpontokat
+        $scope.onDateSelect = function() {
+          if (!$scope.selectedDate) {
+              console.error("Nincs kiválasztott dátum!");
+              return;
+          }
+      
+          // Ellenőrizzük, hogy a kiválasztott dátum vasárnap-e
+          let selectedDay = moment($scope.selectedDate).day(); // 0 = vasárnap, 1 = hétfő, ..., 6 = szombat
+      
+          if (selectedDay === 0) { // Ha vasárnap
+              alert("Vasárnap zárva tartunk! Kérem, válasszon másik dátumot!");
+              $scope.selectedDate = ""; // Töröljük a kiválasztott dátumot
+              return; // Kilépünk a függvényből, ne frissítsük a foglalt időpontokat
+          }
+      
+          // Frissítjük az elérhető időpontokat
+          $scope.getAvailableTimes();
+      
+          // Dátum formázása moment js-el (helyi időzóna használatával)
+          let formattedDate = moment($scope.selectedDate).format("YYYY-MM-DD");
+      
+          // Foglalt időpontok frissítése
+          $http.post('./php/booked_times.php', { selectedDate: formattedDate })
+              .then(response => { $scope.updateAvailableTimes(response.data.data); })
+              .catch(error => { console.error("Hiba történt:", error); });
         };
 
         // Frissítjük az időpontok státuszát (backend válasza alapján)
@@ -977,15 +1061,15 @@
 
         // Időpont kiválasztása (toggle)
         $scope.bookingTimeToggleSelect = function(time) {
-            if (!$scope.isServiceSelected) return; // Ha nincs kiválasztott szolgáltatás, ne lehessen időpontot választani
+            if (!$scope.isServiceSelected) return;
 
             let index = util.indexByKeyValue($scope.availableTimes, 'time', time);
             if ($scope.availableTimes[index].status === 'available' && $scope.selectedTimes.length < $scope.cartItems.length) {
                 $scope.availableTimes[index].status = 'selected';
-                $scope.selectedTimes.push(time + ":00"); // Hozzáadjuk a kiválasztott időpontot a tömbhöz
+                $scope.selectedTimes.push(time + ":00");
             } else if ($scope.availableTimes[index].status === 'selected') {
                 $scope.availableTimes[index].status = 'available';
-                $scope.selectedTimes = $scope.selectedTimes.filter(t => t !== time + ":00"); // Eltávolítjuk a kiválasztott időpontot a tömbből
+                $scope.selectedTimes = $scope.selectedTimes.filter(t => t !== time + ":00");
             }
 
             $scope.isSelected = $scope.selectedTimes.length > 0;
@@ -996,8 +1080,8 @@
         $scope.$watch(() => appointmentFactory.get(), newCartItems => {
             $scope.cartItems = newCartItems;
             $rootScope.cartItemCount = newCartItems.length;
-            $scope.isServiceSelected = newCartItems.length > 0; // Frissítjük, hogy van-e kiválasztott szolgáltatás
-            $scope.updateButtonColors(); // Frissítjük a gombok állapotát
+            $scope.isServiceSelected = newCartItems.length > 0;
+            $scope.updateButtonColors();
         }, true);
 
         $scope.addService = function(service) {
@@ -1021,11 +1105,9 @@
         };
 
         // Foglalás mentése
-        $scope.saveBooking = function() {      
-            let selectedDateObj = new Date($scope.selectedDate);
-            let formattedDate = selectedDateObj.getFullYear() + "-" +
-                                String(selectedDateObj.getMonth() + 1).padStart(2, '0') + "-" +
-                                String(selectedDateObj.getDate()).padStart(2, '0');
+        $scope.saveBooking = function() {
+            // Dátum formázása moment js-el
+            let formattedDate = moment($scope.selectedDate).format("YYYY-MM-DD"); 
 
             if (!$scope.vehiclePlate || !formattedDate || $scope.selectedTimes.length !== $scope.cartItems.length) {
                 alert("Kérlek, töltsd ki az összes mezőt, és válassz időpontot minden szolgáltatáshoz!");
@@ -1034,16 +1116,15 @@
 
             // Szolgáltatások és időpontok összerendelése
             $scope.cartItems.forEach((service, index) => {
-                let selectedTime = $scope.selectedTimes[index]; // Az index alapján hozzárendeljük az időpontot
+                let selectedTime = $scope.selectedTimes[index];
                 let requestData = {
                     user_id: $rootScope.user.id,
-                    service_ids: [service.id], // Egy szolgáltatás ID tömbként
+                    service_ids: [service.id],
                     booking_date: formattedDate,
                     booking_time: selectedTime,
                     vehicle_plate: $scope.vehiclePlate
                 };
 
-                // POST kérés foglalás mentésére
                 $http.post('./php/save_booking.php', requestData)
                     .then(response => {
                         if (response.data && response.data.data) { 
@@ -1060,7 +1141,7 @@
                         console.error("Hiba történt:", error);
                         alert("Hiba történt a mentés során!");
                     });
-              });
+            });
 
             // Kosár és időpontok törlése mentés után
             appointmentFactory.clear();
@@ -1070,15 +1151,15 @@
             $scope.isSelected = false;
             $scope.getAvailableTimes();
         };
-        
+
         // Betöltéskor inicializáljuk az időpontokat
         $scope.getAvailableTimes();     
-        
+
         // Átirányítás függvény
         $scope.redirectToMyAppointments = function () {
-          if ($rootScope.user && $rootScope.user.id) {
-              $state.go('profile', { section: 'myBookings' });
-          }
+            if ($rootScope.user && $rootScope.user.id) {
+                $state.go('profile', { section: 'myBookings' });
+            }
         };
     }
   ])

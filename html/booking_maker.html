@@ -85,7 +85,8 @@
                                id="vehicle-plate" 
                                class="form-control text-uppercase" 
                                ng-model="vehiclePlate" 
-                               placeholder="ABC-123/AA-AA-000" 
+                               placeholder="ABC-123/AA-AA-000"
+                               ng-disabled="!isServiceSelected"
                                required>
                     </div>
 
@@ -100,7 +101,8 @@
                                class="form-control" 
                                ng-model="selectedDate"
                                ng-change="onDateSelect()"
-                               min="{{ today }}" 
+                               min="{{ today }}"
+                               ng-disabled="!vehiclePlate || bookingForm.vehiclePlate.$invalid"
                                required>
                     </div>
 
@@ -112,7 +114,7 @@
                                     class="btn" 
                                     ng-class="{'bg-success': timeObj.status === 'available','bg-warning': timeObj.status === 'selected','bg-danger': timeObj.status === 'booked'}"
                                     ng-click="bookingTimeToggleSelect(timeObj.time)"
-                                    ng-disabled="timeObj.status === 'booked' || isPastTime(timeObj.time)">
+                                    ng-disabled="!selectedDate || timeObj.status === 'booked' || isPastTime(timeObj.time)">
                                 {{ timeObj.time }}
                             </button>
                         </div>
@@ -124,9 +126,9 @@
                             class="btn btn-primary mt-3"
                             style="min-width: 100px;" 
                             ng-click="saveBooking()"
-                            ng-disabled="!$root.cartItemCount || 
-                                         bookingForm.$invalid ||
-                                         !isSelected">
+                            ng-disabled="!vehiclePlate || 
+                                        !selectedDate || !isSelected || 
+                                        bookingForm.vehiclePlate.$invalid">
                         {{ lang.data.save }}
                     </button>
 
