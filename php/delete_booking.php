@@ -13,11 +13,9 @@ $query = "DELETE
 
 $result = $db->execute($query, [$args['booking_id']]);
 
-if ($result) {
-    Util::setResponse("Foglalás sikeresen törölve!");
-} else {
-    Util::setError("Hiba történt a törlés során!");
-}
-
 $db = null;
-?>
+
+if ($result) {
+    Util::setResponse("Foglalás sikeresen törölve!");}
+    
+Util::setError("Hiba történt a törlés során!");

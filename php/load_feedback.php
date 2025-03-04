@@ -9,8 +9,7 @@ $query = "SELECT *
 
 $result = $db->execute($query);
 
-Util::setResponse($result);
-
 $db = null;
 
-?>
+Util::setResponse($result);
+

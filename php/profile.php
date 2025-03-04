@@ -33,12 +33,7 @@ $result = $db->execute($query, [$data['id']]);
 
 $db = null;
 
-if ($result) 
-{
-    Util::setResponse($result[0]);
-} 
-else 
-{
-    Util::setError("A felhasználó adatai nem találhatók.");
-}
-?>
+if ($result) {
+    Util::setResponse($result[0]);} 
+
+Util::setError("A felhasználó adatai nem találhatók.");

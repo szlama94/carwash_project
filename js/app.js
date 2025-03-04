@@ -582,25 +582,27 @@
   
       // Kártyák adatainak betöltése
       function loadCards() {
-        if ($rootScope.lang && $rootScope.lang.data) {
-          $scope.cards = [
-            {
-              title: $rootScope.lang.data.card1_title,
-              text: $rootScope.lang.data.card1_text,
-              icon: $scope.cardIcons[0]
-            },
-            {
-              title: $rootScope.lang.data.card2_title,
-              text: $rootScope.lang.data.card2_text,
-              icon: $scope.cardIcons[1]
-            },
-            {
-              title: $rootScope.lang.data.card3_title,
-              text: $rootScope.lang.data.card3_text,
-              icon: $scope.cardIcons[2]
+        $timeout(function() {
+            if ($rootScope.lang && $rootScope.lang.data) {
+                $scope.cards = [
+                    {
+                        title: $rootScope.lang.data.card1_title,
+                        text: $rootScope.lang.data.card1_text,
+                        icon: $scope.cardIcons[0]
+                    },
+                    {
+                        title: $rootScope.lang.data.card2_title,
+                        text: $rootScope.lang.data.card2_text,
+                        icon: $scope.cardIcons[1]
+                    },
+                    {
+                        title: $rootScope.lang.data.card3_title,
+                        text: $rootScope.lang.data.card3_text,
+                        icon: $scope.cardIcons[2]
+                    }
+                ];
             }
-          ];
-        }
+        }, 100); // 100 ms késleltetés
       }
   
       // Ha az alkalmazás indulásakor már betöltődött a nyelv, azonnal töltse be a kártyákat
@@ -701,8 +703,6 @@
               wrap: true,      // Végtelen ciklus
               ride: false      // Ne induljon automatikusan
             });
-          } else {
-            console.warn("A 'serviceCarousel' elem nem található.");
           }
         }, 100); // Várakozás a DOM frissülésére
       };
@@ -1103,51 +1103,55 @@
 
         // Foglalás mentése
         $scope.saveBooking = function() {
-            // Dátum formázása moment js-el
-            let formattedDate = moment($scope.selectedDate).format("YYYY-MM-DD"); 
-
-            if (!$scope.vehiclePlate || !formattedDate || $scope.selectedTimes.length !== $scope.cartItems.length) {
-                alert("Kérlek, töltsd ki az összes mezőt, és válassz időpontot minden szolgáltatáshoz!");
-                return;
-            }
-
-            // Szolgáltatások és időpontok összerendelése
-            $scope.cartItems.forEach((service, index) => {
-                let selectedTime = $scope.selectedTimes[index];
-                let requestData = {
-                    user_id: $rootScope.user.id,
-                    service_ids: [service.id],
-                    booking_date: formattedDate,
-                    booking_time: selectedTime,
-                    vehicle_plate: $scope.vehiclePlate
-                };
-
-                $http.post('./php/save_booking.php', requestData)
-                    .then(response => {
-                        if (response.data && response.data.data) { 
-                            alert(response.data.data);
-                        } 
-                        else if (response.data && response.data.error) {
-                            alert("Hiba: " + response.data.error);
-                        } 
-                        else {
-                            alert("Ismeretlen hiba történt!");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Hiba történt:", error);
-                        alert("Hiba történt a mentés során!");
-                    });
-            });
-
-            // Kosár és időpontok törlése mentés után
-            appointmentFactory.clear();
-            $scope.vehiclePlate = "";
-            $scope.selectedDate = "";  
-            $scope.selectedTimes = [];
-            $scope.isSelected = false;
-            $scope.getAvailableTimes();
+          // Dátum formázása moment.js-el
+          let formattedDate = moment($scope.selectedDate).format("YYYY-MM-DD");
+      
+          if (!$scope.vehiclePlate || !formattedDate || $scope.selectedTimes.length !== $scope.cartItems.length) {
+              alert("Kérlek, töltsd ki az összes mezőt, és válassz időpontot minden szolgáltatáshoz!");
+              return;
+          }
+      
+          // Összegyűjtjük az összes szolgáltatást és időpontot egy objektumba
+          let requestData = {
+              user_id: $rootScope.user.id,
+              booking_date: formattedDate,
+              vehicle_plate: $scope.vehiclePlate,
+              services: []
+          };
+      
+          // Szolgáltatások és időpontok összekapcsolása
+          $scope.cartItems.forEach((service, index) => {
+              requestData.services.push({
+                  time: $scope.selectedTimes[index],
+                  service_id: service.id
+              });
+          });
+      
+          // Egyetlen POST kérésben küldjük el
+          $http.post('./php/save_booking.php', requestData)
+              .then(response => {
+                  if (response.data && response.data.data) {
+                      alert(response.data.data);
+                  } else if (response.data && response.data.error) {
+                      alert("Hiba: " + response.data.error);
+                  } else {
+                      alert("Ismeretlen hiba történt!");
+                  }
+              })
+              .catch(error => {
+                  console.error("Hiba történt:", error);
+                  alert("Hiba történt a mentés során!");
+              });
+      
+          // Kosár és időpontok törlése mentés után
+          appointmentFactory.clear();
+          $scope.vehiclePlate = "";
+          $scope.selectedDate = "";  
+          $scope.selectedTimes = [];
+          $scope.isSelected = false;
+          $scope.getAvailableTimes();
         };
+      
 
         // Betöltéskor inicializáljuk az időpontokat
         $scope.getAvailableTimes();     

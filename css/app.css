@@ -1,47 +1,47 @@
 .dropdown-item:active,
 .dropdown-item.active,
 .dropdown-item a.active {
-	background-color: transparent !important;
+    background-color: transparent;
 }
 
-.footer-custom, .header-custom{
-	background-color: red;
+.footer-custom, .header-custom {
+    background-color: red;
 }
 
-.navbar-png{
-	max-height: 50px;
+.navbar-png {
+    max-height: 50px;
 }
 
-body{
-	background-image: url(../media/image/preview.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
-
+body {
+    background-image: url("../media/image/preview.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 h1 {
-	font-weight: 700;
-}
-p {
-	font-weight: 400; 
+    font-weight: 700;
 }
 
-/* Vélemény értékelés csillaggal rólunk oldalon  */
+p {
+    font-weight: 400;
+}
+
+/* Vélemény értékelés csillaggal róluk oldalon */
 .star-rating {
-	color: #ccc;  /* Szürke */
-	font-size: 24px;
-	transition: color 0.2s ease-in-out;
-	cursor: pointer;
+    color: #ccc;  /* Szürke */
+    font-size: 24px;
+    transition: color 0.2s ease-in-out;
+    cursor: pointer;
 }
-  
-* Hover esetén besárgul */
+
+/* Hover esetén besárgul */
 .star-rating.hovered {
-	color: #ffc107; /* Sárga */
+    color: #ffc107; /* Sárga */
 }
-  
-  /* Kiválasztott csillag */
+
+/* Kiválasztott csillag */
 .star-rating.checked {
-	color: #ffc107; /* Sárga */
+    color: #ffc107; /* Sárga */
 }
 
 /* Alapértelmezett beállítás: Nagyobb kijelzők */
@@ -56,7 +56,7 @@ p {
 /* Közepes kijelzők (tablet méret) */
 @media (max-width: 992px) {
     .carousel-control-prev {
-        left: -40px; /* Kicsit közelebb kerül, hogy ne lógjon ki túlságosan */
+        left: -40px;
     }
     .carousel-control-next {
         right: -40px;
@@ -66,7 +66,7 @@ p {
 /* Kis kijelzők (mobiltelefonok) */
 @media (max-width: 768px) {
     .carousel-control-prev {
-        left: -20px; /* Még közelebb, hogy ne lógjon ki */
+        left: -20px;
     }
     .carousel-control-next {
         right: -20px;
@@ -76,13 +76,12 @@ p {
 /* Extra kis kijelzők (nagyon kis telefonok) */
 @media (max-width: 480px) {
     .carousel-control-prev {
-        left: -10px; /* Minimális eltolás */
+        left: -10px;
     }
     .carousel-control-next {
         right: -10px;
     }
 
-    /* Az ikonok méretének csökkentése kis kijelzőn */
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
         padding: 10px;
@@ -90,40 +89,33 @@ p {
 }
 
 .custom-carousel-arrow {
-    width: 60px;  /* Nagyobb méret (eredetileg 40px volt) */
-    height: auto;  /* Arányosan méretezi */
-    opacity: 1;  /* Teljesen átlátszatlan */
-    transition: transform 0.2s ease-in-out;
-}
-
-/* Hover effekt (amikor fölé viszed az egeret) */
-.carousel-control-prev:hover 
-.custom-carousel-arrow,
-.carousel-control-next:hover 
-.custom-carousel-arrow {
-    transform: scale(1.2); /* Kicsit nagyobb hover effect */
-}
-
-
-/* --------Kisebb nyilak a Feedback Carouselhez ------------*/
-.feedback-carousel-nav .custom-carousel-arrow {
-    width: 40px;  /* Kisebb méret, pl. 40px */
-    height: auto;  /* Megőrzi az arányokat */
+    width: 60px;
+    height: auto;
     opacity: 1;
     transition: transform 0.2s ease-in-out;
 }
 
-/* Hover effekt (amikor fölé viszed az egeret) */
-.feedback-carousel-nav 
-.carousel-control-prev:hover 
-.custom-carousel-arrow,
-.feedback-carousel-nav 
-.carousel-control-next:hover 
-.custom-carousel-arrow {
-    transform: scale(1.1); /* Csak kicsit nagyobb hover effect */
+/* Hover effekt */
+.carousel-control-prev:hover .custom-carousel-arrow,
+.carousel-control-next:hover .custom-carousel-arrow {
+    transform: scale(1.2);
 }
 
-/* A nyilak pozíciója (hogy jól nézzen ki a feedback carouselnél) */
+/* Kisebb nyilak a Feedback Carouselhez */
+.feedback-carousel-nav .custom-carousel-arrow {
+    width: 40px;
+    height: auto;
+    opacity: 1;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Hover effekt */
+.feedback-carousel-nav .carousel-control-prev:hover .custom-carousel-arrow,
+.feedback-carousel-nav .carousel-control-next:hover .custom-carousel-arrow {
+    transform: scale(1.1);
+}
+
+/* A nyilak pozíciója */
 .feedback-carousel-nav .carousel-control-prev {
     left: -30px;
 }
@@ -134,12 +126,10 @@ p {
 
 /* Kis kijelzők esetén még közelebb hozzuk őket */
 @media (max-width: 768px) {
-    .feedback-carousel-nav 
-    .carousel-control-prev {
+    .feedback-carousel-nav .carousel-control-prev {
         left: -20px;
     }
-    .feedback-carousel-nav 
-    .carousel-control-next {
+    .feedback-carousel-nav .carousel-control-next {
         right: -20px;
     }
 }

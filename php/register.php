@@ -43,16 +43,10 @@ $result = $db->execute($query, [
     1  // Alapértelmezett érvényesség
 ]);
 
-// Sikeres válasz vagy hibaüzenet küldése
-if ($result) 
-{
-    Util::setResponse("Sikeres regisztráció!");
-} 
-else 
-{
-    Util::setError("Hiba történt a regisztráció során!");
-}
-
 $db = null;
 
-?>
+// Sikeres válasz vagy hibaüzenet küldése
+if ($result) {
+    Util::setResponse("Sikeres regisztráció!");}
+
+Util::setError("Hiba történt a regisztráció során!");

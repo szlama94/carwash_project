@@ -18,11 +18,9 @@ $query = "SELECT b.id,
                   ON  b.service_id = s.id  
                WHERE  b.user_id = ?  
             ORDER BY  b.booking_date DESC, b.booking_time ASC";
-          
-
-// A lekérdezés végrehajtása és az eredmény visszaadása
-Util::setResponse($db->execute($query, [$args['user_id']]) ?: []);
 
 // Adatbáziskapcsolat lezárása
 $db = null;
-?>
+
+// A lekérdezés végrehajtása és az eredmény visszaadása
+Util::setResponse($db->execute($query, [$args['user_id']]) ?: []);

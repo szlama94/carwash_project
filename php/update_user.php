@@ -40,13 +40,14 @@ $updateData = [
 
 // Adatbázis kapcsolat létrehozása és végrehajtás
 $db = new Database();
+
 $result = $db->execute($query, $updateData);
+
 $db = null;
 
 // Válasz küldése
 if ($result) {
     Util::setResponse("Sikeres frissítés!");
-} else {
-    Util::setError("Nem történt frissítés, vagy hiba történt.");
 }
-?>
+
+Util::setError("Nem történt frissítés, vagy hiba történt.");

@@ -16,7 +16,5 @@ $db = null;
 // Sikeres vagy hibás válasz küldése
 if ($result["affectedRows"] > 0) {
     Util::setResponse("Vélemény sikeresen rögzítve!");
-} else {
-    Util::setError("Hiba történt a mentés során!");
 }
-?>
+Util::setError("Hiba történt a mentés során!");

@@ -34,5 +34,3 @@ if ($result['password'] !== $args['password'])
 unset($result['password']);
 
 Util::setResponse($result);
-
-?>
