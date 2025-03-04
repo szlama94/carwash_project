@@ -472,7 +472,6 @@
                       $scope.bookings = response.data.data;
                   } else {
                       $scope.bookings = [];
-                      console.warn("Nincsenek foglalások.");
                   }
               })
               .catch(error => {
@@ -537,7 +536,7 @@
         {
           section: "contact",
           details: {
-            address: "Makó, Habfürdő utca 6.",
+            address: "wash_address",
             phone: "+36 30 610 0666",
             email: "info@supercarwash.hu"
           }
@@ -662,10 +661,10 @@
       $scope.arrowRight = 'media/image/next-icon-right.png';
   
       $scope.priceCategories = [
-        { label: 'Összes árkategória', value: '' },
+        { label: "all_price_categories", value: '' },
         { label: '0 Ft - 20 000 Ft', value: [0, 20000] },
         { label: '20 000 Ft - 40 000 Ft', value: [20001, 40000] },
-        { label: '40 000 Ft felett', value: [40001, Infinity] }
+        { label: "above_40000", value: [40001, Infinity] }
       ];
   
       // Szolgáltatások betöltése

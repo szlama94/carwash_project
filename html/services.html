@@ -51,7 +51,7 @@
                         ng-change="updateGroupedServices()">
                   <option ng-repeat="category in priceCategories" 
                           ng-value="category.value">
-                    {{category.label}}
+                          {{ lang.data[category.label] || category.label }}
                   </option>
                 </select>                  
               </div>

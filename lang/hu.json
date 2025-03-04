@@ -149,7 +149,7 @@
   "our_services":"szolgáltatásaink",
   "services_p1":"fedezze fel prémium szolgáltatásainkat! autómosónk a legmagasabb színvonalat képviseli, legyen szó külső-belső takarításról, polírozásról, felni tisztításról, viaszolásról vagy kerámia bevonatról. környezetbarát tisztítószereinkkel óvjuk a természetet, miközben autója ragyogó tisztaságot kap.",
   "search": "keresés",
-  "price_category": "árkategória",
+  "price_category": "Árkategória",
   "search_alert": "nincs megjeleníthető szolgáltatás a szűrők alapján.",
   "appointment_button": "időpontot foglalok!",
   "home_p1": "Üdvözöljük a Super Car Wash világában, ahol az autója mindig kiemelt figyelmet és professzionális törődést kap! nálunk nemcsak egy egyszerű autómosás vár, hanem prémium szolgáltatások, amelyek garantálják, hogy járműve ragyogjon, akár egy új autó. foglaljon időpontot gyorsan és könnyedén, válasszon a különböző mosási csomagjaink közül, és tapasztalja meg, mit jelent az igazi autós luxus!",
@@ -221,5 +221,7 @@
   "back_to_login":"vissza a bejelentkezésre",
   "message_logout":"Biztosan kijelentkezik?",
   "wash_address":"Makó, Habfürdő utca 6.",
-  "profile_updated": "Profil sikeresen frissítve!"
+  "profile_updated": "Profil sikeresen frissítve!",
+  "all_price_categories":"Összes árkategória",
+  "above_40000":"40 000 Ft felett"
 }

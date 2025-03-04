@@ -220,6 +220,8 @@
   "password_notmacht":"die angegebenen passwörter stimmen nicht überein!",
   "back_to_login":"zurück zur anmeldung",
   "message_logout":"Sind Sie sicher, dass Sie sich abmelden möchten?",
-  "profile_updated": "Profil erfolgreich aktualisiert!"
-
+  "profile_updated": "Profil erfolgreich aktualisiert!",
+  "all_price_categories":"Alle Preiskategorien",
+  "above_40000":"Über 40 000 Ft",
+  "wash_address": "Makó, Schaumbad straße 6."
 }
