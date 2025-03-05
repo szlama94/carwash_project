@@ -114,7 +114,6 @@
         $rootScope.isValidEmail = function(email) {
           return email && email.includes("@") && email.includes(".") && email.length > 5;
         };
-      
     }
   ])
 

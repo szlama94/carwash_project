@@ -133,3 +133,8 @@ p {
         right: -20px;
     }
 }
+
+/* Az autoscroll finomítása */
+main {
+    padding-top: 40px;
+}
