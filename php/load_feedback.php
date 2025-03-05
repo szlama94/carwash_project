@@ -5,7 +5,7 @@ require_once('../../common/php/environment.php');
 $db = new Database();
 
 $query = "SELECT *
-          FROM   `feedback`";
+          FROM   `feedbacks`";
 
 $result = $db->execute($query);
 

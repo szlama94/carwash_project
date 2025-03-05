@@ -72,10 +72,10 @@ INSERT INTO `bookings_row` (`id`, `booking_id`, `service_id`, `booking_time`) VA
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `feedback`
+-- Tábla szerkezet ehhez a táblához `feedbacks`
 --
 
-CREATE TABLE `feedback` (
+CREATE TABLE `feedbacks` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `last_name` varchar(100) NOT NULL,
@@ -87,10 +87,10 @@ CREATE TABLE `feedback` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- A tábla adatainak kiíratása `feedback`
+-- A tábla adatainak kiíratása `feedbacks`
 --
 
-INSERT INTO `feedback` (`id`, `user_id`, `last_name`, `first_name`, `gender`, `age`, `comment`, `rating`) VALUES
+INSERT INTO `feedbacks` (`id`, `user_id`, `last_name`, `first_name`, `gender`, `age`, `comment`, `rating`) VALUES
 (1, 40, 'Szlama', 'Bence', 'M', 31, '\"Olyan tiszta lett az autóm, hogy most a szomszédok napszemüvegben nézik! 😎✨\"', 5);
 
 -- --------------------------------------------------------
@@ -272,9 +272,9 @@ ALTER TABLE `bookings_row`
   ADD PRIMARY KEY (`id`);
 
 --
--- A tábla indexei `feedback`
+-- A tábla indexei `feedbacks`
 --
-ALTER TABLE `feedback`
+ALTER TABLE `feedbacks`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -316,9 +316,9 @@ ALTER TABLE `bookings_row`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT a táblához `feedback`
+-- AUTO_INCREMENT a táblához `feedbacks`
 --
-ALTER TABLE `feedback`
+ALTER TABLE `feedbacks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

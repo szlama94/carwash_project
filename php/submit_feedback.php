@@ -7,7 +7,7 @@ $args = Util::getArgs();
 $db = new Database();
 
 // Adatok beszúrása a feedback táblába
-$query = $db->preparateInsert("feedback", array_keys($args));
+$query = $db->preparateInsert("feedbacks", array_keys($args));
 
 $result = $db->execute($query, array_values($args));
 
