@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Feb 27. 18:07
+-- Létrehozás ideje: 2025. Már 13. 18:21
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.1.17
 
@@ -31,8 +31,6 @@ CREATE TABLE `bookings` (
   `id` int(10) NOT NULL,
   `user_id` int(11) NOT NULL,
   `booking_date` date NOT NULL,
-  `booking_time` time NOT NULL,
-  `service_id` int(11) NOT NULL,
   `vehicle_plate` varchar(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -41,9 +39,15 @@ CREATE TABLE `bookings` (
 -- A tábla adatainak kiíratása `bookings`
 --
 
-INSERT INTO `bookings` (`id`, `user_id`, `booking_date`, `booking_time`, `service_id`, `vehicle_plate`, `created_at`) VALUES
-(2, 41, '2025-02-28', '10:00:00', 2, 'LPC-522', '2025-02-27 17:00:09'),
-(29, 40, '2025-02-28', '12:00:00', 2, 'FCT-965', '2025-02-27 17:00:20');
+INSERT INTO `bookings` (`id`, `user_id`, `booking_date`, `vehicle_plate`, `created_at`) VALUES
+(2, 41, '2025-02-28', 'LPC-522', '2025-02-27 17:00:09'),
+(29, 40, '2025-02-28', 'FCT-965', '2025-02-27 17:00:20'),
+(33, 73, '2025-03-24', 'qqqq', '2025-03-13 16:19:41'),
+(34, 73, '2025-03-24', 'qqqq', '2025-03-13 16:19:41'),
+(35, 73, '2025-03-27', 'qqqq', '2025-03-13 16:41:16'),
+(36, 73, '2025-03-27', 'qqqq', '2025-03-13 16:42:45'),
+(37, 73, '2025-03-27', 'qqqq', '2025-03-13 16:44:26'),
+(38, 73, '2025-03-27', 'qqqq', '2025-03-13 16:46:11');
 
 -- --------------------------------------------------------
 
@@ -67,7 +71,13 @@ INSERT INTO `bookings_row` (`id`, `booking_id`, `service_id`, `booking_time`) VA
 (2, 2, 5, '11:00:00'),
 (3, 29, 3, '13:00:00'),
 (4, 29, 2, '12:00:00'),
-(5, 29, 4, '15:00:00');
+(5, 29, 4, '15:00:00'),
+(6, 38, 3, '09:00:00'),
+(7, 38, 6, '10:00:00'),
+(8, 38, 5, '13:00:00'),
+(9, 38, 11, '14:00:00'),
+(10, 38, 12, '15:00:00'),
+(11, 38, 10, '17:00:00');
 
 -- --------------------------------------------------------
 
@@ -307,13 +317,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT a táblához `bookings_row`
 --
 ALTER TABLE `bookings_row`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT a táblához `feedbacks`

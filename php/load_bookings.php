@@ -8,16 +8,21 @@ $args = Util::getArgs();
 
 // SQL lekérdezés létrehozása, amely lekéri a felhasználó foglalásait
 // b = booking tábla s= services tábla
-$query = "SELECT b.id, 
-          DATE_FORMAT(b.booking_date, '%Y.%m.%d') AS date, 
-          TIME_FORMAT(b.booking_time, '%H:%i') AS time, 
-                      s.services_name AS package,  
-                      s.price 
-          FROM        bookings b
-          INNER JOIN  services s 
-                  ON  b.service_id = s.id  
-               WHERE  b.user_id = ?  
-            ORDER BY  b.booking_date DESC, b.booking_time ASC";
+$query = "SELECT      `bookings`.`id`, 
+          DATE_FORMAT(`bookings`.`booking_date`, '%Y.%m.%d') AS date, 
+
+
+          TIME_FORMAT(`bookings_row`.`booking_time`, '%H:%i') AS time, 
+                      `services`.`services_name` AS `package`,  
+                      `services`.`price` 
+          FROM        `bookings_row` 
+          INNER JOIN  `bookings` 
+                  ON  `bookings`.`id` = `bookings_row`.`booking_id` AND
+                      `bookings`.`user_id` = ? 
+          INNER JOIN  `services` 
+                  ON  `services`.`id` = `bookings_row`.`service_id`  
+            ORDER BY  `bookings`.`booking_date` DESC, 
+                      `bookings_row`.`booking_time` ASC";
           
 
 // A lekérdezés végrehajtása és az eredmény visszaadása

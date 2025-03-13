@@ -2,6 +2,8 @@
 require_once('../../common/php/environment.php');
 
 $args = Util::getArgs();
+$services = $args["services"];
+unset($args["services"]);
 
 $db = new Database();
 
@@ -9,28 +11,22 @@ $db = new Database();
 $query = $db->preparateInsert("bookings", [
     "user_id",
     "booking_date",
-    "booking_time",
-    "service_id",
     "vehicle_plate"
 ]);
 
-// Több `service_id` és `time` mentése
-foreach ($args['services'] as $service) {
-    if (!isset($service['time']) || !isset($service['service_id'])) {
-        Util::setError("Hiányzó időpont vagy szolgáltatás ID!");
-    }
+$result     = $db->execute($query, array_values($args));
+$bookingID  = $result["lastInsertId"];
 
-    $result = $db->execute($query, [
-        $args['user_id'],
-        $args['booking_date'],
-        $service['time'], // Minden szolgáltatás saját időponttal érkezik
-        $service['service_id'],
-        $args['vehicle_plate']
-    ]);
+// SQL beszúrás előkészítése
+$query = $db->preparateInsert("bookings_row", [
+    "booking_id",
+    "booking_time",
+    "service_id"
+], count($services));
 
-    if (!$result) {
-        Util::setError("Hiba történt a foglalás mentése során a szolgáltatás ID: " . $service['service_id']);
-    }
-}
+$params = Util::arrayOfAssocArrayToArray($services, $bookingID);
+$result = $db->execute($query, $params);
+
+$db = null;
 
 Util::setResponse("Foglalás sikeresen mentve!");

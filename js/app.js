@@ -91,7 +91,9 @@
     function ($rootScope, $timeout, $window, user) {
 
         // Initialize user
-        user.init();
+        user.init({
+          
+        });
 
         // Initialize tooltips
         $rootScope.tooltipsInit = () => {
@@ -1029,7 +1031,10 @@
       
           // Foglalt időpontok frissítése
           $http.post('./php/booked_times.php', { selectedDate: formattedDate })
-              .then(response => { $scope.updateAvailableTimes(response.data.data); })
+              .then(response => { 
+                $scope.updateAvailableTimes(response.data.data);
+                $scope.selectedTimes = [];
+              })
               .catch(error => { console.error("Hiba történt:", error); });
         };
 
@@ -1059,7 +1064,8 @@
             if (!$scope.isServiceSelected) return;
 
             let index = util.indexByKeyValue($scope.availableTimes, 'time', time);
-            if ($scope.availableTimes[index].status === 'available' && $scope.selectedTimes.length < $scope.cartItems.length) {
+            if ($scope.availableTimes[index].status === 'available' && 
+                $scope.selectedTimes.length < $scope.cartItems.length) {
                 $scope.availableTimes[index].status = 'selected';
                 $scope.selectedTimes.push(time + ":00");
             } else if ($scope.availableTimes[index].status === 'selected') {
