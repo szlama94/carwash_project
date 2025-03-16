@@ -7,7 +7,6 @@ $db = new Database();
 $args = Util::getArgs();
 
 // SQL lekérdezés létrehozása, amely lekéri a felhasználó foglalásait
-// b = booking tábla s= services tábla
 $query = "SELECT      `bookings`.`id`, 
           DATE_FORMAT(`bookings`.`booking_date`, '%Y.%m.%d') AS date, 
 
