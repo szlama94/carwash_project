@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Már 13. 18:21
--- Kiszolgáló verziója: 10.4.28-MariaDB
--- PHP verzió: 8.1.17
+-- Létrehozás ideje: 2025. Már 16. 21:09
+-- Kiszolgáló verziója: 10.4.32-MariaDB
+-- PHP verzió: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,14 +40,10 @@ CREATE TABLE `bookings` (
 --
 
 INSERT INTO `bookings` (`id`, `user_id`, `booking_date`, `vehicle_plate`, `created_at`) VALUES
-(2, 41, '2025-02-28', 'LPC-522', '2025-02-27 17:00:09'),
-(29, 40, '2025-02-28', 'FCT-965', '2025-02-27 17:00:20'),
-(33, 73, '2025-03-24', 'qqqq', '2025-03-13 16:19:41'),
-(34, 73, '2025-03-24', 'qqqq', '2025-03-13 16:19:41'),
-(35, 73, '2025-03-27', 'qqqq', '2025-03-13 16:41:16'),
-(36, 73, '2025-03-27', 'qqqq', '2025-03-13 16:42:45'),
-(37, 73, '2025-03-27', 'qqqq', '2025-03-13 16:44:26'),
-(38, 73, '2025-03-27', 'qqqq', '2025-03-13 16:46:11');
+(41, 40, '2025-03-17', 'JVG-124', '2025-03-16 18:46:39'),
+(42, 86, '2025-03-17', 'aa-ju-234', '2025-03-16 19:43:37'),
+(43, 40, '2025-03-17', 'ABC-123', '2025-03-16 19:53:25'),
+(44, 86, '2025-03-18', 'ae-ju-567', '2025-03-16 19:55:18');
 
 -- --------------------------------------------------------
 
@@ -67,17 +63,15 @@ CREATE TABLE `bookings_row` (
 --
 
 INSERT INTO `bookings_row` (`id`, `booking_id`, `service_id`, `booking_time`) VALUES
-(1, 2, 2, '10:00:00'),
-(2, 2, 5, '11:00:00'),
-(3, 29, 3, '13:00:00'),
-(4, 29, 2, '12:00:00'),
-(5, 29, 4, '15:00:00'),
-(6, 38, 3, '09:00:00'),
-(7, 38, 6, '10:00:00'),
-(8, 38, 5, '13:00:00'),
-(9, 38, 11, '14:00:00'),
-(10, 38, 12, '15:00:00'),
-(11, 38, 10, '17:00:00');
+(18, 41, 2, '08:00:00'),
+(19, 41, 3, '09:00:00'),
+(20, 41, 1, '10:00:00'),
+(21, 42, 1, '13:00:00'),
+(22, 42, 2, '15:00:00'),
+(23, 42, 3, '14:00:00'),
+(24, 43, 2, '16:00:00'),
+(25, 44, 2, '08:00:00'),
+(26, 44, 3, '09:00:00');
 
 -- --------------------------------------------------------
 
@@ -101,7 +95,10 @@ CREATE TABLE `feedbacks` (
 --
 
 INSERT INTO `feedbacks` (`id`, `user_id`, `last_name`, `first_name`, `gender`, `age`, `comment`, `rating`) VALUES
-(1, 40, 'Szlama', 'Bence', 'M', 31, '\"Olyan tiszta lett az autóm, hogy most a szomszédok napszemüvegben nézik! 😎✨\"', 5);
+(1, 40, 'Szlama', 'Bence', 'M', 31, '\"Olyan tiszta lett az autóm, hogy most a szomszédok napszemüvegben nézik! 😎✨\"', 5),
+(2, 38, 'Sárkány', 'János', 'M', 33, '\"Nem mondom, hogy koszos maradt, de még mindig el tudom olvasni a porban írt \'MOSS LE\' feliratot. 📝🚘\" ', 3),
+(3, 33, 'Alföldi', 'Roland', 'M', 34, '\"Jó lett, de a kávéautomatát jobban tisztították, mint az autómat. 😅\"', 4),
+(4, 34, 'Bézi', 'Katalin', 'F', 35, '\"Majdnem olyan csillogó, mint a körmöm, de még van hova fejlődni! 💅✨\"\r\n', 4);
 
 -- --------------------------------------------------------
 
@@ -226,7 +223,7 @@ INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `born`, `gender`, 
 (37, 'U', 'Zsolt', 'Nagy', '1970-04-19', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nagy.zsolt-2023@keri.mako.hu', '1234Aa', 1),
 (38, 'U', 'János', 'Sárkány', '1991-12-05', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sarkany.janos-2023@keri.mako.hu', '1234Aa', 1),
 (39, 'U', 'Eszter', 'Szabó-Juhász', '1990-01-20', 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'szabo-juhasz.eszter-2023@keri.mako.hu', '1234Aa', 1),
-(40, 'U', 'Bence', 'Szlama', '1994-02-14', 'M', NULL, NULL, 'Magyarország', NULL, '704319806', 'Makó', '6900', 'Bajcsy-Zsilinszky ltp. B1/C lph. 3/1', 'szlama.bence-2023@keri.mako.hu', '1234Aa', 1),
+(40, 'A', 'Bence', 'Szlama', '1994-02-14', 'M', NULL, NULL, 'Magyarország', '+36', '704319806', 'Makó', '6900', 'Bajcsy-Zsilinszky ltp. B1/C lph. 3/1', 'szlama.bence-2023@keri.mako.hu', '1234Aa', 1),
 (41, 'U', 'Dániel', 'Badó-Gulácsi', NULL, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bado-gulac.daniel-2021@keri.mako.hu\r', '1234Aa', 1),
 (42, 'U', 'Barnabás', 'Berta', '2006-04-05', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'berta.barnabas-2021@keri.mako.hu\r', '1234Aa', 1),
 (43, 'U', 'Richárd', 'Bokor', '2006-07-08', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bokor.richard-2021@keri.mako.hu\r', '1234Aa', 1),
@@ -262,7 +259,9 @@ INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `born`, `gender`, 
 (73, 'A', 'Attila', 'Ódry', '1964-03-08', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'odry.attila@keri.mako.hu', '1234Aa', 1),
 (77, 'U', 'Zsolt', 'Lantos', '1975-02-22', 'M', NULL, NULL, 'Magyarország', NULL, '6704319805', 'Makó', '6900', 'Bajcsy-Zsilinszky Ltp. B1/C 3.Em\n10.A', 'lantos.zsolt@gmail.com', '1234Aa', 1),
 (84, 'U', 'Zoltán', 'Dávid', '1969-03-16', 'M', NULL, NULL, 'Magyarország', '+36', '7012323456', 'Makó', '6900', 'Gerizdes utca 20.', 'z.z@gmail.com', '1234Aa', 1),
-(85, 'U', 'Levente', 'Kovács', '1998-02-13', 'M', NULL, NULL, 'Magyarország', '+36', '705555555', 'Szeged', '6721', 'Bajza utca 16/b', 'k.levi@gmail.com', '1234Aa', 1);
+(85, 'U', 'Levente', 'Kovács', '1998-02-13', 'M', NULL, NULL, 'Magyarország', '+36', '705555555', 'Szeged', '6721', 'Bajza utca 16/b', 'k.levi@gmail.com', '1234Aa', 1),
+(86, 'U', 'Csaba', 'Kovács', '1984-04-12', 'M', NULL, NULL, 'Magyarország', '+36', '703458956', 'Makó', '6900', 'Bajza Utca 16/b', 'k.csba@gmail.com', '1234Aa', 1),
+(87, 'U', 'Gábor', 'Kiss', '1995-03-14', 'M', NULL, NULL, NULL, '+36', '708593214', NULL, NULL, NULL, 'k-gergely@gmail.com', '1234Aa', 1);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -317,19 +316,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT a táblához `bookings_row`
 --
 ALTER TABLE `bookings_row`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT a táblához `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT a táblához `services`
@@ -341,7 +340,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
