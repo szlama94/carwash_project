@@ -306,19 +306,18 @@
 
   //----------Register-controller------------->
   .controller('registerController', [
-      '$scope',
-      '$http',
-      '$state',
-      
-      function ($scope, $http, $state) {
+    '$scope',
+    '$http',
+    '$state',
+    function ($scope, $http, $state) {
 
-          $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
-  
-          $scope.toggleShowPassword = function () {
-              $scope.model.register.showPassword = !$scope.model.register.showPassword;
-          };
-  
-          $scope.model = {
+        $scope.registration_bg = './media/image/login_img/login_angeleye.jpg';
+
+        $scope.toggleShowPassword = function () {
+            $scope.model.register.showPassword = !$scope.model.register.showPassword;
+        };
+
+        $scope.model = {
             register: {
                 first_name: "",
                 last_name: "",
@@ -332,41 +331,60 @@
                 passwordConfirm: ""
             }
         };
-        
-          $scope.registerUser = function () {
-              
-              let requestData = angular.copy($scope.model.register);
-          
-              $scope.sendRegistrationData(requestData);
-          };
-          
-          $scope.sendRegistrationData = function (requestData) {
-              $http.post('./php/register.php', requestData)
-                  .then(response => {
-                      if (response.data && response.data.data) {
-                          alert(response.data.data);  // Sikeres regisztráció
-                          $state.go('login');
-                      } else if (response.data && response.data.error) {
-                          alert("Hiba: " + response.data.error);  // Hibás regisztráció
-                      } else {
-                          alert("Ismeretlen hiba történt!");
-                      }
-                  })
-                  .catch(error => {
-                      console.error("Hiba történt:", error);
-                      alert("Hiba történt a mentés során!");
-                  });
-          };
-        
-          // Átirányítás a bejelentkezési oldalra
-          $scope.methods = {
-            goToLogin: function() {
-                $state.go('login'); 
-            }
-          }
 
-          
-      }
+        // Email validációs függvény
+        $scope.isValidEmail = function (email) {
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailPattern.test(email);
+        };
+
+        // Jelszó validációs függvény (legalább 5 és max 20 karakter)
+        $scope.isPasswordValid = function (password) {
+            return password && password.length >= 5 && password.length <= 20;
+        };
+
+        // Teljes validációs függvény
+        $scope.isRegisterValid = function () {
+            return (
+                $scope.registerForm.$valid &&
+                $scope.model.register.email === $scope.model.register.emailConfirm &&
+                $scope.model.register.password === $scope.model.register.passwordConfirm &&
+                $scope.isValidEmail($scope.model.register.email) &&
+                $scope.isPasswordValid($scope.model.register.password)
+            );
+        };
+
+        $scope.registerUser = function () {
+            let requestData = angular.copy($scope.model.register);
+            $scope.sendRegistrationData(requestData);
+        };
+
+        $scope.sendRegistrationData = function (requestData) {
+            $http.post('./php/register.php', requestData)
+                .then(response => {
+                    if (response.data && response.data.data) {
+                        alert(response.data.data);  // Sikeres regisztráció
+                        $state.go('login');
+                    } else if (response.data && response.data.error) {
+                        alert("Hiba: " + response.data.error);  // Hibás regisztráció
+                    } else {
+                        alert("Ismeretlen hiba történt!");
+                    }
+                })
+                .catch(error => {
+                    console.error("Hiba történt:", error);
+                    alert("Hiba történt a mentés során!");
+                });
+        };
+
+        // Átirányítás a bejelentkezési oldalra
+        $scope.methods = {
+            goToLogin: function () {
+                $state.go('login');
+            }
+        };
+
+    }
   ])
 
   //----------Profile-controller-------------->
@@ -483,10 +501,10 @@
           //Betöltéskor automatikusan futtatjuk
           $scope.loadBookings();
 
-          $scope.deleteBooking = function (bookingId) {
+          $scope.deleteBooking = function (bookingId, rowId) {
             if (!confirm("Biztosan törölni szeretnéd ezt a foglalást?")) return;
         
-            $http.post('./php/delete_booking.php', { booking_id: bookingId })
+            $http.post('./php/delete_booking.php', { booking_id: bookingId, id: rowId })
                 .then(response => {
                     if (response.data && response.data.data) {
                         alert(response.data.data); // Sikeres törlés
@@ -501,7 +519,7 @@
                     console.error("Hiba történt:", error);
                     alert("Hiba történt a törlés során!");
                 });
-          };
+        };
           
           // Betöltéskor automatikusan futtatjuk
           $scope.loadBookings();

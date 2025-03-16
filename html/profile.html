@@ -401,7 +401,7 @@
                     <td>{{ booking.price | currency:'' :0 }} Ft</td>
                     <td>
                       <button class="btn btn-danger btn-sm"
-                              ng-click="deleteBooking(booking.id)">
+                              ng-click="deleteBooking(booking.id, row.id)">
                           <i  class="fa-solid fa-trash"></i> 
                           {{ lang.data.delete }}
                       </button>

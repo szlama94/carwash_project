@@ -31,4 +31,4 @@ $_POST['data'] = '{
         }
     ]
 }';
-require_once('./save_booking.php');
+require_once('./delete_booking.php');

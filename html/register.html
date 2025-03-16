@@ -319,7 +319,7 @@
             <button 
                 type="button"
                 class="btn btn-warning px-5"
-                ng-disabled="registerForm.$invalid"
+                ng-disabled="!isRegisterValid()"
                 ng-click="registerUser()">
                 {{lang.data.register}}
             </button>
