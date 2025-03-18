@@ -224,6 +224,7 @@
   "profile_updated": "Profile successfully updated!",
   "all_price_categories":"All price categories",
   "above_40000":"Above 40 000 Ft",
-  "opinion_send_btn":"Please log in to submit your review!"
+  "opinion_send_btn":"Please log in to submit your review!",
+  "year":"year"
 
 }
