@@ -507,7 +507,9 @@
             $http.post('./php/delete_booking.php', { booking_id: bookingId, id: rowId })
                 .then(response => {
                     if (response.data && response.data.data) {
-                        alert(response.data.data); // Sikeres törlés
+                        alert(
+                          $rootScope.lang.data[response.data.data]
+                        ); // Sikeres törlés
                         $scope.loadBookings(); // Frissítjük a listát
                     } else if (response.data && response.data.error) {
                         alert("Hiba: " + response.data.error);

@@ -7,18 +7,50 @@ $db = new Database();
 $args = Util::getArgs();
 
 // Ellenőrzés: booking_id és id megléte
-if (empty($args['booking_id']) || empty($args['id'])) {
-    Util::setResponse(["error" => "Hiányzó adatok a törléshez."]);
-    exit;
+if (empty($args['booking_id']) || empty($args['id']))
+    Util::setError("Hiányzó adatok a törléshez.");
+
+$query  = "DELETE FROM `bookings_row` WHERE `id` = ?;";
+$result = $db->execute($query, [$args['id']]);
+if (!$result["affectedRows"])
+    Util::setError("Nem sikerült törölni. booking_row");
+
+$query  = "SELECT `id` FROM `bookings_row` WHERE `booking_id` = ?;";
+$result = $db->execute($query, [$args['booking_id']]);
+
+if (is_null($result)) {
+
+    $query  = "DELETE FROM `bookings` WHERE `id` = ?;";
+    $result = $db->execute($query, [$args['booking_id']]);
+    if (!$result["affectedRows"])
+        Util::setError("Nem sikerült törölni. bookings");
 }
 
+Util::setResponse("shopping_cart");
+
+
+
+
+
+
+
+
 // Tranzakció indítása az adatintegritás biztosítása érdekében
-$db->beginTransaction();
+//$db->beginTransaction();
+
+
+
+
+
+
 
 try {
     // Törlés a bookings_row táblából
     $query = "DELETE FROM `bookings_row` WHERE `id` = ?";
     $db->execute($query, [$args['id']]);
+
+    $query = "SELECT `id` FROM `bookings_row` WHERE `booking_id` = ?";
+
 
     // Ellenőrzés, van-e még sor az adott booking_id-hez a bookings_row táblában
     $query = "SELECT COUNT(*) AS count FROM `bookings_row` WHERE `booking_id` = ?";
