@@ -225,5 +225,9 @@
   "all_price_categories":"Összes árkategória",
   "above_40000":"40 000 Ft felett",
   "opinion_send_btn":"A vélemény elküldéséhez kérjük, jelentkezzen be!",
-  "year":"év"
+  "year":"év",
+  "missing_data_to_delete": "Hiányzó adatok a törléshez.",
+  "unsuccess_delete":"Nem sikerült törölni.",
+  "success_appointment_delete":"Sikeres időpont törlés.",
+  "are_you_sure_delete":"Biztosan törölni szeretnéd ezt a foglalást?"
 }

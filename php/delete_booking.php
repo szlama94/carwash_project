@@ -37,7 +37,7 @@ if (!$result["affectedRows"])
     Util::setError("Nem sikerült törölni. bookings");
 }
 
-Util::setResponse("shopping_cart");
+Util::setResponse("success_appointment_delete");
 
 // Adatbázis kapcsolat lezárása
 $db = null;

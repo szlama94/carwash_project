@@ -225,5 +225,8 @@
   "above_40000":"Über 40 000 Ft",
   "wash_address": "Makó, Schaumbad straße 6.",
   "opinion_send_btn":"Bitte melden Sie sich an, um eine Bewertung abzugeben!",
-  "year":"Jahr"
+  "year":"Jahr",
+  "missing_data_to_delete":"Fehlende Daten zum Löschen.",
+  "unsuccess_delete": "Löschen nicht erfolgreich.",
+  "success_appointment_delete": "Erfolgreiche Terminlöschung."
 }

@@ -225,6 +225,9 @@
   "all_price_categories":"All price categories",
   "above_40000":"Above 40 000 Ft",
   "opinion_send_btn":"Please log in to submit your review!",
-  "year":"year"
+  "year":"year",
+  "missing_data_to_delete":"Missing data to delete.",
+  "unsuccess_delete": "Unsuccessful delete.",
+  "success_appointment_delete": "Successful appointment deletion."
 
 }
