@@ -170,20 +170,7 @@
               </a>
             </li>
             
-
-            <!---------------------Felhasználók------------------------->
-            <li class="nav-item" 
-                ng-if="$root.user.type==='A'">
-              <a class="dropdown-item" 
-                 ui-sref="users" 
-                 ui-sref-active="active">
-                <i class="fa-solid fa-users me-1"></i>
-                <span>
-                  {{lang.data.users}}
-                </span>
-              </a>
-            </li>
-
+            
             <!---------------------Legördülő menü megosztása------------------>
             <li ng-if="$root.user.id">
               <hr class="dropdown-divider">
