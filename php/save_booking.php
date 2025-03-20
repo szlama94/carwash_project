@@ -2,7 +2,9 @@
 require_once('../../common/php/environment.php');
 
 $args = Util::getArgs();
+
 $services = $args["services"];
+
 unset($args["services"]);
 
 $db = new Database();
@@ -15,6 +17,7 @@ $query = $db->preparateInsert("bookings", [
 ]);
 
 $result     = $db->execute($query, array_values($args));
+
 $bookingID  = $result["lastInsertId"];
 
 // SQL beszúrás előkészítése

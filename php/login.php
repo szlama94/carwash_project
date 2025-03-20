@@ -16,7 +16,6 @@ $query = "SELECT 	`id`,
 		  AND   	`valid` = 1
 		  LIMIT 1";
 
-
 $db = new Database();
 
 $result = $db->execute($query, array($args['email']));
