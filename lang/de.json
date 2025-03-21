@@ -212,7 +212,7 @@
   "appointment_button_selected": "Paket ausgewählt",
   "make_an_appointment":"terminbuchung",
   "welcome_message_booking":"Willkommen im Super Car Wash Terminbuchungssystem!",
-  "booking_instructions":"bitte wählen Sie die gewünschten Waschpakete auf der Seite 'Dienstleistungen' aus, füllen Sie dann die weiteren Details aus und speichern Sie Ihre Buchung. ihre Buchung wird in Ihr persönliches Profil aufgenommen.",
+  "booking_instructions":"bitte wählen Sie die gewünschten auf der Seite 'Dienstleistungen' aus, füllen Sie dann die weiteren Details aus und speichern Sie Ihre Buchung. ihre Buchung wird in Ihr persönliches Profil aufgenommen.",
   "please_select_service": "bitte wählen Sie ein Paket auf unserer Dienstleistungsseite aus!",
   "time":"zeit",
   "email_notmacht":"die e-mail-adressen stimmen nicht überein!",
@@ -228,5 +228,6 @@
   "year":"Jahr",
   "missing_data_to_delete":"Fehlende Daten zum Löschen.",
   "unsuccess_delete": "Löschen nicht erfolgreich.",
-  "success_appointment_delete": "Erfolgreiche Terminlöschung."
+  "success_appointment_delete": "Erfolgreiche Terminlöschung.",
+  "booking_warning_to_time": "Für eine gültige Buchung muss zu jeder ausgewählten Dienstleistung ein Zeitpunkt gewählt werden!"
 }

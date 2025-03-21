@@ -212,7 +212,7 @@
   "appointment_button_selected": "Package selected",
   "make_an_appointment":"appointment booking",
   "welcome_message_booking":"Welcome to the Super Car Wash appointment booking system!",
-  "booking_instructions":"please choose your desired washing packages on the 'Services' page, then fill in the remaining details and save your booking. your booking will be added to your personal profile.",
+  "booking_instructions":"please choose your desired packages on the 'Services' page, then fill in the remaining details and save your booking. your booking will be added to your personal profile.",
   "please_select_service": "please select a package from our services page!",
   "time":"time",
   "email_notmacht":"the email addresses do not match!",
@@ -228,6 +228,6 @@
   "year":"year",
   "missing_data_to_delete":"Missing data to delete.",
   "unsuccess_delete": "Unsuccessful delete.",
-  "success_appointment_delete": "Successful appointment deletion."
-
+  "success_appointment_delete": "Successful appointment deletion.",
+  "booking_warning_to_time": "To make a valid booking, you must select a time slot for each chosen service!"
 }

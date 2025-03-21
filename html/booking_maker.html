@@ -106,35 +106,50 @@
                                required>
                     </div>
 
+                    <!-- Figyelmeztető szöveg -->
+                    <p class="text-info fw-semibold mb-3 
+                              text-center text-warning">
+                        {{lang.data.booking_warning_to_time}}
+                    </p>
+
                     <!-- Példa gombok az időpontokhoz -->
                     <div class="d-flex flex-wrap gap-2">
                         <div ng-repeat="timeObj in availableTimes">
-                            <button id="btn-{{timeObj.time}}"
-                                    type="button"
-                                    class="btn" 
-                                    ng-class="{'bg-success': timeObj.status === 'available','bg-warning': timeObj.status === 'selected','bg-danger': timeObj.status === 'booked'}"
-                                    ng-click="bookingTimeToggleSelect(timeObj.time)"
-                                    ng-disabled="!selectedDate || timeObj.status === 'booked' || isPastTime(timeObj.time)">
+                            <button 
+                                id="btn-{{timeObj.time}}"
+                                type="button"
+                                class="btn"
+                                ng-class="{
+                                    'bg-success': timeObj.status === 'available',
+                                    'bg-warning': timeObj.status === 'selected',
+                                    'bg-danger':  timeObj.status === 'booked'
+                                }"
+                                ng-click="bookingTimeToggleSelect(timeObj.time)"
+                                ng-disabled="!selectedDate || 
+                                             timeObj.status === 'booked' || 
+                                             isPastTime(timeObj.time)">
                                 {{ timeObj.time }}
                             </button>
                         </div>
                     </div>
-
-
+                    
                     <!-- Mentés gomb -->
                     <button type="button" 
-                            class="btn btn-primary mt-3"
+                            class="btn btn-warning mt-3"
                             style="min-width: 100px;" 
                             ng-click="saveBooking()"
                             ng-disabled="!vehiclePlate || 
-                                        !selectedDate || !isSelected || 
-                                        bookingForm.vehiclePlate.$invalid">
+                                        !selectedDate || 
+                                        !isSelected || 
+                                        bookingForm.vehiclePlate.$invalid || 
+                                        selectedTimes.length !== cartItems.length">
                         {{ lang.data.save }}
                     </button>
 
+
                     <!-- Foglalásaim gomb -->
                     <button type="button" 
-                            class="btn btn-warning mt-3"
+                            class="btn btn-primary mt-3"
                             style="min-width: 100px;"
                             ng-click="redirectToMyAppointments()">
                         {{lang.data.my_bookings}}

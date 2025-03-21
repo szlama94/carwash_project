@@ -98,10 +98,16 @@
                       style="flex-grow: 1;">
                   {{service.price | currency:'' :0}} Ft
                 </div>
-                <button class="btn w-100 mt-auto"
-                        ng-click="addPackage(service)"
-                        ng-class="{'btn-primary': service.isSelected, 'btn-warning': !service.isSelected}">
-                  {{ service.isSelected ? lang.data.appointment_button_selected : lang.data.appointment_button }}
+                  <button 
+                    class="btn w-100 mt-auto"
+                    ng-click="addPackage(service)"
+                    ng-class="{
+                        'btn-primary': service.isSelected, 
+                        'btn-warning': !service.isSelected
+                    }">
+                    {{ service.isSelected 
+                        ? lang.data.appointment_button_selected 
+                        : lang.data.appointment_button }}
                 </button>
               </div>
             </div>

@@ -572,7 +572,18 @@
       ];
   
       // Térkép URL beágyazása
-      $scope.mapUrl = $sce.trustAsResourceUrl('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2760.836396232944!2d20.473138775978818!3d46.21370948311983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu');
+      $scope.mapUrl = $sce.trustAsResourceUrl(
+        'https://www.google.com/maps/embed?pb=' +
+        '!1m18!1m12!1m3!1d2760.836396232944' +
+        '!2d20.473138775978818' +
+        '!3d46.21370948311983' +
+        '!2m3!1f0!2f0!3f0' +
+        '!3m2!1i1024!2i768!4f13.1' +
+        '!3m3!1m2!1s0x4744f602b445c0b9%3A0x6ecc2b88ac500ef' +
+        '!2sHSZC%20Mak%C3%B3i%20N%C3%A1vay%20Lajos%20Technikum%20%C3%A9s%20Koll%C3%A9gium' +
+        '!5e0!3m2!1shu!2shu!4v1734100844394!5m2!1shu!2shu'
+      );
+    
 
   
       //Nyelv betöltése
@@ -689,23 +700,33 @@
       ];
   
       // Szolgáltatások betöltése
-      $http.get("./php/services.php").then(function (response) {
-        if (response.data && Array.isArray(response.data.data)) {
-          $scope.services = response.data.data.map(function (service) {
-            service.image = service.image || "./media/image/services/" + service.services_name.toLowerCase().replace(/\s+/g, "_") + ".jpg";
-            service.isSelected = false;
-            return service;
-          });
-          $scope.updateGroupedServices();
-          $scope.checkSelectedServices();
-        } else {
-          alert("Nem sikerült betölteni a szolgáltatásokat.");
+      $http.get("./php/services.php").then(
+        function (response) {
+            if (response.data && Array.isArray(response.data.data)) {
+                $scope.services = response.data.data.map(function (service) {
+                    service.image = service.image || (
+                        "./media/image/services/" + 
+                        service.services_name
+                            .toLowerCase()
+                            .replace(/\s+/g, "_") + 
+                        ".jpg"
+                    );
+                    service.isSelected = false;
+                    return service;
+                });
+    
+                $scope.updateGroupedServices();
+                $scope.checkSelectedServices();
+            } else {
+                alert("Nem sikerült betölteni a szolgáltatásokat.");
+            }
+        }, 
+        function (error) {
+            console.error("Hiba történt:", error);
+            alert("Hiba történt a szolgáltatások betöltésekor.");
         }
-      }, function (error) {
-        console.error("Hiba történt:", error);
-        alert("Hiba történt a szolgáltatások betöltésekor.");
-      });
-  
+      );
+    
       // Carousel újrainicializálása
       $scope.initCarousel = function() {
         $timeout(function() {
@@ -1007,7 +1028,8 @@
             return $scope.vehiclePlate && 
                    $scope.selectedDate &&
                    $scope.isSelected && 
-                   !$scope.bookingForm.vehiclePlate.$invalid;
+                   !$scope.bookingForm.vehiclePlate.$invalid &&
+                   $scope.selectedTimes.length === $scope.cartItems.length;
         };
 
         // Figyeljük, hogy van-e kiválasztott szolgáltatás
