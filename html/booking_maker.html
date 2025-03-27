@@ -78,8 +78,9 @@
                     <!-- Jármű rendszáma input -->
                     <div class="mb-3">
                         <label for="vehicle-plate" 
-                               class="form-label">
-                               {{ lang.data.vehicle_plate }}
+                               class="form-label
+                                      fw-bold text-warning">
+                               {{ lang.data.vehicle_registration_number }}:
                             </label>
                         <input type="text" 
                                id="vehicle-plate" 
@@ -93,7 +94,8 @@
                     <!-- Dátum input -->
                     <div class="mb-3">
                         <label for="appointment-date" 
-                               class="form-label">
+                               class="form-label
+                                      fw-bold text-warning">
                                {{ lang.data.date }}:
                             </label>
                         <input type="date" 
