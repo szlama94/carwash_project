@@ -1052,7 +1052,6 @@
         // Dátum kiválasztása → Frissítjük a foglalt időpontokat
         $scope.onDateSelect = function() {
           if (!$scope.selectedDate) {
-              console.error("Nincs kiválasztott dátum!");
               return;
           }
       
