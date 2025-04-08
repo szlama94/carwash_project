@@ -340,8 +340,17 @@
 
         // Jelszó validációs függvény (legalább 5 és max 20 karakter)
         $scope.isPasswordValid = function (password) {
-            return password && password.length >= 5 && password.length <= 20;
+          if (!password) return false;
+        
+          let hasMinLength = password.length >= 5;
+          let hasMaxLength = password.length <= 20;
+          let hasUpperCase = /[A-Z]/.test(password);
+          let hasLowerCase = /[a-z]/.test(password);
+          let hasNumber    = /[0-9]/.test(password);
+        
+          return hasMinLength && hasMaxLength && hasUpperCase && hasLowerCase && hasNumber;
         };
+        
 
         // Teljes validációs függvény
         $scope.isRegisterValid = function () {
