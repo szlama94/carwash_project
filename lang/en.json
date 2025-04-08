@@ -229,5 +229,14 @@
   "missing_data_to_delete":"Missing data to delete.",
   "unsuccess_delete": "Unsuccessful delete.",
   "success_appointment_delete": "Successful appointment deletion.",
-  "booking_warning_to_time": "To make a valid booking, you must select a time slot for each chosen service!"
+  "booking_warning_to_time": "To make a valid booking, you must select a time slot for each chosen service!",
+  "not_logged_in_alert": "You are not logged in. Please log in again!",
+  "confirm_delete_booking": "Are you sure you want to delete this booking?",
+  "booking_saved_successfully": "Booking saved successfully!",
+  "please_login": "Please log in!"
+
+
+
+
+
 }

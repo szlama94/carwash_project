@@ -46,7 +46,7 @@ $db = null;
 
 // Válasz küldése
 if ($result) {
-    Util::setResponse("Sikeres frissítés!");
+    Util::setResponse("profile_updated");
 }
 
 Util::setError("Nem történt frissítés, vagy hiba történt.");

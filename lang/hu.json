@@ -230,5 +230,13 @@
   "unsuccess_delete":"Nem sikerült törölni.",
   "success_appointment_delete":"Sikeres időpont törlés.",
   "are_you_sure_delete":"Biztosan törölni szeretnéd ezt a foglalást?",
-  "booking_warning_to_time":"Az érvényes foglaláshoz minden kiválasztott szolgáltatáshoz ki kell választani egy időpontot!"
+  "booking_warning_to_time":"Az érvényes foglaláshoz minden kiválasztott szolgáltatáshoz ki kell választani egy időpontot!",
+  "not_logged_in_alert": "Nem vagy bejelentkezve. Jelentkezz be újra!",
+  "confirm_delete_booking": "Biztosan törölni szeretnéd ezt a foglalást?",
+  "booking_saved_successfully": "Foglalás sikeresen mentve!",
+  "please_login": "Kérem, jelentkezzen be!"
+
+
+
+
 }

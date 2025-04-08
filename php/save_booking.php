@@ -30,6 +30,6 @@ $query = $db->preparateInsert("bookings_row", [
 $params = Util::arrayOfAssocArrayToArray($services, $bookingID);
 $result = $db->execute($query, $params);
 
-$db = null;
+Util::setResponse("booking_saved_successfully");
 
-Util::setResponse("Foglalás sikeresen mentve!");
+$db = null;

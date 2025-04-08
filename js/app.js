@@ -466,7 +466,7 @@
                 $http.post('./php/update_user.php', requestData)
                     .then(response => {
                         if (response.data.data) {
-                            alert(response.data.data);  // "Sikeres frissítés!"
+                            alert($rootScope.lang.data[response.data.data]);  // "Sikeres frissítés!"
                             $scope.isModified = false;
                         } else {
                             alert("Hiba: " + response.data.error);
@@ -502,7 +502,7 @@
           $scope.loadBookings();
 
           $scope.deleteBooking = function (bookingId, rowId) {
-            if (!confirm("Biztosan törölni szeretnéd ezt a foglalást?")) return;
+            if (!confirm($rootScope.lang.data.confirm_delete_booking)) return;
         
             $http.post('./php/delete_booking.php', { booking_id: bookingId, id: rowId })
                 .then(response => {
@@ -809,7 +809,7 @@
   
       $scope.addPackage = function(service) {
         if (!$rootScope.user || !$rootScope.user.id) {
-          alert("Kérlek, jelentkezz be!");
+          alert($rootScope.lang.data.please_login);
           $state.go('login');
           return;
         }
@@ -1176,7 +1176,7 @@
           $http.post('./php/save_booking.php', requestData)
               .then(response => {
                   if (response.data && response.data.data) {
-                      alert(response.data.data);
+                      alert($rootScope.lang.data[response.data.data]);
                   } else if (response.data && response.data.error) {
                       alert("Hiba: " + response.data.error);
                   } else {
