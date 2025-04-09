@@ -138,7 +138,9 @@
                             ng-mouseleave="clearHover()" 
                             ng-click="setRating(star)" 
                             class="fa fa-star star-rating"
-                            ng-class="{'hovered': star <= hoverRating, 'checked': star <= feedback.rating}">
+                            ng-class="{'hovered': star <= hoverRating, 'checked': star <= feedback.rating}"
+                            ng-model="feedback.rating"
+                            required>
                       </span>
                     </div>
 
@@ -161,6 +163,7 @@
                   <!-- Bejelentkezés gomb vagy vélemény küldése -->
                   <button type="button" 
                           class="btn w-100 mt-auto btn-warning"
+                          ng-disabled="feedbackForm.$invalid || !feedback.rating"
                           ng-click="$root.user.id ? submitFeedback() : redirectToLogin()">
                     {{ $root.user.id ? lang.data.opinion_send : lang.data.opinion_send_btn }}
                   </button>

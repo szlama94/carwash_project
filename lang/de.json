@@ -232,8 +232,6 @@
   "booking_warning_to_time": "Für eine gültige Buchung muss zu jeder ausgewählten Dienstleistung ein Zeitpunkt gewählt werden!",
   "confirm_delete_booking": "Möchten Sie diese Buchung wirklich löschen?",
   "booking_saved_successfully": "Buchung erfolgreich gespeichert!",
-  "please_login": "Bitte melden Sie sich an!"
-
-
-
+  "please_login": "Bitte melden Sie sich an!",
+  "review_sent_successfully": "Bewertung erfolgreich gesendet!"
 }

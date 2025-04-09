@@ -234,9 +234,6 @@
   "not_logged_in_alert": "Nem vagy bejelentkezve. Jelentkezz be újra!",
   "confirm_delete_booking": "Biztosan törölni szeretnéd ezt a foglalást?",
   "booking_saved_successfully": "Foglalás sikeresen mentve!",
-  "please_login": "Kérem, jelentkezzen be!"
-
-
-
-
+  "please_login": "Kérem, jelentkezzen be!",
+  "review_sent_successfully": "Vélemény sikeresen elküldve!"
 }

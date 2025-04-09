@@ -921,7 +921,7 @@
                 $http.post('./php/submit_feedback.php', feedbackData)
                     .then(response => {
                         if (response.data.data) {
-                            alert("Vélemény sikeresen elküldve!");
+                            alert($rootScope.lang.data.review_sent_successfully);
                             $scope.feedback.rating = 0;
                             $scope.feedback.comment = '';
                             $scope.loadFeedbacks();
