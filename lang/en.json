@@ -234,5 +234,7 @@
   "confirm_delete_booking": "Are you sure you want to delete this booking?",
   "booking_saved_successfully": "Booking saved successfully!",
   "please_login": "Please log in!",
-  "review_sent_successfully": "Review sent successfully!"
+  "review_sent_successfully": "Review sent successfully!",
+  "sunday_closed_alert": "We are closed on Sundays! Please choose another date."
+
 }

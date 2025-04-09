@@ -408,7 +408,7 @@
     function ($rootScope, $state, $scope, $http, $timeout, appointmentFactory) {
         // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
         if (!$rootScope.user || !$rootScope.user.id) {
-            alert("Nem vagy bejelentkezve. Jelentkezz be újra!");
+            alert("Nincs bejelentkezve. Jelentkezzen be újra!");
             $state.go('login');
             return;
         }
@@ -1068,7 +1068,7 @@
           let selectedDay = moment($scope.selectedDate).day(); // 0 = vasárnap, 1 = hétfő, ..., 6 = szombat
       
           if (selectedDay === 0) { // Ha vasárnap
-              alert("Vasárnap zárva tartunk! Kérem, válasszon másik dátumot!");
+              alert($rootScope.lang.data.sunday_closed_alert);
               $scope.selectedDate = ""; // Töröljük a kiválasztott dátumot
               return; // Kilépünk a függvényből, ne frissítsük a foglalt időpontokat
           }
