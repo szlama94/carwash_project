@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Már 16. 21:09
+-- Létrehozás ideje: 2025. Máj 11. 17:14
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -89,9 +89,12 @@ INSERT INTO `bookings` (`id`, `user_id`, `booking_date`, `vehicle_plate`, `creat
 (91, 5, '2025-06-03', 'QKX-214', '2025-04-05 19:11:34'),
 (92, 51, '2025-06-05', 'ZHZ-430', '2025-04-05 14:39:12'),
 (93, 8, '2025-06-13', 'AA-ZX-114', '2025-04-05 17:45:28'),
-(94, 23, '2025-06-15', 'YJ-PW-630', '2025-04-05 10:05:14');
-
-
+(94, 23, '2025-06-15', 'YJ-PW-630', '2025-04-05 10:05:14'),
+(95, 40, '2025-06-05', 'JVG-124', '2025-05-11 15:05:28'),
+(96, 40, '2025-06-07', 'JVG-124', '2025-05-11 15:05:46'),
+(97, 33, '2025-06-11', 'ABC123', '2025-05-11 15:06:56'),
+(98, 38, '2025-06-05', 'pem456', '2025-05-11 15:08:03'),
+(99, 40, '2025-06-04', 'JVG-122', '2025-05-11 15:08:55');
 
 -- --------------------------------------------------------
 
@@ -160,8 +163,16 @@ INSERT INTO `bookings_row` (`id`, `booking_id`, `service_id`, `booking_time`) VA
 (113, 91, 6, '11:00:00'),
 (114, 92, 5, '13:00:00'),
 (115, 93, 7, '12:00:00'),
-(116, 94, 5, '17:00:00');
-
+(116, 94, 5, '17:00:00'),
+(117, 95, 2, '15:00:00'),
+(118, 95, 3, '16:00:00'),
+(119, 96, 4, '08:00:00'),
+(120, 97, 8, '08:00:00'),
+(121, 97, 9, '09:00:00'),
+(122, 98, 11, '08:00:00'),
+(123, 98, 12, '09:00:00'),
+(124, 99, 2, '12:00:00'),
+(125, 99, 1, '13:00:00');
 
 -- --------------------------------------------------------
 
@@ -306,12 +317,12 @@ INSERT INTO `users` (`id`, `type`, `first_name`, `last_name`, `born`, `gender`, 
 (30, 'U', 'Máté', 'Tóth', '2005-09-01', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'toth.mate-2020@keri.mako.hu', '1234Aa', 1),
 (31, 'U', 'Izabella', 'Tóth-Kása', '2005-05-10', 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'toth-kasa.izabella-2020@keri.mako.hu', '1234Aa', 1),
 (32, 'U', 'Marcell', 'Vékony', '2003-12-27', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'vekony.marcell-2020@keri.mako.hu', '1234Aa', 1),
-(33, 'U', 'Roland', 'Alföldi', '1991-01-23', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'alfoldi.roland-2023@keri.mako.hu', '1234Aa', 1),
+(33, 'U', 'Roland', 'Alföldi', '1991-01-23', 'M', NULL, NULL, 'Magyarország', '+36', '701236589', 'Szeged', '6720', 'Bocskai utca 43.', 'alfoldi.roland-2023@keri.mako.hu', '1234Aa', 1),
 (34, 'U', 'Katalin', 'Bézi', '1990-03-14', 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bezi.katalin-2023@keri.mako.hu', '1234Aa', 1),
 (35, 'U', 'Dániel', 'Cseh', '2002-05-06', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'cseh.daniel-2023@keri.mako.hu', '1234Aa', 1),
 (36, 'U', 'Pál', 'Kondacs', '1989-03-08', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'kondacs.pal-2023@keri.mako.hu', '1234Aa', 1),
 (37, 'U', 'Zsolt', 'Nagy', '1970-04-19', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nagy.zsolt-2023@keri.mako.hu', '1234Aa', 1),
-(38, 'U', 'János', 'Sárkány', '1991-12-05', 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sarkany.janos-2023@keri.mako.hu', '1234Aa', 1),
+(38, 'U', 'János', 'Sárkány', '1991-12-05', 'M', NULL, NULL, 'Magyarország', '+36', '307432310', 'Makó', '6900', 'Lisztes utca 45.', 'sarkany.janos-2023@keri.mako.hu', '1234Aa', 1),
 (39, 'U', 'Eszter', 'Szabó-Juhász', '1990-01-20', 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'szabo-juhasz.eszter-2023@keri.mako.hu', '1234Aa', 1),
 (40, 'A', 'Bence', 'Szlama', '1994-02-14', 'M', NULL, NULL, 'Magyarország', '+36', '704319806', 'Makó', '6900', 'Bajcsy-Zsilinszky ltp. B1/C lph. 3/1', 'szlama.bence-2023@keri.mako.hu', '1234Aa', 1),
 (41, 'U', 'Dániel', 'Badó-Gulácsi', NULL, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'bado-gulac.daniel-2021@keri.mako.hu\r', '1234Aa', 1),
@@ -406,13 +417,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT a táblához `bookings_row`
 --
 ALTER TABLE `bookings_row`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT a táblához `feedbacks`
